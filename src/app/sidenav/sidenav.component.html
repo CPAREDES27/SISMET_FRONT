@@ -1,7 +1,8 @@
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
     <div class="logo-container">
-        <button class="logo" (click)="toggleCollapse()">A</button>
-        <div class="logo-text" @fadeInOut *ngIf="collapsed">Angular</div>
+        <button class="logo" (click)="toggleCollapse()"><img src="https://media-exp1.licdn.com/dms/image/C4E03AQGcC_fHyUQdeA/profile-displayphoto-shrink_200_200/0/1515912802656?e=2147483647&v=beta&t=i4QQIzDL2hRbGiuxEFvsxRuuKVg-fbzTZE7zM-hQvOQ"></button>
+        <div class="logo-text" @fadeInOut *ngIf="collapsed">Davis Perú</div>
+        <!--<div class="logo-text" @fadeInOut *ngIf="collapsed"><img src="../assets/indice.png"></div>-->
         <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">
             <i class="fal fa-times close-icon"></i>
         </button>
