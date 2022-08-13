@@ -1,0 +1,225 @@
+/*!
+
+=========================================================
+* Argon Dashboard Angular - v1.4.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard-angular
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-angular/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
+
+// Core
+
+@import "../../../assets/scss/custom/functions";
+@import "../../../assets/scss/custom/variables";
+@import "../../../assets/scss/custom/mixins";
+
+// Bootstrap (4.3.0) components
+
+// @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/code";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/input-group";
+@import "~bootstrap/scss/custom-forms";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/breadcrumb";
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/jumbotron";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/media";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/popover";
+@import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/print";
+
+// Argon utilities and components
+
+@import "../../../assets/scss/custom/reboot";
+@import "../../../assets/scss/custom/utilities";
+@import "../../../assets/scss/custom/components";
+
+// Vendor (Plugins)
+
+@import "../../../assets/scss/custom/vendors";
+
+// Angular Differences
+@import "../../../assets/scss/angular-differences/angular-differences";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.bg-img {
+  background-image: url("https://www.weatherlink.com/static/images/socialMediaShare/facebook.png");
+
+  min-height: 700px;
+  min-width: 1100px;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+header {
+  display: none;
+}
+
+.box {
+  background-color: rgba(75, 75, 75, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.8);
+  margin: auto auto;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.box2 {
+  background-color: #0bab8b;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+
+  margin: auto auto;
+  padding: 40px;
+  position: absolute;
+  top: 69%;
+  left: 33.1%;
+  padding: 15px 30px;
+  display: inline-block;
+}
+
+.check {
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  margin-left: 0.75em
+}
+
+.enlaces {
+  color: #fff;
+  text-decoration: none;
+}
+
+.button {
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.checks {
+  color: #fff;
+  top: 0px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.checkmap {
+  color: #fff;
+  font-size: 13px;
+}
+
+.register {
+  color: #fff;
+  padding: 90px;
+}
+
+.box h2 {
+  margin: 0 0 30px 0;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.box2 h2 {
+  /*margin: 0 0 30px 0;*/
+  color: #fff;
+  /*text-align: center;*/
+  /*margin-left: 0.75em;*/
+}
+
+.box .inputBox label {
+  color: #fff;
+}
+
+.box2 input {
+  color: rgb(37, 37, 37);
+  font-size: 15px;
+}
+
+.box .inputBox input {
+  color: rgb(37, 37, 37);
+  font-size: 15px;
+}
+
+.box input[type="submit"],
+.box button[type="submit"],
+a.button {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #0bab8b;
+  font-size: 12px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 15px 130px;
+  letter-spacing: 2px;
+  outline: none;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.box input[type="submit"]:hover,
+.box button[type="submit"]:hover,
+a.button:hover {
+  opacity: 0.8;
+}
+
+#tsparticles {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
