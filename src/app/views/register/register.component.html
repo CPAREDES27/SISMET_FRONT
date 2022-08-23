@@ -1,127 +1,251 @@
-<div class="bg-img">
-  <main class="box">
-  
+<body
+  background="https://www.weatherlink.com/static/images/socialMediaShare/facebook.png"
+  style="background-repeat: no-repeat; background-size: cover"
+>
+  <div class="header py-7 py-lg-8"></div>
 
-    <div class="media align-items-center">
-        
-            <img src="https://icon-library.com/images/white-icon-png/white-icon-png-18.jpg" style="width: 50px;height:50px">
-       
+  <div class="bg-img">
+    <main class="box">
+      <div class="media align-items-center">
+        <img
+          src="https://icon-library.com/images/white-icon-png/white-icon-png-18.jpg"
+          style="width: 50px; height: 50px"
+        />
+
         <div class="media-body">
-
-            <h2 class="mb-0 " style="margin-left: 0.75em;">Registrarse</h2>
-
+          <h2 class="mb-0" style="margin-left: 0.75em; color: #fff">
+            Registrarse
+          </h2>
         </div>
       </div>
 
-      <br>
-
-    <form>
-      <div class="pl-lg-0">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="inputBox">
-              <div class="form-group">
-                <input
-                  class="form-control"
-                  placeholder="Nombre de Usuario"
-                  type="text"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="inputBox">
-              <div class="form-group">
-                <input
-                  class="form-control"
-                  placeholder="Email"
-                  type="email"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="inputBox">
-              <div class="form-group">
-                <input
-                  class="form-control"
-                  placeholder="Nombre"
-                  type="text"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="inputBox">
-              <div class="form-group">
-                <input
-                  class="form-control"
-                  placeholder="Apellido"
-                  type="text"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="inputBox">
-              <div class="form-group">
-                <input
-                  class="form-control"
-                  placeholder="Contraseña"
-                  type="password"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="inputBox">
-              <div class="form-group">
-                <input
-                  class="form-control"
-                  placeholder="Repetir Contraseña"
-                  type="password"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-
+      <form method="post">
+        <br />
         <div class="pl-lg-0">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="inputBox">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Nombre de Usuario"
+                    type="text"
+                    required
+                    [(ngModel)]="userName"
+                    name="userName"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="inputBox">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Email"
+                    type="email"
+                    required
+                    [(ngModel)]="correo"
+                    name="correo"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="inputBox">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Nombres"
+                    type="text"
+                    required
+                    [(ngModel)]="nombres"
+                    name="nombres"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="inputBox">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Apellidos"
+                    type="text"
+                    required
+                    [(ngModel)]="apellidos"
+                    name="apellidos"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="inputBox">
+                <div class="form-group">
+                  <!--<input
+                    class="form-control"
+                    placeholder="Tipo de Documento"
+                    type="text"
+                    required
+                    [(ngModel)]="tipoDocumento"
+                    name="tipoDocumento"
+                  />-->
+
+                  <select
+                    matNativeControl
+                    required
+                    class="form-control form-control-alternative"
+                    id="tipoDocumento"
+                    required
+                    [(ngModel)]="tipoDocumento"
+                    name="tipoDocumento"
+                  >
+                    <option value="DNI">DNI</option>
+                    <option value="Pasaporte">Pasaporte</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="inputBox">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Nro Documento"
+                    type="text"
+                    required
+                    [(ngModel)]="nroDocumento"
+                    name="nroDocumento"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="inputBox">
+                <div class="form-group">
+                  <select
+                    matNativeControl
+                    required
+                    class="form-control form-control-alternative"
+                    id="rolId"
+                    required
+                    name="rolId"
+                    placeholder="Rol"
+                    [(ngModel)]="rolId"
+                  >
+                    <option *ngFor="let roles of rol_mk" value="{{ roles.id }}">
+                      {{ roles.nombre }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="inputBox">
+                <div class="form-group">
+                  <select
+                    matNativeControl
+                    required
+                    class="form-control form-control-alternative"
+                    id="empresaId"
+                    required
+                    name="empresaId"
+                    placeholder="Empresa"
+                    [(ngModel)]="empresaId"
+                  >
+                    <option
+                      *ngFor="let empresas of empresa_mk"
+                      value="{{ empresas.id }}"
+                    >
+                      {{ empresas.nombre }}
+                    </option>
+                  </select>
+
+                  <!--<input
+                  class="form-control"
+                  placeholder="Empresa"
+                  type="text"
+                  required
+                  name="empresaId"
+                  
+                />-->
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="inputBox">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Contraseña"
+                    type="password"
+                    required
+                    [(ngModel)]="contrasena"
+                    name="contrasena"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="inputBox">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    placeholder="Repetir Contraseña"
+                    type="password"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-control-feedback">
+                <!--
+              <ng-container *ngIf="!comparePassword && formControls.confirmPassword.touched">
+                              <span class="text-danger align-middle">
+                                <i class="fa fa-close"> Las contraseñas no son igualess</i>
+                            </span>
+              </ng-container>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="pl-lg-0">
             <div class="row">
               <div class="col-lg-6">
                 <div class="inputBox">
-                    <div class="checks text-center" style="text-decoration: none">
-                        <span>¿Si tiene una cuenta? <a >Iniciar Sesion</a></span>
-                      </div>
+                  <div class="checks text-center" style="text-decoration: none">
+                    <span>¿Si tiene una cuenta? <a style="text-decoration:none; color:white
+                    ;"href="/login"><strong>Iniciar Sesion</strong></a></span>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="inputBox">
-                    <button type="submit" name="" style="float: left">Próximo</button>
+                  <button
+                    type="submit"
+                    (click)="register()"
+                    name=""
+                    style="float: left"
+                  >
+                    Próximo
+                  </button>
                 </div>
               </div>
             </div>
+          </div>
         </div>
+        <br /><br /><br />
+      </form>
+    </main>
 
-
-       
-      </div>
-      <br /><br /><br />
-    </form>
-
-  </main>
-
-  <footer></footer>
-</div>
+    <footer></footer>
+  </div>
+</body>

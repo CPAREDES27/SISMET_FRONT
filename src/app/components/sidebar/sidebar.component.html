@@ -1,1 +1,24 @@
-<p>sidebar works!</p>
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
+    <div class="logo-container">
+        <button class="logo" (click)="toggleCollapse()"><i style="color:#083e5e"class="fal fa-home"></i></button>
+        <!--<div class="logo-text" @fadeInOut *ngIf="collapsed">Davis Perú</div>-->
+        <div class="logo-text" @fadeInOut *ngIf="collapsed"><img src="../../../assets/img/brand/índice.png" style="height: 25px; width:130px;"></div>
+        <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">
+            <i class="fal fa-times close-icon"></i>
+        </button>
+    </div>
+
+    <br><br>
+    <ul class="sidenav-nav">
+        <li class="sidenav-nav-item" *ngFor="let data of navData">
+            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <i class="sidenav-link-icon" [class]="data.icon"></i>
+                <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                    {{data.label}}
+                </span>
+            </a>
+  
+        </li>
+    </ul>
+</div>

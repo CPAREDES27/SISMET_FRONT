@@ -1,5 +1,5 @@
 .sidenav {
-    background: #263238;
+    background: #083e5e;
     transition: all .5s ease;
     position: fixed;
     z-index: 1;
@@ -95,7 +95,8 @@
     .sidenav-nav-item:hover {
         .sidenav-nav-link {
             background-color: #fff;
-            color: #000;
+            color: #018A6F;
+            font-weight: bold;
         }
     }
 }
@@ -105,6 +106,8 @@
 
     .sidenav-link-icon,
     .sidenav-link-text {
-        color: #000;
+        color: #018A6F;
     }
+
+    font-weight: bold;
 }

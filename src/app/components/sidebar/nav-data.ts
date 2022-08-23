@@ -1,62 +1,35 @@
 export const navbarData = [
     {
         routeLink: 'dashboard',
-        icon: 'fal fa-home',
-        label: 'Dashboard'
+        icon: 'fal fa-file',
+        label: 'Bulletín'
     },
     {
         routeLink: 'products',
-        icon: 'fal fa-box-open',
-        label: 'Products'
+        icon: 'fal fa-chart-bar',
+        label: 'Gráficos'
     },
     {
-        routeLink: 'statistics',
-        icon: 'fal fa-chart-bar',
-        label: 'Statistics'
+        routeLink: 'datos',
+        icon: 'fal fa-table',
+        label: 'Datos'
     },
     {
         routeLink: 'coupens',
-        icon: 'fal fa-tags',
-        label: 'Coupens'
+        icon: 'fas fa-map',
+        label: 'Mapas'
+    },
+    {
+        routeLink: 'usuario',
+        icon: 'fas fa-user',
+        label: 'Usuarios'
     },
     {
         routeLink: 'pages',
-        icon: 'fal fa-file',
-        label: 'Pages'
+        icon: 'fas fa-question',
+        label: '¿Que hay de nuevo?'
     },
-    {
-        routeLink: 'media',
-        icon: 'fal fa-camera',
-        label: 'Media'
-    },
-    {
-        routeLink: 'settings',
-        icon: 'fal fa-cog',
-        label: 'Settings'
-    },
-    {
-        routeLink: '',
-        icon: 'fal fa-cog',
-        label: 'Menu with Children',
-        submenuLevel1: [
-            {
-                routeLink: '',
-                icon: 'fal fa-cog', // icon if needed
-                label: 'Sub menu level 1',
-            },
-            {
-                routeLink: '',
-                icon: 'fal fa-cog', // icon if needed
-                label: 'Sub menu level 1',
-                submenuLevel2: [
-                    {
-                        routeLink: '',
-                        icon: 'fal fa-cog', // icon if needed
-                        label: 'Sub menu level 2',
-                    }
-                ]
-            }
-        ]
-    },
+   
+   
 
 ];

@@ -1,13 +1,11 @@
 .body {
-    width: calc(100% - 5rem);
-    height: 100vh;
+
     margin-left: 5rem;
     z-index: 0;
-    position: relative;
     top: 0;
-    transition: all .5s ease;
-    background: #f4f7fa;
+    background: #E8E8E8;
     padding: 3rem;
+    background-size: cover;
 }
 
 .body-trimmed {

@@ -1,53 +1,107 @@
-<div class="bg-img">
-  <main class="box">
-    <h2>¡Bienvenido a Envirored!</h2>
+<body background="https://www.weatherlink.com/static/images/socialMediaShare/facebook.png" style="background-repeat: no-repeat;background-size: cover;">
 
-    <form>
-      <div class="inputBox">
-        <input
-          class="form-control"
-          placeholder="Nombre de Usuario"
-          type="email"
-        />
-      </div>
-      <div class="inputBox">
-        <br />
-        <input
-          class="form-control"
-          placeholder="Contraseña"
-          type="password"
-          required
-        />
-      </div>
-      <input type="checkbox" /><label
-        class="check"
-        for="checkbox"
-        style="text-decoration: aliceblue"
-        >Mantenerme Conectado</label
+
+  <div
+  class="header py-7 py-lg-8"
+
+></div>
+
+
+<div class="container mt--8 pb-5"  >
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7">
+      <div
+        class="border-0"
+        style="
+          background-color: rgba(75, 75, 75, 0.8);
+          box-shadow: 0 15px 25px rgba(0, 0, 0, 0.8);
+          border-radius: 10px;
+        "
       >
-      <br />
-      <div>
-        <button type="submit" name="" style="float: left">
-          Iniciar Sesion
-        </button>
+        <div class="card-body px-lg-5 py-lg-5">
+          <div class="text-center text-muted mb-4">
+            <h2 style="color: #fff; text-align: center">
+              ¡Bienvenido a Envirored!
+            </h2>
+          </div>
+          <form >
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="ni ni-circle-08"></i
+                  ></span>
+                </div>
+                <input
+                  class="form-control"
+                  required
+                  placeholder="Nombre de usuario"
+                  type="text" name="usuario" required
+                  [(ngModel)]="usuario"
+                 
+  
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="ni ni-lock-circle-open"></i
+                  ></span>
+                </div>
+                <input
+                  class="form-control"
+                  placeholder="Password"
+                  type="password"
+                    required
+                   [(ngModel)]="password"
+                    name="password"
+                    
+           
+                />
+              </div>
+
+              <input type="checkbox" /><small
+                class="check"
+                for="checkbox"
+                style="margin-left: 5px; color: #fff"
+                >Mantenerme Conectado</small
+              >
+
+              <div class="text-center">
+                <button
+                  type="button"
+                  style="
+                    background-color: #0bab8b;
+                    border-radius: 8px;
+                    width: 100%;
+                    height: 100%;
+                  "
+                  class="btn btn-primary my-2" (click)="login()"
+                >
+                  Iniciar Sesión
+                </button>
+              </div>
+
+              <div class="text-center mb-4">
+                <small class="enlaces" style="color: #fff"
+                  ><a style="text-decoration:none; color:white
+                  ;"href="/recuperar">¿Olvidó el nombre de usuario o Contraseña?</a></small
+                >
+                <br />
+                <small class="enlaces" style="color: #fff"
+                  >¿No tiene cuenta? <a style="text-decoration:none; color:white
+                  ;"href="/register"> <strong>Registrate</strong></a></small
+                >
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-      <br /><br /><br />
-    </form>
-
-    <div class="checks text-center mt-2 mb-3">
-      <span>¿Olvidó el nombre de usuario o Contraseña?</span>
     </div>
-    <div class="checks text-center" style="text-decoration: none">
-      <span>¿No tiene cuenta? Registrate</span>
-    </div>
-  </main>
-
-  <footer></footer>
+  </div>
 </div>
 
-<a href="" class="box2">
-  <h2>Explore the Map</h2>
-  <label class="checkmap"
-    >View interactive map for real-time air quality and temperature data.</label
-  >
-</a>
+
+</body>

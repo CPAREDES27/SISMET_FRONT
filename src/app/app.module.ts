@@ -4,41 +4,70 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BodyComponent } from './body/body.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductsComponent } from './products/products.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { CoupensComponent } from './coupens/coupens.component';
-import { PagesComponent } from './pages/pages.component';
 import { MediaComponent } from './media/media.component';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { NgbModule, NgbActiveModal,NgbPaginationConfig } from "@ng-bootstrap/ng-bootstrap";
+import { BodyComponent } from './body/body.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { UsersService } from './shared/user.service';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { RecuperarPassowordComponent } from './views/recuperar-passoword/recuperar-passoword.component';
+import { AddUserComponent } from './views/usuario/add-user/add-user.component';
+import { ListUserComponent } from './views/usuario/list-user/list-user.component';
+import { DetailsUserComponent } from './views/usuario/details-user/details-user.component';
+import { ListDatosComponent } from './views/datos/list-datos/list-datos.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    BodyComponent,
     SidenavComponent,
-    DashboardComponent,
     ProductsComponent,
     StatisticsComponent,
     CoupensComponent,
-    PagesComponent,
     MediaComponent,
     SettingsComponent,
-    LoginComponent,
-    RegisterComponent,
-    SidebarComponent
+    SidebarComponent,
+    AuthLayoutComponent,
+    FooterComponent,
+    BodyComponent,
+    NavbarComponent,
+    RecuperarPassowordComponent,
+    AddUserComponent,
+    ListUserComponent,
+    DetailsUserComponent,
+    ListDatosComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule,
+    ToastrModule.forRoot({
+      progressBar: true
+    }),
   ],
-  providers: [],
+  providers: [UsersService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

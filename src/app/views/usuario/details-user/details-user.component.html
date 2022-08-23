@@ -1,0 +1,247 @@
+<div class="container-fluid">
+  <div class="header-body">
+    <!-- Card stats -->
+    <div class="row">
+      <div class="col-xl-3 col-lg-6">
+        <div class="card card-stats mb-4 mb-xl-0">
+          <div class="card-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div class="card card-profile shadow">
+        <div class="card-body pt-0 pt-md-4">
+          <div class="text-center" *ngIf="currentUsuario">
+            <div class="h5 mt-4"></div>
+            <div>
+              <img
+                src="../../../../assets/img/brand/user.png"
+                style="width: 180px; height: 170px"
+              />
+            </div>
+
+            <br />
+            <h1>{{ currentUsuario.userName }}</h1>
+            <hr class="my-4" />
+
+            <a
+              style="background-color: #083e5e"
+              class="btn btn-icon"
+              type="submit"
+              routerLink="/usuario-edit/{{ currentUsuario.id }}"
+            >
+              <i style="color: #fff" class="fas fa-user-edit"></i>
+              <span style="color: rgb(255, 255, 255)">Editar Usuario</span>
+            </a>
+
+            <p style="color: #00ff40">
+              <strong>{{ message }}</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Detalles del usuario</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form *ngIf="currentUsuario">
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="nombres"
+                      >Nombres</label
+                    >
+                    <input
+                      disabled
+                      type="text"
+                      class="form-control form-control-alternative"
+                      id="nombres"
+                      required
+                      [(ngModel)]="currentUsuario.nombres"
+                      name="nombres"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="apellidos"
+                      >Apellidos</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      id="apellidos"
+                      disabled
+                      required
+                      equired
+                      [(ngModel)]="currentUsuario.apellidos"
+                      name="apellidos"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="correo">Email</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      disabled
+                      id="correo"
+                      required
+                      equired
+                      [(ngModel)]="currentUsuario.correo"
+                      name="correo"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="userName"
+                      >Usuario</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      id="userName"
+                      name="userName"
+                      [(ngModel)]="currentUsuario.userName"
+                      disabled
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="estado"
+                      >Estado</label
+                    >
+
+                    <select
+                      matNativeControl
+                      required
+                      class="form-control form-control-alternative"
+                      id="estado"
+                      name="estado"
+                      placeholder="estado"
+                      [(ngModel)]="currentUsuario.estado"
+                      disabled
+                    >
+                      <option value="true">Activo</option>
+                      <option value="false">No Activo</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="fechaCreacion"
+                      >Fecha de Registro
+                    </label>
+
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      id="fechaCreacion"
+                      name="fechaCreacion"
+                      [(ngModel)]="currentUsuario.fechaCreacion"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="tipoDocumento"
+                      >Tipo de Documento</label
+                    >
+
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      id="tipoDocumento"
+                      required
+                      name="tipoDocumento"
+                      [(ngModel)]="currentUsuario.tipoDocumento"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="nroDocumento"
+                      >N° Documento</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      name="nroDocumento"
+                      id="nroDocumento"
+                      required
+                      [(ngModel)]="currentUsuario.nroDocumento"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="rolId">Rol</label>
+
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      name="rolId"
+                      id="rolId"
+                      required
+                      [(ngModel)]="currentUsuario.rol.nombre"
+                      disabled
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="empresaId"
+                      >Empresa</label
+                    >
+
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      id="empresa Id"
+                      required
+                      name="empresaId"
+                      [(ngModel)]="currentUsuario.empresa.nombre"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

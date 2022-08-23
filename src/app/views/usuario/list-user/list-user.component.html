@@ -1,0 +1,97 @@
+<div class="container-fluid">
+  <div class="header-body">
+    <!-- Card stats -->
+    <div class="row">
+      <div class="col-xl-3 col-lg-6">
+        <div class="card card-stats mb-4 mb-xl-0">
+          <div class="card-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="">
+        <div>
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Lista de Usuarios</h3>
+                </div>
+                <!--
+                <a routerLink="/add-usuario" class="btn"
+                  style="background-color: #018a6f; color: aliceblue;margin-right: 0.75em;"><i
+                    style="margin-right: 0.75em;" class="fa fa-user-plus "></i>Agregar Usuario</a>-->
+
+                <div class="input-group input-group-alternative col text-right">
+                  <input class="form-control" placeholder="Buscar usuario" type="text" />
+                  <a class="input-group-prepend">
+                    <span class="input-group-text" style="color: rgb(39, 39, 39)"><i class="fas fa-search"></i></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush" style="font-size: 10px;">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Nombres</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">N° Documento</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let usuarios of usuarios_mk.usuarios; let i = index"
+                [class.active]="i == currentIndex"
+                (click)="setActiveTutorialSave(usuarios,i)">
+                  <tr>
+                    <td>
+                      <label>{{usuarios.nombres}}</label>
+                    </td>
+
+                    <td>
+                      <label>{{usuarios.apellidos}}</label>
+                    </td>
+
+                    <td>
+                      <label>{{usuarios.correo}}</label>
+                    </td>
+
+                    <td>
+                      <label>{{usuarios.userName}}</label>
+                    </td>
+
+                    <td>
+                      <label>{{usuarios.nroDocumento}}</label>
+                    </td>
+
+                    <td >
+                      <label class="badge" style="color: honeydew; font-size: 10px; width: 80px; height: 25px; text-align: center;" [ngStyle]="{'background-color':usuarios.estado==true?'green':'red'}" >{{usuarios.estado==true ? 'Activo' : 'No Activo'}}</label>
+                    </td>
+
+                    <td>
+                      
+                        <a class="btn btn-warning btn-sm" routerLink="/usuario-edit/{{ usuarios.id }}" ><label>  Editar </label></a>
+                        <label style="color:white">--</label>
+                        <a class="btn btn-success btn-sm" routerLink="/usuario-details/{{ usuarios.id }}" ><label>  Detalles </label></a>
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
