@@ -5,7 +5,6 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { CheckEmailService } from "../../validators/check-email.service";
 import { map } from "rxjs/operators";
 import { UsersService } from "src/app/shared/user.service";
 import { RolService } from "src/app/services/rol.service";

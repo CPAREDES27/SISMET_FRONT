@@ -6,11 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProductsComponent } from './products/products.component';
-import { StatisticsComponent } from './statistics/statistics.component';
-import { CoupensComponent } from './coupens/coupens.component';
-import { MediaComponent } from './media/media.component';
-import { SettingsComponent } from './settings/settings.component';
+
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -29,17 +25,15 @@ import { AddUserComponent } from './views/usuario/add-user/add-user.component';
 import { ListUserComponent } from './views/usuario/list-user/list-user.component';
 import { DetailsUserComponent } from './views/usuario/details-user/details-user.component';
 import { ListDatosComponent } from './views/datos/list-datos/list-datos.component';
+import { ViewMapComponent } from './views/mapa/view-map/view-map.component';
+import { RegisterUserComponent } from './views/usuario/register-user/register-user.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SidenavComponent,
-    ProductsComponent,
-    StatisticsComponent,
-    CoupensComponent,
-    MediaComponent,
-    SettingsComponent,
+
     SidebarComponent,
     AuthLayoutComponent,
     FooterComponent,
@@ -49,7 +43,9 @@ import { ListDatosComponent } from './views/datos/list-datos/list-datos.componen
     AddUserComponent,
     ListUserComponent,
     DetailsUserComponent,
-    ListDatosComponent
+    ListDatosComponent,
+    ViewMapComponent,
+    RegisterUserComponent
   ],
   imports: [
     BrowserModule,

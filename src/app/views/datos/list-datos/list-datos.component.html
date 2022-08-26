@@ -1,103 +1,204 @@
 <div class="container-fluid">
-    <div class="header-body">
-      <!-- Card stats -->
-      <div class="row">
-        <div class="col-xl-3 col-lg-6">
-          <div class="card card-stats mb-4 mb-xl-0">
-            <div class="card-body"></div>
+  <div class="header-body">
+    <div class="card-header border-0">
+      <div class="row align-items-center">
+        <div class="col">
+          <h3 class="mb-0">Filtrar Datos</h3>
+        </div>
+        <!--
+              <a routerLink="/add-usuario" class="btn"
+                style="background-color: #018a6f; color: aliceblue;margin-right: 0.75em;"><i
+                  style="margin-right: 0.75em;" class="fa fa-user-plus "></i>Agregar Usuario</a>-->
+
+
+        <a href="" style="margin-right: 0.78em">
+          <i style="color: #083e5e;width: 20px; height: 20px;" class="fas fa-sync"></i>
+
+        </a>
+
+        <select
+        style="font-weight: bolder; color:#083e5e
+        ; width: 27%; margin-left: 0.75em;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
+          matNativeControl
+          required
+          class="form-control form-control-alternative"
+          id="estacion"
+          required
+          name="estacion"
+        >
+          <option>FUNDO SAN ANTONIO-NAZCA</option>
+          <option>FUNDO CHIQUERILLO-PALPA</option>
+          <option>FUNDO SAN FERMÍN-PALPA</option>
+        </select>
+
+        <select
+        style="font-weight: bolder; color:#083e5e
+        ; width: 27%; margin-left: 0.75em;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
+          matNativeControl
+          required
+          class="form-control form-control-alternative"
+          id="estacion"
+          required
+          name="estacion"
+        >
+          <option>FUNDO CHIQUERILLO-PALPA</option>
+
+          <option>FUNDO SAN FERMÍN-PALPA</option>
+        </select>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="card-header border-0">
+      <div class="row align-items-center">
+        <div class="col row" style="padding-left: 30px;">
+          <div class="form-group" style="margin-right: 0.75em">
+            <label class="form-control-label" for="fecha_vencimiento"
+              >Fecha Inicio</label
+            >
+            <input
+            style="font-weight: bolder; color:#083e5e
+            ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
+              type="date"
+              class="form-control form-control-alternative"
+              id="fecha_vencimiento"
+              required
+              name="fecha_vencimiento"
+            />
+            
           </div>
+
+          <div class="form-group" style="margin-right: 2.5em">
+            <label class="form-control-label" for="fecha_vencimiento"
+              >Hora Inicio</label
+            >
+            <input
+            style="font-weight: bolder; color:#083e5e
+            ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
+              type="time"
+              class="form-control form-control-alternative"
+              id="fecha_vencimiento"
+              required
+              name="fecha_vencimiento"
+            />
+            
+          </div>
+
+          <div class="form-group" style="margin-right: 0.75em">
+            <label class="form-control-label" for="fecha_vencimiento"
+              >Fecha Fin</label
+            >
+            <input
+            style="font-weight: bolder; color:#083e5e
+            ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
+              type="date"
+              class="form-control form-control-alternative"
+              id="fecha_vencimiento"
+              required
+              name="fecha_vencimiento"
+            />
+            
+          </div>
+  
+          <div class="form-group">
+            <label class="form-control-label" for="fecha_vencimiento"
+              >Hora Fin</label
+            >
+            <input
+            style="font-weight: bolder; color:#083e5e
+            ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
+              type="time"
+              class="form-control form-control-alternative"
+              id="fecha_vencimiento"
+              required
+              name="fecha_vencimiento"
+            />
+          </div>
+
+
+
+        </div>
+
+        <a
+        style="background-color: #083e5e; margin-right: 0.80em"
+        class="btn btn-icon"
+      >
+        <i style="color: #fff" class="fas fa-location"></i> 
+        <span style="color: rgb(255, 255, 255)">Registrar Estación</span>
+      </a>
+
+       
+
+
+        <div class="table-responsive">
+         
+
+          <!-- Projects table -->
+          <table
+            class="table align-items-center table-flush"
+            style="font-size: 10px"
+          >
+
+          <thead class="thead-light" style="background-color: #018A6F;">
+            <tr>
+              <th scope="col" style="background-color: #018A6F;"></th>
+              <th scope="col" style="background-color: #018A6F;"></th>
+              <th scope="col" style="background-color: #018A6F;"></th>
+              <th scope="col" style="background-color: #018A6F; color: floralwhite;" >Estacion Actual</th>
+              <th scope="col" style="background-color: #018A6F;"></th>
+              <th scope="col" style="background-color: #018A6F;"></th>
+              <th scope="col" style="background-color: #018A6F;"></th>
+            </tr>
+
+        
+          </thead>
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="font-size: 12px">Barometro</th>
+                <th scope="col" style="font-size: 12px">Temp. C°</th>
+                <th scope="col" style="font-size: 12px">Temp. Alta C°</th>
+                <th scope="col" style="font-size: 12px">Temp. Baja C°</th>
+                <th scope="col" style="font-size: 12px">Hum %</th>
+                <th scope="col" style="font-size: 12px"> Tasa de Lluvia</th>
+                <th scope="col" style="font-size: 12px">índice UV</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <label></label>
+                </td>
+
+                <td>
+                  <label></label>
+                </td>
+
+                <td>
+                  <label></label>
+                </td>
+
+                <td>
+                  <label></label>
+                </td>
+
+                <td>
+                  <label></label>
+                </td>
+
+                <td>
+                  <label
+                    class="badge"
+                    style="color: honeydew; font-size: 10px"
+                  ></label>
+                </td>
+
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
-  
-  <!-- Page content -->
-  <div class="container-fluid mt--7">
-    <div class="row">
-      <div class="col">
-        <div class="">
-          <div>
-            <div class="card shadow">
-              <div class="card-header border-0">
-                <div class="row align-items-center">
-                  <div class="col">
-                    <h3 class="mb-0">Filtrar Datos</h3>
-                  </div>
-                  <!--
-                  <a routerLink="/add-usuario" class="btn"
-                    style="background-color: #018a6f; color: aliceblue;margin-right: 0.75em;"><i
-                      style="margin-right: 0.75em;" class="fa fa-user-plus "></i>Agregar Usuario</a>-->
-  
-                  
-                    <select style="width: 30%;"matNativeControl required class="form-control form-control-alternative"
-                                            id="estacion" required name="estacion">
-                                            <option>FUNDO SAN ANTONIO-NAZCA</option>
-                                            <option>FUNDO CHIQUERILLO-PALPA</option>
-                                            <option>FUNDO SAN FERMÍN-PALPA</option>
-                    </select>
-
-                    <select style="width: 30%; margin-left: 0.75em;"matNativeControl required class="form-control form-control-alternative"
-                                            id="estacion" required name="estacion">
-                                            <option>FUNDO CHIQUERILLO-PALPA</option>
-
-                                            <option>FUNDO SAN FERMÍN-PALPA</option>
-                    </select>
-                 
-                </div>
-              </div>
-              <div class="table-responsive">
-                <!-- Projects table -->
-                <table class="table align-items-center table-flush" style="font-size: 10px;">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col">Nombres</th>
-                      <th scope="col">Apellidos</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Usuario</th>
-                      <th scope="col">N° Documento</th>
-                      <th scope="col">Estado</th>
-                      <th scope="col">Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody 
-                 >
-                    <tr>
-                      <td>
-                        <label></label>
-                      </td>
-  
-                      <td>
-                        <label></label>
-                      </td>
-  
-                      <td>
-                        <label></label>
-                      </td>
-  
-                      <td>
-                        <label></label>
-                      </td>
-  
-                      <td>
-                        <label></label>
-                      </td>
-  
-                      <td >
-                        <label class="badge" style="color: honeydew; font-size: 10px;" ></label>
-                      </td>
-  
-                      <td>
-                        
-                       
-                        
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>

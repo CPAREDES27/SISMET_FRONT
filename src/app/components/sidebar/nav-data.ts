@@ -5,17 +5,12 @@ export const navbarData = [
         label: 'Bulletín'
     },
     {
-        routeLink: 'products',
-        icon: 'fal fa-chart-bar',
-        label: 'Gráficos'
-    },
-    {
         routeLink: 'datos',
         icon: 'fal fa-table',
         label: 'Datos'
     },
     {
-        routeLink: 'coupens',
+        routeLink: 'mapa',
         icon: 'fas fa-map',
         label: 'Mapas'
     },

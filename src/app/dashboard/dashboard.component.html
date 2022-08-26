@@ -1,12 +1,72 @@
 
+    
     <div class="container-fluid">
-      <div class="header-body">
+
+      
+      <div class="header-body" >
+
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0" style="font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;">Estación</h3>
+            </div>
+            <!--
+            <a routerLink="/add-usuario" class="btn"
+              style="background-color: #018a6f; color: aliceblue;margin-right: 0.75em;"><i
+                style="margin-right: 0.75em;" class="fa fa-user-plus "></i>Agregar Usuario</a>-->
+
+              <label style="color: #083e5e"> <strong>Estación Actual: </strong></label>
+
+              <select
+        
+              style="font-weight: bolder; color:#083e5e
+              ; width: 27%; margin-left: 0.75em;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
+              matNativeControl
+              required
+              class="form-control form-control-alternative"
+
+              required
+
+
+            >
+              <option
+                *ngFor="let stations of currentEstacion"
+                value="{{ stations.id }}"
+              >
+                {{ stations.nombreEstacion }}
+              </option>
+            </select>
+
+
+          </div>
+        </div>
+      
+
         <!-- Card stats -->
+
+        <!--
+        <select
+                      matNativeControl
+                      required
+                      class="form-control form-control-alternative"
+                      [(ngModel)]="currentEstacion.empresa.estacion.id"
+
+                    >
+                      <option
+                        *ngFor="let estacion of usuario_mk"
+                        value="{{ estacion.currentEstacion.empresa.estacion.id}}"
+                      >
+                        {{ estacion.currentEstacion.empresa.estacion.nombre }}
+                      </option>
+                    </select>-->
+
+
         <div class="row">
           <div class="col-xl-3 col-lg-6">
             <div class="card card-stats mb-4 mb-xl-0">
               <div class="card-body">
                 <div class="row">
+                  
                   <div class="col">
                     <h5 class="card-title text-uppercase text-muted mb-0">Temperatura</h5>
                     <span class="h2 font-weight-bold mb-0">25.5556</span>
@@ -44,6 +104,8 @@
               </div>
             </div>
           </div>
+
+          <!--
           <div class="col-xl-3 col-lg-6">
             <div class="card card-stats mb-4 mb-xl-0">
               <div class="card-body">
@@ -86,13 +148,13 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
-
+<!--
     <div class="container-fluid">
       <div class="header-body">
-        <!-- Card stats -->
+
         <div class="row">
           <div class="col-xl-3 col-lg-6">
             <div class="card card-stats mb-4 mb-xl-0">
@@ -180,7 +242,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
  
  
   

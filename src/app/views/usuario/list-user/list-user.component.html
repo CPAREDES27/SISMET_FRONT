@@ -23,13 +23,19 @@
                 <div class="col">
                   <h3 class="mb-0">Lista de Usuarios</h3>
                 </div>
-                <!--
-                <a routerLink="/add-usuario" class="btn"
-                  style="background-color: #018a6f; color: aliceblue;margin-right: 0.75em;"><i
-                    style="margin-right: 0.75em;" class="fa fa-user-plus "></i>Agregar Usuario</a>-->
+                    
+                
+                    <a 
+                    style="background-color: #083e5e; margin-right: 0.80em"
+                    class="btn btn-icon"
+                  >
+                    <i style="color: #fff" class="fas fa-user-plus"></i> 
+                    <span style="color: rgb(255, 255, 255)">Registrar Usuario</span>
+                  </a>
 
-                <div class="input-group input-group-alternative col text-right">
-                  <input class="form-control" placeholder="Buscar usuario" type="text" />
+                <div class="input-group input-group-alternative col text-right"  style="font-weight: bolder; color:#083e5e
+                ; margin-left: 0.75em; width: 30%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;">
+                  <input style="width: 30%"class="form-control" placeholder="Buscar usuario" type="text" />
                   <a class="input-group-prepend">
                     <span class="input-group-text" style="color: rgb(39, 39, 39)"><i class="fas fa-search"></i></span>
                   </a>
@@ -41,13 +47,13 @@
               <table class="table align-items-center table-flush" style="font-size: 10px;">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Nombres</th>
-                    <th scope="col">Apellidos</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">N° Documento</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col" style="font-size: 12px">Nombres</th>
+                    <th scope="col" style="font-size: 12px">Apellidos</th>
+                    <th scope="col" style="font-size: 12px">Email</th>
+                    <th scope="col" style="font-size: 12px">Usuario</th>
+                    <th scope="col" style="font-size: 12px">N° Documento</th>
+                    <th scope="col" style="font-size: 12px">Estado</th>
+                    <th scope="col" style="font-size: 12px">Acciones</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let usuarios of usuarios_mk.usuarios; let i = index"
@@ -55,23 +61,23 @@
                 (click)="setActiveTutorialSave(usuarios,i)">
                   <tr>
                     <td>
-                      <label>{{usuarios.nombres}}</label>
+                      <label style="font-size: 13px; color: black;">{{usuarios.nombres}}</label>
                     </td>
 
                     <td>
-                      <label>{{usuarios.apellidos}}</label>
+                      <label style="font-size: 13px; color: black;">{{usuarios.apellidos}}</label>
                     </td>
 
                     <td>
-                      <label>{{usuarios.correo}}</label>
+                      <label style="font-size: 13px; color: black;">{{usuarios.correo}}</label>
                     </td>
 
                     <td>
-                      <label>{{usuarios.userName}}</label>
+                      <label style="font-size: 13px; color: black;">{{usuarios.userName}}</label>
                     </td>
 
                     <td>
-                      <label>{{usuarios.nroDocumento}}</label>
+                      <label style="font-size: 13px; color: black;">{{usuarios.nroDocumento}}</label>
                     </td>
 
                     <td >
@@ -80,9 +86,10 @@
 
                     <td>
                       
-                        <a class="btn btn-warning btn-sm" routerLink="/usuario-edit/{{ usuarios.id }}" ><label>  Editar </label></a>
+                        <a class="btn btn-sm" style="background-color:#083e5e ;"routerLink="/usuario-edit/{{ usuarios.id }}" ><i style="color: #fff;width: 20px; height: 20px;" class="fas fa-edit"></i></a>
                         <label style="color:white">--</label>
-                        <a class="btn btn-success btn-sm" routerLink="/usuario-details/{{ usuarios.id }}" ><label>  Detalles </label></a>
+                        <a class="btn btn-sm" style="background-color:#083e5e ;" routerLink="/usuario-details/{{ usuarios.id }}" ><i style="color: #fff;width: 20px; height: 20px;" class="fas fa-eye"></i></a>
+
                       
                     </td>
                   </tr>

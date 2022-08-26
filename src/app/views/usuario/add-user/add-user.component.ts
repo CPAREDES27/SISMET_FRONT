@@ -37,6 +37,7 @@ export class AddUserComponent implements OnInit {
   userName = '';
   message = '';
 
+  
   usuarios = {
     userName: '',
     contrasena: '',
@@ -67,6 +68,7 @@ export class AddUserComponent implements OnInit {
     this.ObtenerEmpresa();
   }
 
+  
   ObtenerRoles() {
     this.rolService.getAll().subscribe(
       (data) => {

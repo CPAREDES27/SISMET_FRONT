@@ -3,13 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { BodyComponent } from './body/body.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { CoupensComponent } from './coupens/coupens.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { MediaComponent } from './media/media.component';
-import { ProductsComponent } from './products/products.component';
-import { SettingsComponent } from './settings/settings.component';
-import { StatisticsComponent } from './statistics/statistics.component';
+
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 

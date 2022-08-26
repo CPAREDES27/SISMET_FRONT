@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { CookieService } from "ngx-cookie-service";
+import { Root } from "./models/administrador.interface";
 
 @Injectable({
   providedIn: "root"
@@ -24,6 +25,6 @@ export class UsersService {
  
 
   getUsuario(id: any) {
-    return this.http.get(`https://localhost:7275/api/Usuario/${id}`);
+    return this.http.get<Root>(`https://localhost:7275/api/Usuario/${id}`);
   }
 }
