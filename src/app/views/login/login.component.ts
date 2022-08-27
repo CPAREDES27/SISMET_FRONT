@@ -47,7 +47,16 @@ export class LoginComponent implements OnInit {
     const user = { usuario: this.usuario, password: this.password };
     this.userService.login(user).subscribe(
       (res: any) => {
-        if (res.value.message != "") Swal.fire(res.value.message);
+        if (res.value.message != "") 
+        {
+          Swal.fire({
+            title: '',
+            text: res.value.message,
+            icon: 'warning',
+            confirmButtonColor: '#083E5E',
+            confirmButtonText: 'Aceptar'
+          })
+        }
         else {
           localStorage.setItem("token", res.value.authToken);
           this.router.navigateByUrl("/dashboard");

@@ -40,11 +40,11 @@
             <br><br>
 
             <button
-            style="background-color: #BC0303; width: 50%;"
+            style="background-color:{{colorboton}}; width: 50%;"
               class="btn btn-icon"
               (click)="deleteUsuario()"
             >
-              <span style="color: rgb(255, 255, 255)">Eliminar Usuario</span>
+              <span style="color: rgb(255, 255, 255)">{{mensaje}}</span>
             </button>
 
             <p style="color: #00ff40">
@@ -215,6 +215,7 @@
                       class="form-control form-control-alternative"
                       name="nroDocumento"
                       id="nroDocumento"
+                      maxlength="12"
                       required
                       [(ngModel)]="currentUsuario.nroDocumento"
                     />

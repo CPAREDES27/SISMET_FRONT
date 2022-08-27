@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import jwtDecode from 'jwt-decode';
+import { environment } from 'src/environments/environment'; 
 
 
 
-const baseUrl = 'https://localhost:7275/api/Empresa';
+
+const baseUrl = 'Empresa';
 
 
 
@@ -14,6 +16,7 @@ const baseUrl = 'https://localhost:7275/api/Empresa';
 })
 export class AuthenticationService {
 
+  urlServices: string= environment.urlService;
   private rol:string="";
   
 

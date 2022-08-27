@@ -15,6 +15,8 @@ export class AddUserComponent implements OnInit {
   empresa_mk: any;
   rol_mk: any;
   currentEmpresa: any;
+  mensaje : string = "";
+  colorboton : string ="";
 
   empresas = {
     id: "",
@@ -66,6 +68,8 @@ export class AddUserComponent implements OnInit {
      this.getUsuario(this.route.snapshot.paramMap.get('id'));
      this.ObtenerRoles();
     this.ObtenerEmpresa();
+
+ 
   }
 
   
@@ -110,6 +114,8 @@ export class AddUserComponent implements OnInit {
       .subscribe(
         data => {
           this.currentUsuario = data;
+          this.mensaje = this.currentUsuario.estado ==1 ? 'Eliminar Usuario' : 'Habilitar Usuario';
+          this.colorboton = this.currentUsuario.estado== 1 ? '#BC0303' : '#083E5E';
           console.log(data);
         },
         error => {
@@ -120,32 +126,82 @@ export class AddUserComponent implements OnInit {
   updateUsuario() {
     this.usuarioService.update(this.currentUsuario.id, this.currentUsuario)
       .subscribe(
-        response => {
-          console.log(response);
-          this.message = 'El usuario fue actualizado.';
-          Swal.fire("","El usuario fue eliminado.",'success');
-          this.router.navigateByUrl("/usuario");
+        (res: any) => {
+          if (res.value.mensaje != "") 
+          {
+            Swal.fire({
+              title: '',
+              text: res.value.mensaje,
+              icon: 'success',
+              confirmButtonColor: '#083E5E',
+              confirmButtonText: 'Aceptar',
+              timer: 6000
+            }).then((result) =>{
+              if(result.isConfirmed){
+                this.router.navigateByUrl("/usuario");
+              }
+            })
+          }
+          
         },
-        error => {
-          console.log(error);
+  
+        (error) => {
+          if (error.status == 400)
           Swal.fire("¡Ha ocurrido un error!",error,'error');
           
+          else console.log(error);
         });
+              
   }
 
   deleteUsuario() {
-    this.usuarioService.delete(this.currentUsuario.id)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.message = 'El usuario fue eliminado';
-          Swal.fire("","El usuario fue eliminado.",'success');
-          this.router.navigateByUrl("/usuario");
-        },
-        error => {
-          console.log(error);
-          Swal.fire("¡Ha ocurrido un error!",error,'error');
-        });
+
+
+    var mensaje = this.currentUsuario.estado== 1? "¿Desea eliminar el usuario?" : "¿Desea activar el usuario?"
+  
+    Swal.fire({
+      title: '',
+      text: mensaje,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#083E5E',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+          this.usuarioService.delete(this.currentUsuario.id)
+          .subscribe(
+            (res: any) => {
+              if (res.message != "") 
+              {
+                Swal.fire({
+                  title: '',
+                  text: res.message,
+                  icon: 'success',
+                  confirmButtonColor: '#083E5E',
+                  confirmButtonText: 'Aceptar',
+                  timer: 6000
+                }).then((result) =>{
+                  if(result.isConfirmed){
+                    this.router.navigateByUrl("/usuario");
+                  }
+                })
+              }
+            },
+      
+            (error) => {
+              if (error.status == 400)
+              Swal.fire("¡Ha ocurrido un error!",error,'error');
+              
+              else console.log(error);
+            });
+          
+      }
+    })
+
+    
   }
 
 }

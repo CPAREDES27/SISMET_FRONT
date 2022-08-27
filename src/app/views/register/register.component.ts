@@ -11,6 +11,7 @@ import { RolService } from "src/app/services/rol.service";
 import { EmpresaService } from "src/app/services/empresa.service";
 import Swal from "sweetalert2";
 import { Router } from "@angular/router";
+import { ThisReceiver } from "@angular/compiler";
 
 @Component({
   selector: "app-register",
@@ -85,31 +86,64 @@ export class RegisterComponent {
   }
 
   register() {
-    const user = {
-      userName: this.userName,
-      contrasena: this.contrasena,
-      nombres: this.nombres,
-      apellidos: this.apellidos,
-      tipoDocumento: this.tipoDocumento,
-      nroDocumento: this.nroDocumento,
-      correo: this.correo,
-      rolId: this.rolId,
-      empresaId: this.empresaId,
-    };
-    this.userService.register(user).subscribe(
-      (data) => {
-        this.userService.setToken(data.token);
-      },
-      (error) => {
-        if (error.status == 400) {
-          Swal.fire(error.error);
+    if (this.userName =='' || this.correo ==undefined || this.correo==''|| this.nombres =='' || this.nombres ==undefined || this.apellidos=='' || this.apellidos==undefined||
+    this.tipoDocumento == undefined || this.nroDocumento==undefined || this.nroDocumento =='' || this.empresaId==undefined || this.rolId==undefined){
+      Swal.fire({
+        title: 'Atención!',
+        text: "Debe de llenar todos los campos",
+        icon: 'warning',
+        confirmButtonColor: '#083E5E',
+        confirmButtonText: 'Aceptar'
+      })
+    }
+    else{
+      const user = {
+        userName: this.userName,
+        contrasena: this.contrasena,
+        nombres: this.nombres,
+        apellidos: this.apellidos,
+        tipoDocumento: this.tipoDocumento,
+        nroDocumento: this.nroDocumento,
+        correo: this.correo,
+        rolId: this.rolId,
+        empresaId: this.empresaId,
+      };
+      this.userService.register(user).subscribe(
+        (data) => {
+          this.userService.setToken(data.token);
+        },
+        (error) => {
+          if (error.status == 400) {
+            Swal.fire({
+              title: '',
+              text: error.error,
+              icon: 'warning',
+              confirmButtonColor: '#083E5E',
+              confirmButtonText: 'Aceptar'
+            })
+          }
+  
+          if (error.status == 200) {
+            Swal.fire({
+              title: '',
+              text: "Se registró el usuario correctamente.",
+              icon: 'success',
+              confirmButtonColor: '#083E5E',
+              confirmButtonText: 'Aceptar',
+              timer: 6000
+            }).then((result) =>{
+              if(result.isConfirmed){
+                this.router.navigateByUrl("/usuario");
+              }
+            })
+            
+          }
         }
+      );
+    }
 
-        if (error.status == 200) {
-          Swal.fire("Se registró el usuario correctamente.");
-          this.router.navigateByUrl("/dashboard");
-        }
-      }
-    );
+
+    
   }
 }
+ 

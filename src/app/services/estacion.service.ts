@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment'; 
 
-
-const baseUrl = 'https://localhost:7275/api/davis';
 
 
 
@@ -12,13 +11,16 @@ const baseUrl = 'https://localhost:7275/api/davis';
 })
 export class EstacionService {
 
+  urlServices: string= environment.urlService;
   constructor(private http: HttpClient) { }
 
   get(id: any) {
+    const baseUrl = `${this.urlServices}davis`;
     return this.http.get(`${baseUrl}/${id}`);
   }
 
   getAll() {
+    const baseUrl = `${this.urlServices}davis`;
     return this.http.get(`${baseUrl}/GetEstaciones`);
   }
 
