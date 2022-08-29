@@ -1,3 +1,4 @@
+import { DataDavisDt } from './../shared/models/DataDavis.interface';
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,9 +9,11 @@ import { AuthenticationService } from '../services/authentication.service';
 import * as Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/highcharts-more';
 import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
+import HighchartsColumn from 'highcharts/modules/drilldown';
 
 HighchartsMore(Highcharts);
 HighchartsSolidGauge(Highcharts);
+HighchartsColumn(Highcharts);
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -19,10 +22,15 @@ HighchartsSolidGauge(Highcharts);
 export class DashboardComponent implements OnInit {
  
  
+
+ DataDavisDt: any;
+
   public ngAfterViewInit(): void {
     this.createChartGauge();
-  
+    this.createChartPiramide();
   }
+
+
 
   private createChartGauge(): void {
     const chart = Highcharts.chart('chart-gauge', {
@@ -38,8 +46,8 @@ export class DashboardComponent implements OnInit {
       pane: {
         startAngle: -90,
         endAngle: 90,
-        center: ['50%', '85%'],
-        size: '160%',
+        center: ['50%', '35%'],
+        size: '100%',
         background: {
             innerRadius: '60%',
             outerRadius: '100%',
@@ -84,9 +92,232 @@ export class DashboardComponent implements OnInit {
  
   }
 
- 
+  private createChartPiramide(): void {
+    const chart = Highcharts.chart(
+      'chart-column' as any,
+      {
+        chart: {
+          type: 'column',
+        },
+        title: {
+          text: 'Column Chart',
+        },
+        credits: {
+          enabled: false,
+        },
+        legend: {
+          enabled: false,
+        },
+        xAxis: {
+          type: 'category'
+        },
+        yAxis: {
+          title: {
+            text: 'Total percent market share'
+          }
+      
+        },
+        tooltip: {
+          headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+          pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true,
+            }
+          },
+          series: {
+            borderWidth: 0,
+            dataLabels: {
+              enabled: true,
+              format: '{point.y:.1f}%'
+            }
+          }
+        },
+        series: [
+          {
+            name: "Browsers",
+            colorByPoint: true,
+            data: [
+              {
+                name: "Et_Day",
+                y: this.DataDavisDt.davis_current_observation.Et_Day ,
+                drilldown: "Chrome"
+              },
+              {
+                name: "Firefox",
+                y: 15.50,
+                drilldown: "Firefox"
+              },
+              {
+                name: "Internet Explorer",
+                y: 14,
+                drilldown: "Internet Explorer"
+              }
+            ]
+          }
+        ],
+        drilldown: {
+          breadcrumbs: {
+            position: {
+              align: 'right'
+            }
+          },
+          series: [
+            {
+              name: "Chrome",
+              id: "Chrome",
+              data: [
+                [
+                  "v65.0",
+                  0.1
+                ],
+                [
+                  "v64.0",
+                  1.3
+                ],
+                [
+                  "v63.0",
+                  53.02
+                ],
+                [
+                  "v62.0",
+                  1.4
+                ],
+                [
+                  "v61.0",
+                  0.88
+                ],
+                [
+                  "v60.0",
+                  0.56
+                ],
+                [
+                  "v59.0",
+                  0.45
+                ],
+                [
+                  "v58.0",
+                  0.49
+                ],
+                [
+                  "v57.0",
+                  0.32
+                ],
+                [
+                  "v56.0",
+                  0.29
+                ],
+                [
+                  "v55.0",
+                  0.79
+                ],
+                [
+                  "v54.0",
+                  0.18
+                ],
+                [
+                  "v51.0",
+                  0.13
+                ],
+                [
+                  "v49.0",
+                  2.16
+                ],
+                [
+                  "v48.0",
+                  0.13
+                ],
+                [
+                  "v47.0",
+                  0.11
+                ],
+                [
+                  "v43.0",
+                  0.17
+                ],
+                [
+                  "v29.0",
+                  0.26
+                ]
+              ]
+            },
+            {
+              name: "Firefox",
+              id: "Firefox",
+              data: [
+                [
+                  "v58.0",
+                  1.02
+                ],
+                [
+                  "v57.0",
+                  7.36
+                ],
+                [
+                  "v56.0",
+                  0.35
+                ],
+                [
+                  "v55.0",
+                  0.11
+                ],
+                [
+                  "v54.0",
+                  0.1
+                ],
+                [
+                  "v52.0",
+                  0.95
+                ],
+                [
+                  "v51.0",
+                  0.15
+                ],
+                [
+                  "v50.0",
+                  0.1
+                ],
+                [
+                  "v48.0",
+                  0.31
+                ],
+                [
+                  "v47.0",
+                  0.12
+                ]
+              ]
+            },
+            {
+              name: "Internet Explorer",
+              id: "Internet Explorer",
+              data: [
+                [
+                  "v11.0",
+                  6.2
+                ],
+                [
+                  "v10.0",
+                  0.29
+                ],
+                [
+                  "v9.0",
+                  0.27
+                ],
+                [
+                  "v8.0",
+                  0.47
+                ]
+              ]
+            }
+            
+          ]
+        }
+      } as any
+    );
 
-  
+  }
 
   
 
@@ -202,7 +433,6 @@ export class DashboardComponent implements OnInit {
 
 
     
-    
     this.ObtenerEstaciones();
     this.getEstacion(1);
     this.getRol();
@@ -227,6 +457,27 @@ export class DashboardComponent implements OnInit {
   
 
   }
+
+  changes(event:any){
+    console.log(event.target['value']);
+    var idEstacion = event.target['value'];
+    this.ObtenerHighcharts(idEstacion);
+    
+  }
+
+ObtenerHighcharts(idEstacion:any) {
+ 
+    this.estacionService.get(idEstacion).subscribe(
+      (data) => {
+        this.DataDavisDt = data;
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
 
   ObtenerEstaciones() {
     this.estacionService.getAll().subscribe(
@@ -274,7 +525,8 @@ export class DashboardComponent implements OnInit {
       .subscribe(
         data => {
           this.currentEstacion = data.empresa.estacion;
-          console.log(data);
+
+          this.ObtenerHighcharts(this.currentEstacion[0].id);
         },
         error => {
           console.log(error);
