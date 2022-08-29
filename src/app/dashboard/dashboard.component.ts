@@ -203,8 +203,9 @@ export class DashboardComponent implements OnInit {
 
     
     
-    this.ObtenerEstaciones();
+    
     this.getEstacion(1);
+    
     this.getRol();
    
     const user = {
@@ -267,14 +268,16 @@ export class DashboardComponent implements OnInit {
   getRol(){
     this.auth.getUsuarioPerfil()
   }
-
+  onChange(event:any){
+    console.log(event.target['value']);
+  }
   getEstacion(id: number) {
 
-    this.service.getUsuario(id)
+    this.service.getUsuario(3)
       .subscribe(
         data => {
           this.currentEstacion = data.empresa.estacion;
-          console.log(data);
+          console.log(this.currentEstacion[0].id)
         },
         error => {
           console.log(error);
