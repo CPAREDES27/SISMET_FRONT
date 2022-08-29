@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;

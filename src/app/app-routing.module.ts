@@ -9,6 +9,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 
+
 const routes: Routes = [
 
   {path:'',redirectTo:'/login',pathMatch:'full'},

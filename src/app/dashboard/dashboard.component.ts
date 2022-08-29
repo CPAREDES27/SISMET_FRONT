@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from 'src/app/shared/user.service';
 import { EstacionService } from 'src/app/services/estacion.service';
 import { AuthenticationService } from '../services/authentication.service';
-
+import * as Highcharts from 'highcharts';
 
 
 
@@ -14,6 +14,9 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+
+
 
   userDetails: any;
 
@@ -113,7 +116,14 @@ export class DashboardComponent implements OnInit {
     this.location = location
   }
 
+  
   ngOnInit() {
+
+
+  
+
+
+
 
     
     
@@ -214,4 +224,18 @@ export class DashboardComponent implements OnInit {
     return 'Dashboard';
   }
 
+
+
+
+
+
+
+
+
+
+
+ 
+
 }
+
+
