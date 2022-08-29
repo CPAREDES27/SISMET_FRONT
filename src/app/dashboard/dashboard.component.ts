@@ -4,19 +4,95 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from 'src/app/shared/user.service';
 import { EstacionService } from 'src/app/services/estacion.service';
 import { AuthenticationService } from '../services/authentication.service';
+
 import * as Highcharts from 'highcharts';
+import HighchartsMore from 'highcharts/highcharts-more';
+import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
 
-
-
+HighchartsMore(Highcharts);
+HighchartsSolidGauge(Highcharts);
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+ 
+ 
+  public ngAfterViewInit(): void {
+    this.createChartGauge();
+  
+  }
 
+  private createChartGauge(): void {
+    const chart = Highcharts.chart('chart-gauge', {
+      chart: {
+        type: 'solidgauge',
+      },
+      title: {
+        text: 'Gauge Chart',
+      },
+      credits: {
+        enabled: false,
+      },
+      pane: {
+        startAngle: -90,
+        endAngle: 90,
+        center: ['50%', '85%'],
+        size: '160%',
+        background: {
+            innerRadius: '60%',
+            outerRadius: '100%',
+            shape: 'arc',
+        },
+      },
+      yAxis: {
+        min: 0,
+        max: 100,
+        stops: [
+          [0.1, '#55BF3B'], // green
+          [0.5, '#DDDF0D'], // yellow
+          [0.9, '#DF5353'], // red
+        ],
+        minorTickInterval: null,
+        tickAmount: 2,
+        labels: {
+          y: 16,
+        },
+      },
+      plotOptions: {
+        solidgauge: {
+          dataLabels: {
+            y: -25,
+            borderWidth: 0,
+            useHTML: true,
+          },
+        },
+      },
+      tooltip: {
+        enabled: false,
+      },
+      series: [{
+        name: null,
+        data: [40],
+        dataLabels: {
+          format: '<div style="text-align: center"><span style="font-size: 1.25rem">{y}</span></div>',
+        },
+      }],
+    } as any);
 
+ 
+  }
 
+ 
+
+  
+
+  
+
+//example
+
+//example
 
   userDetails: any;
 

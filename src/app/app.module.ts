@@ -27,7 +27,6 @@ import { DetailsUserComponent } from './views/usuario/details-user/details-user.
 import { ListDatosComponent } from './views/datos/list-datos/list-datos.component';
 import { ViewMapComponent } from './views/mapa/view-map/view-map.component';
 import { RegisterUserComponent } from './views/usuario/register-user/register-user.component';
-import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -55,7 +54,6 @@ import { HighchartsChartModule } from 'highcharts-angular';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    HighchartsChartModule,
     ToastrModule.forRoot({
       progressBar: true
     }),
