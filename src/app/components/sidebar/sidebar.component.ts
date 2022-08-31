@@ -1,3 +1,4 @@
+import { navbarFooter } from './nav-footer';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
 import { navbarData } from './nav-data';
@@ -65,6 +66,7 @@ export class SidebarComponent implements OnInit {
   collapsed = false;
   screenWidth = 0;
   navData = navbarData;
+  navFooter = navbarFooter;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {

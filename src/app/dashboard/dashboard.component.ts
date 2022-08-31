@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
         type: 'solidgauge',
       },
       title: {
-        text: 'Gauge Chart',
+        text: 'Radiación Solar',
       },
       credits: {
         enabled: false,
@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
       pane: {
         startAngle: -90,
         endAngle: 90,
-        center: ['50%', '35%'],
+        center: ['50%', '55%'],
         size: '100%',
         background: {
             innerRadius: '60%',
@@ -79,9 +79,9 @@ export class DashboardComponent implements OnInit {
       },
       series: [{
         name: null,
-        data: [40],
+        data: [Number(this.DataDavisDt?.davis_current_observation.solar_radiation)],
         dataLabels: {
-          format: '<div style="text-align: center"><span style="font-size: 1.25rem">{y}</span></div>',
+          format: '<div style="text-align: center"><span style="font-size: 1.25rem">{y} </span><br><span>W/m²</span></div>',
         },
       }],
     } as any);
@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private createChartPiramide(): void {
-    debugger;
+    
     const chart = Highcharts.chart(
       'chart-column' as any,
       {
@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit {
           type: 'column',
         },
         title: {
-          text: 'Column Chart',
+          text: 'ET',
         },
         credits: {
           enabled: false,
@@ -111,13 +111,13 @@ export class DashboardComponent implements OnInit {
         },
         yAxis: {
           title: {
-            text: 'Total percent market share'
+            text: 'Total cantidades'
           }
       
         },
         tooltip: {
-          headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-          pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+          headerFormat: '<span style="font-size:11px"></span><br>',
+          pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> en Total<br/>'
         },
         plotOptions: {
           bar: {
@@ -129,7 +129,7 @@ export class DashboardComponent implements OnInit {
             borderWidth: 0,
             dataLabels: {
               enabled: true,
-              format: '{point.y:.1f}%'
+              format: '{point.y:.1f}'
             }
           }
         },
@@ -140,186 +140,275 @@ export class DashboardComponent implements OnInit {
             colorByPoint: true,
             data: [
               {
-                name: "Et_Day",
+                name: "Día",
+                y: Number(this.DataDavisDt?.davis_current_observation.et_day),
+                drilldown: "Día"
+              },
+              {
+                name: "Mes",
+                y: Number(this.DataDavisDt?.davis_current_observation.et_month),
+                drilldown: "Mes"
+              },
+              {
+                name: "Año",
                 y: Number(this.DataDavisDt?.davis_current_observation.et_year),
-                drilldown: "Chrome"
-              },
-              {
-                name: "Firefox",
-                y: 15.50,
-                drilldown: "Firefox"
-              },
-              {
-                name: "Internet Explorer",
-                y: 14,
-                drilldown: "Internet Explorer"
+                drilldown: "Año"
+              
               }
             ]
           }
         ],
-        drilldown: {
-          breadcrumbs: {
-            position: {
-              align: 'right'
-            }
-          },
-          series: [
-            {
-              name: "Chrome",
-              id: "Chrome",
-              data: [
-                [
-                  "v65.0",
-                  0.1
-                ],
-                [
-                  "v64.0",
-                  1.3
-                ],
-                [
-                  "v63.0",
-                  53.02
-                ],
-                [
-                  "v62.0",
-                  1.4
-                ],
-                [
-                  "v61.0",
-                  0.88
-                ],
-                [
-                  "v60.0",
-                  0.56
-                ],
-                [
-                  "v59.0",
-                  0.45
-                ],
-                [
-                  "v58.0",
-                  0.49
-                ],
-                [
-                  "v57.0",
-                  0.32
-                ],
-                [
-                  "v56.0",
-                  0.29
-                ],
-                [
-                  "v55.0",
-                  0.79
-                ],
-                [
-                  "v54.0",
-                  0.18
-                ],
-                [
-                  "v51.0",
-                  0.13
-                ],
-                [
-                  "v49.0",
-                  2.16
-                ],
-                [
-                  "v48.0",
-                  0.13
-                ],
-                [
-                  "v47.0",
-                  0.11
-                ],
-                [
-                  "v43.0",
-                  0.17
-                ],
-                [
-                  "v29.0",
-                  0.26
-                ]
-              ]
-            },
-            {
-              name: "Firefox",
-              id: "Firefox",
-              data: [
-                [
-                  "v58.0",
-                  1.02
-                ],
-                [
-                  "v57.0",
-                  7.36
-                ],
-                [
-                  "v56.0",
-                  0.35
-                ],
-                [
-                  "v55.0",
-                  0.11
-                ],
-                [
-                  "v54.0",
-                  0.1
-                ],
-                [
-                  "v52.0",
-                  0.95
-                ],
-                [
-                  "v51.0",
-                  0.15
-                ],
-                [
-                  "v50.0",
-                  0.1
-                ],
-                [
-                  "v48.0",
-                  0.31
-                ],
-                [
-                  "v47.0",
-                  0.12
-                ]
-              ]
-            },
-            {
-              name: "Internet Explorer",
-              id: "Internet Explorer",
-              data: [
-                [
-                  "v11.0",
-                  6.2
-                ],
-                [
-                  "v10.0",
-                  0.29
-                ],
-                [
-                  "v9.0",
-                  0.27
-                ],
-                [
-                  "v8.0",
-                  0.47
-                ]
-              ]
-            }
-            
-          ]
-        }
+        
+      
+          
       } as any
     );
 
   }
 
-  
+  private createChartPiramideRain(): void {
+    
+    const chart = Highcharts.chart(
+      'chart-columnRain' as any,
+      {
+        chart: {
+          type: 'column',
+        },
+        title: {
+          text: 'Lluvia',
+        },
+        credits: {
+          enabled: false,
+        },
+        legend: {
+          enabled: false,
+        },
+        xAxis: {
+          type: 'category'
+        },
+        yAxis: {
+          title: {
+            text: 'Total cantidades'
+          }
+      
+        },
+        tooltip: {
+          headerFormat: '<span style="font-size:11px"></span><br>',
+          pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> en Total<br/>'
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true,
+            }
+          },
+          series: {
+            borderWidth: 0,
+            dataLabels: {
+              enabled: true,
+              format: '{point.y:.1f}'
+            }
+          }
+        },
+        
+        series: [
+          {
+            name: "Browsers",
+            colorByPoint: true,
+            data: [
+              {
+                name: "Día",
+                y: Number(this.DataDavisDt?.davis_current_observation.rain_day_in),
+                drilldown: "Día"
+              },
+              {
+                name: "Mes",
+                y: Number(this.DataDavisDt?.davis_current_observation.rain_month_in),
+                drilldown: "Mes"
+              },
+              {
+                name: "Año",
+                y: Number(this.DataDavisDt?.davis_current_observation.rain_year_in),
+                drilldown: "Año"
+              }
+            ]
+          }
+        ],
+        
+            
+          
+      } as any
+    );
 
+  }
+
+
+  private createChartTemperatura(): void {
+    
+    const chart = Highcharts.chart(
+      'chart-Temperatura' as any,
+      {
+        chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Temperatura del día'
+      },
+      xAxis: {
+          categories: ['Hoy']
+      },
+      yAxis: {
+          title: {
+              text: 'Temperatura °C'
+          }
+      },
+      tooltip: {
+        headerFormat: '<span style="font-size:11px"></span><br>',
+        pointFormat: '<span style="color:{point.color}"><b>{series.name}</b></span>: <b>{point.y:.2f}</b> a las <b>{point.name}</b><br/>'
+      },
+      credits: {
+          enabled: false
+      },
+      series: [{
+          name: 'Temp. Alta',
+          
+          data: [{
+            name: this.DataDavisDt?.davis_current_observation.temp_day_high_time,
+            y: Number(this.DataDavisDt?.davis_current_observation.temp_day_high_f)
+          }],
+          fecha: this.DataDavisDt?.davis_current_observation.temp_day_high_time
+      }, {
+          name: 'Temp. Baja',
+          data: [{
+            name: this.DataDavisDt?.davis_current_observation.temp_day_low_time,
+            y: Number(this.DataDavisDt?.davis_current_observation.temp_day_low_f)
+          }],
+          fecha: this.DataDavisDt?.davis_current_observation.temp_day_low_time
+      }]
+      } as any
+    );
+
+  }
+
+  private createChartGaugeUvIndex(): void {
+    const chart = Highcharts.chart('chart-gaugeUv', {
+      chart: {
+        type: 'solidgauge',
+      },
+      title: {
+        text: 'UV',
+      },
+      credits: {
+        enabled: false,
+      },
+      pane: {
+        startAngle: -90,
+        endAngle: 90,
+        center: ['50%', '55%'],
+        size: '100%',
+        background: {
+            innerRadius: '60%',
+            outerRadius: '100%',
+            shape: 'arc',
+        },
+      },
+      yAxis: {
+        min: 0,
+        max: 100,
+        stops: [
+          [0.1, '#55BF3B'], // green
+          [0.5, '#DDDF0D'], // yellow
+          [0.9, '#DF5353'], // red
+        ],
+        minorTickInterval: null,
+        tickAmount: 2,
+        labels: {
+          y: 16,
+        },
+      },
+      plotOptions: {
+        solidgauge: {
+          dataLabels: {
+            y: -25,
+            borderWidth: 0,
+            useHTML: true,
+          },
+        },
+      },
+      tooltip: {
+        enabled: false,
+      },
+      series: [{
+        name: null,
+        data: [Number(this.DataDavisDt?.davis_current_observation.uv_index)],
+        dataLabels: {
+          format: '<div style="text-align: center"><span style="font-size: 1.25rem">{y}</span><br><span>índice</span></div>',
+        },
+      }],
+    } as any);
+
+ 
+  }
+
+  private createChartGaugeHumedad(): void {
+    const chart = Highcharts.chart('chart-gaugeHumedad', {
+      chart: {
+        type: 'solidgauge',
+      },
+      title: {
+        text: 'Humedad',
+      },
+      credits: {
+        enabled: false,
+      },
+      pane: {
+        startAngle: -90,
+        endAngle: 90,
+        center: ['50%', '55%'],
+        size: '100%',
+        background: {
+            innerRadius: '60%',
+            outerRadius: '100%',
+            shape: 'arc',
+        },
+      },
+      yAxis: {
+        min: 0,
+        max: 100,
+        stops: [
+          [0.1, '#55BF3B'], // green
+          [0.5, '#DDDF0D'], // yellow
+          [0.9, '#DF5353'], // red
+        ],
+        minorTickInterval: null,
+        tickAmount: 2,
+        labels: {
+          y: 16,
+        },
+      },
+      plotOptions: {
+        solidgauge: {
+          dataLabels: {
+            y: -25,
+            borderWidth: 0,
+            useHTML: true,
+          },
+        },
+      },
+      tooltip: {
+        enabled: false,
+      },
+      series: [{
+        name: null,
+        data: [Number(this.DataDavisDt?.relative_humidity)],
+        dataLabels: {
+          format: '<div style="text-align: center"><span style="font-size: 1.25rem">{y} %</span></div>',
+        },
+      }],
+    } as any);
+
+ 
+  }
 //example
 
 //example
@@ -451,6 +540,7 @@ export class DashboardComponent implements OnInit {
     console.log(event.target['value']);
     var idEstacion = event.target['value'];
     this.ObtenerHighcharts(idEstacion);
+   
     
   }
   ngAfterViewInit(){
@@ -463,9 +553,13 @@ export class DashboardComponent implements OnInit {
       (data) => {
         
         this.DataDavisDt = data;
+        this.createChartGauge();
         this.createChartPiramide();
-        
-         
+        this.createChartPiramideRain();
+        this.createChartTemperatura();
+        this.createChartGaugeUvIndex();
+        this.createChartGaugeHumedad();
+
         console.log(this.DataDavisDt);
       },
       (error) => {
@@ -526,7 +620,7 @@ export class DashboardComponent implements OnInit {
         data => {
           this.currentEstacion = data.empresa.estacion;
           this.ObtenerHighcharts(this.currentEstacion[0].id)
-          debugger;
+         
           
         },
         error => {
