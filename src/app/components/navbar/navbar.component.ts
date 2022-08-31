@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
         let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       let authToken = localStorage.getItem('token');
-      console.log(headers.append('Authorization', `Bearer ${authToken}`));
+      
 
         this.userDetails = res;
       },

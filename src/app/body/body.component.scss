@@ -22,6 +22,9 @@
 @media (max-width: 600px) {
     .body {
       margin-left: 5rem;
+      z-index: 0;
+      top: 0;
+    height: 100vh;
       background-size: cover; width: calc(100%);
       padding: 3rem;
       margin-left: 2rem;

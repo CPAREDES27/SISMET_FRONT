@@ -24,6 +24,8 @@ export class EstacionComponent implements OnInit {
         data => {
           this.data = data.empresa.estacion;
           this.valor=data.empresa.estacion[0].id;
+          
+          this.service.setDataEstacion(this.data);
         },
         error => {
           console.log(error);
