@@ -10,6 +10,15 @@ import { Root } from "./models/administrador.interface";
 export class UsersService {
   constructor(private http: HttpClient, private cookies: CookieService) {}
 
+  private dataEstacion:any;
+
+  setDataEstacion(data:any){
+    this.dataEstacion=data;
+    console.log(this.dataEstacion);
+  }
+  get getDataEstacion(){
+   return this.dataEstacion;
+  }
   login(user: any): Observable<any> {
     return this.http.post("https://localhost:7275/api/Seguridad/login", user);
   }
