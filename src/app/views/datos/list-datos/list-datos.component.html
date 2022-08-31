@@ -17,34 +17,44 @@
         </a>
 
         <select
-        style="font-weight: bolder; color:#083e5e
-        ; width: 27%; margin-left: 0.75em;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
-          matNativeControl
-          required
-          class="form-control form-control-alternative"
-          id="estacion"
-          required
-          name="estacion"
-        >
-          <option>FUNDO SAN ANTONIO-NAZCA</option>
-          <option>FUNDO CHIQUERILLO-PALPA</option>
-          <option>FUNDO SAN FERMÍN-PALPA</option>
-        </select>
+        
+              style="font-weight: bolder; color:#083e5e
+              ; width: 27%; margin-left: 0.75em;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
+              matNativeControl
+              required
+              class="form-control form-control-alternative"
+              (change)="onChange($event)"
+             
 
-        <select
-        style="font-weight: bolder; color:#083e5e
-        ; width: 27%; margin-left: 0.75em;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
-          matNativeControl
-          required
-          class="form-control form-control-alternative"
-          id="estacion"
-          required
-          name="estacion"
-        >
-          <option>FUNDO CHIQUERILLO-PALPA</option>
+            >
+              <option
+                *ngFor="let stations of currentEstacion"
+                value="{{ stations.id }}"
+                
+              >
+                {{ stations.nombreEstacion }}
+              </option>
+            </select>
 
-          <option>FUNDO SAN FERMÍN-PALPA</option>
-        </select>
+            <select
+        
+            style="font-weight: bolder; color:#083e5e
+            ; width: 27%; margin-left: 0.75em;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
+            matNativeControl
+            required
+            class="form-control form-control-alternative"
+            (change)="onChange($event)"
+          
+
+          >
+            <option
+              *ngFor="let stations of currentEstacion"
+              value="{{ stations.id }}"
+              
+            >
+              {{ stations.nombreEstacion }}
+            </option>
+          </select>
       </div>
     </div>
 
@@ -62,9 +72,11 @@
             ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
               type="date"
               class="form-control form-control-alternative"
-              id="fecha_vencimiento"
+              id="fechainicio"
               required
-              name="fecha_vencimiento"
+              name="fechainicio"
+              [value]="DateInicio"
+              
             />
             
           </div>
@@ -78,9 +90,11 @@
             ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
               type="time"
               class="form-control form-control-alternative"
-              id="fecha_vencimiento"
+              id="horainicio"
               required
-              name="fecha_vencimiento"
+              name="horainicio"
+              [value]="Tiempo"
+            
             />
             
           </div>
@@ -94,9 +108,11 @@
             ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
               type="date"
               class="form-control form-control-alternative"
-              id="fecha_vencimiento"
+              id="fechafin"
               required
-              name="fecha_vencimiento"
+              name="fechafin"    
+              [value]="DateFin"
+           
             />
             
           </div>
@@ -110,9 +126,11 @@
             ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
               type="time"
               class="form-control form-control-alternative"
-              id="fecha_vencimiento"
+              id="horafin"
               required
-              name="fecha_vencimiento"
+              name="horafin"
+              [value]="Tiempo"
+             
             />
           </div>
 
@@ -129,75 +147,88 @@
       </a>
 
        
-
-
-        <div class="table-responsive">
+      <br />
+          
+              <!-- <div class="card-header border-0"> -->
+                <mat-tab-group>
+                  <mat-tab label="Primera Estación">  
+                    <div class="table-responsive">
          
 
-          <!-- Projects table -->
-          <table
-            class="table align-items-center table-flush"
-            style="font-size: 10px"
-          >
-
-          <thead class="thead-light" style="background-color: #018A6F;">
-            <tr>
-              <th scope="col" style="background-color: #018A6F;"></th>
-              <th scope="col" style="background-color: #018A6F;"></th>
-              <th scope="col" style="background-color: #018A6F;"></th>
-              <th scope="col" style="background-color: #018A6F; color: floralwhite;" >Estacion Actual</th>
-              <th scope="col" style="background-color: #018A6F;"></th>
-              <th scope="col" style="background-color: #018A6F;"></th>
-              <th scope="col" style="background-color: #018A6F;"></th>
-            </tr>
-
+                      <!-- Projects table -->
+                      <table
+                        class="table align-items-center table-flush"
+                        style="font-size: 10px"
+                      >
+            
+                      <thead class="thead-light" style="background-color: #018A6F;">
+                        <tr>
+                          <th scope="col" style="background-color: #018A6F;"></th>
+                          <th scope="col" style="background-color: #018A6F;"></th>
+                          <th scope="col" style="background-color: #018A6F;"></th>
+                          <th scope="col" style="background-color: #018A6F; color: floralwhite;" >Estacion Actual</th>
+                          <th scope="col" style="background-color: #018A6F;"></th>
+                          <th scope="col" style="background-color: #018A6F;"></th>
+                          <th scope="col" style="background-color: #018A6F;"></th>
+                        </tr>
+            
+                    
+                      </thead>
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col" style="font-size: 12px">Barometro</th>
+                            <th scope="col" style="font-size: 12px">Temp. C°</th>
+                            <th scope="col" style="font-size: 12px">Temp. Alta C°</th>
+                            <th scope="col" style="font-size: 12px">Temp. Baja C°</th>
+                            <th scope="col" style="font-size: 12px">Hum %</th>
+                            <th scope="col" style="font-size: 12px"> Tasa de Lluvia</th>
+                            <th scope="col" style="font-size: 12px">índice UV</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <label></label>
+                            </td>
+            
+                            <td>
+                              <label></label>
+                            </td>
+            
+                            <td>
+                              <label></label>
+                            </td>
+            
+                            <td>
+                              <label></label>
+                            </td>
+            
+                            <td>
+                              <label></label>
+                            </td>
+            
+                            <td>
+                              <label
+                                class="badge"
+                                style="color: honeydew; font-size: 10px"
+                              ></label>
+                            </td>
+            
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </mat-tab>
+                  <mat-tab label="Segunda Estación"> Content 2 </mat-tab>
+                 
+                </mat-tab-group>
+              <!-- </div> -->
+ 
         
-          </thead>
-            <thead class="thead-light">
-              <tr>
-                <th scope="col" style="font-size: 12px">Barometro</th>
-                <th scope="col" style="font-size: 12px">Temp. C°</th>
-                <th scope="col" style="font-size: 12px">Temp. Alta C°</th>
-                <th scope="col" style="font-size: 12px">Temp. Baja C°</th>
-                <th scope="col" style="font-size: 12px">Hum %</th>
-                <th scope="col" style="font-size: 12px"> Tasa de Lluvia</th>
-                <th scope="col" style="font-size: 12px">índice UV</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <label></label>
-                </td>
 
-                <td>
-                  <label></label>
-                </td>
 
-                <td>
-                  <label></label>
-                </td>
 
-                <td>
-                  <label></label>
-                </td>
-
-                <td>
-                  <label></label>
-                </td>
-
-                <td>
-                  <label
-                    class="badge"
-                    style="color: honeydew; font-size: 10px"
-                  ></label>
-                </td>
-
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
   </div>

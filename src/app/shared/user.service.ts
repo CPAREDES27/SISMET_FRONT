@@ -5,7 +5,7 @@ import { CookieService } from "ngx-cookie-service";
 import { Root } from "./models/administrador.interface";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root" 
 })
 export class UsersService {
   constructor(private http: HttpClient, private cookies: CookieService) {}
