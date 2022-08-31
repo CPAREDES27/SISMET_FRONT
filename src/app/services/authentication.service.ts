@@ -5,10 +5,7 @@ import { environment } from 'src/environments/environment';
 
 
 
-
 const baseUrl = 'Empresa';
-
-
 
 
 @Injectable({
@@ -18,16 +15,20 @@ export class AuthenticationService {
 
   urlServices: string= environment.urlService;
   private rol:string="";
-  
+ 
 
+  
   constructor(private http: HttpClient) { }
 
   getUsuarioPerfil() {
     
     var token = localStorage.getItem('token');
     if(token != null)
-    this.rol=jwtDecode(token)
-    console.log(this.rol)
+    this.rol=jwtDecode(token);
+
+
+    console.log(this.rol);
+
   }
 
 

@@ -6,6 +6,7 @@ import { UsersService } from 'src/app/shared/user.service';
 import { EstacionService } from 'src/app/services/estacion.service';
 import { AuthenticationService } from '../services/authentication.service';
 
+import { JwtDecodeOptions } from 'jwt-decode';
 import * as Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/highcharts-more';
 import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
@@ -615,7 +616,7 @@ export class DashboardComponent implements OnInit {
   }
    getEstacion(id: number) {
 
-    this.service.getUsuario(3)
+    this.service.getUsuario(1)
       .subscribe(
         data => {
           this.currentEstacion = data.empresa.estacion;

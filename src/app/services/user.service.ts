@@ -26,34 +26,7 @@ export class UserService {
    
   }
 
-  //  Login User with Email and Password
-
-  /*
-  loginUser(email: string, password: string) {
-
-    this.httpClient.post<ResponseModel>(`${this.SERVER_URL}auth/login`, {email, password})
-      .pipe(catchError((err: HttpErrorResponse) => of(err.error.message)))
-      .subscribe((data: ResponseModel) => {
-        if (typeof (data) === 'string') {
-          this.loginMessage$.next(data);
-        } else {
-          this.auth = data.auth;
-          this.userRole = data.idroles;
-          this.authState$.next(this.auth);
-          this.userData$.next(data);
-
-          // This code will check and redirect the user to the admin route, assuming it to be http://localhost:4200/admin
-          // Change the url to match the route in your code
-          console.log(this.userRole);
-          if (this.userRole === 777) {
-            this.router.navigateByUrl('admin').then();
-          }
-        }
-      });
-
-  }*/
-
-//  Google Authentication
+  
 
 
 
