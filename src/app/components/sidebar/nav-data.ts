@@ -1,8 +1,8 @@
 export const navbarData = [
     {
         routeLink: 'dashboard',
-        icon: 'fal fa-file',
-        label: 'Bulletín'
+        icon: 'fas fa-file-alt',
+        label: 'Boletín'
     },
     {
         routeLink: 'datos',
@@ -24,12 +24,6 @@ export const navbarData = [
         icon: 'fas fa-user',
         label: 'Usuarios'
     },
-    {
-        routeLink: 'pages',
-        icon: 'fas fa-question',
-        label: '¿Que hay de nuevo?'
-    },
+    
    
-   
-
 ];
