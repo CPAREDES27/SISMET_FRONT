@@ -1,0 +1,29 @@
+<mat-card>
+  <div class="row">
+    <div class="col">
+      <h3 class="mb-0">Estaciones</h3>
+    </div>
+    <div class="col" >
+      <div style="float:right">
+        <select
+          style="font-weight: bolder; color:#083e5e
+          ;width: 100%; margin-left: 0.75em;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
+          matNativeControl
+          required
+          class="form-control resize"
+          (change) = "changes($event)"
+          required
+        >
+      <option
+        *ngFor="let stations of data"
+        value="{{ stations.id }}"
+        
+      >
+        {{ stations.nombreEstacion }}
+      </option>
+    </select>
+      </div>
+       
+    </div>
+  </div>
+</mat-card>

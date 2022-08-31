@@ -15,6 +15,11 @@ export const navbarData = [
         label: 'Mapas'
     },
     {
+        routeLink: 'calculos',
+        icon: 'fas fa-map',
+        label: 'Cálculos'
+    },
+    {
         routeLink: 'usuario',
         icon: 'fas fa-user',
         label: 'Usuarios'

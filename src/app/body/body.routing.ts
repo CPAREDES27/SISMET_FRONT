@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { CalculosComponent } from '../Calculos/calculos.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { ListDatosComponent } from '../views/datos/list-datos/list-datos.component';
 import { ViewMapComponent } from '../views/mapa/view-map/view-map.component';
@@ -12,6 +13,7 @@ export const BodyRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent},
     { path: 'datos',      component: ListDatosComponent},
     { path: 'mapa',      component: ViewMapComponent},
+    { path: 'calculos',      component: CalculosComponent},
 
     //Edicion Usuarios
     { path: 'usuario',      component: ListUserComponent},

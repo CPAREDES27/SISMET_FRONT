@@ -90,7 +90,6 @@ export class DashboardComponent implements OnInit {
   }
 
   private createChartPiramide(): void {
-    debugger;
     const chart = Highcharts.chart(
       'chart-column' as any,
       {
@@ -526,8 +525,6 @@ export class DashboardComponent implements OnInit {
         data => {
           this.currentEstacion = data.empresa.estacion;
           this.ObtenerHighcharts(this.currentEstacion[0].id)
-          debugger;
-          
         },
         error => {
           console.log(error);

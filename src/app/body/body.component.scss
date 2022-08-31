@@ -19,3 +19,11 @@
     width: calc(100% - 5rem);
     margin-left: 5rem;
 }
+@media (max-width: 600px) {
+    .body {
+      margin-left: 5rem;
+      background-size: cover; width: calc(100%);
+      padding: 3rem;
+      margin-left: 2rem;
+    }
+}

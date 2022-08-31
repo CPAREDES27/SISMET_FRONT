@@ -27,12 +27,18 @@ import { DetailsUserComponent } from './views/usuario/details-user/details-user.
 import { ListDatosComponent } from './views/datos/list-datos/list-datos.component';
 import { ViewMapComponent } from './views/mapa/view-map/view-map.component';
 import { RegisterUserComponent } from './views/usuario/register-user/register-user.component';
-
+import { CalculosComponent } from './Calculos/calculos.component';
+import { EstacionComponent } from './estacion/estacion.component';
+import { MatSliderModule } from '@angular/material/slider';;
+import {MatNativeDateModule} from '@angular/material/core';
+import { MatCardModule } from "@angular/material/card";
+import { MatButtonModule } from "@angular/material/button";
+import {MatSelectModule} from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 @NgModule({
   declarations: [
     AppComponent,
     SidenavComponent,
-
     SidebarComponent,
     AuthLayoutComponent,
     FooterComponent,
@@ -44,15 +50,23 @@ import { RegisterUserComponent } from './views/usuario/register-user/register-us
     DetailsUserComponent,
     ListDatosComponent,
     ViewMapComponent,
-    RegisterUserComponent
+    RegisterUserComponent,
+    CalculosComponent,
+    EstacionComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    MatSelectModule,
+    MatCardModule,
+    MatTabsModule,
+    MatButtonModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MatSliderModule,
+    MatNativeDateModule,
     NgbModule,
     ToastrModule.forRoot({
       progressBar: true
