@@ -97,27 +97,44 @@ export class ListDatosComponent implements OnInit {
     );
   }
   
-  changes(event:any){
-    console.log(event);
-    var idEstacion = event.target['value'];
+  // changes(event:any){
+  //   console.log(event.target['value']);
+  //   var idEstacion = event.target['value'];
         
-  }
+  // }
   
   onChange(event:any){
     
     this.IdPrimeraEstacion=event.target['value'];
 
-    console.log(event);
-     this.Datoservice.postDavis
+    console.log(event.target['value']);
+    
   }
 
   Onchange2(event:any){
     this.IdSegundaEstacion=event.target['value'];
-    
+    console.log(event.target['value']);
   }
 
   consultarInformacion(){
 
+    const filtro = {
+      idSegundoEstacion: this.IdSegundaEstacion,
+      idPrimeraEstacion: this.IdPrimeraEstacion,
+      fechaInicio: this.FechaInicio,
+      fechaFin: this.FechaFin,
+      horaInicio: this.HoraInicio,
+      horaFin: this.HoraFin
+    };
+
+    console.log(this.IdPrimeraEstacion);
+    console.log(this.IdSegundaEstacion);
+    let response = this.Datoservice.postDavis(filtro).subscribe((data) => {
+    
+      console.log(data);
+    });
+
+    // console.log(response);
   }
 
   getEstacion(id: number) {
