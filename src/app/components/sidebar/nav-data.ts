@@ -16,7 +16,7 @@ export const navbarData = [
     },
     {
         routeLink: 'calculos',
-        icon: 'fas fa-map',
+        icon: 'fa-duotone fa-calculator-simple',
         label: 'Cálculos'
     },
     {

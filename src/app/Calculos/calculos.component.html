@@ -94,7 +94,63 @@
                      
 
                   </mat-tab>
-                  <mat-tab label="Horas de radiación solar"> Horas de radiación solar </mat-tab>
+                  <mat-tab label="Horas de radiación solar"> 
+
+                    <br>
+                    <div class="col row" style="padding-left: 30px;">
+
+                  
+                    <div class="form-group" style="margin-right: 0.75em">
+                      <label class="form-control-label" for="fecha_vencimiento"
+                        >Fecha Inicio</label
+                      >
+                      <input
+                      style="font-weight: bolder; color:#083e5e
+                      ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
+                        type="date"
+                        class="form-control form-control-alternative"
+                        id="fecha_vencimiento"
+                        required
+                       [(ngModel)]="today"
+                        name="fecha_vencimiento"
+                      />
+             
+                    </div>
+          
+                    <div class="form-group" style="margin-right: 0.75em">
+                      <label class="form-control-label" for="fecha_vencimiento"
+                        >Fecha Fin</label
+                      >
+                      <input
+                      style="font-weight: bolder; color:#083e5e
+                      ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
+                        type="date"
+                        class="form-control form-control-alternative"
+                        id="fecha_vencimiento"
+                        required
+                        [(ngModel)]="todayF"
+                        name="fecha_vencimiento"
+                      />
+                      
+                    </div>
+
+
+                    <div class="form-group" style="margin-right: 0.75em">
+                      
+                      <a (click)="radiacionSolar()"
+                      style="background-color: #083e5e; margin-top: 27px;margin-right: 0.80em"
+                      class="btn btn-icon"
+                    >
+                      <i style="color: #fff"  ></i> 
+                      <span style="color: rgb(255, 255, 255)" >Calcular</span>
+                    </a>
+                      
+                    </div>
+                  
+                  </div>
+
+
+                  </mat-tab>
                   <mat-tab label="Inducción floral"> Inducción floral </mat-tab>
                 </mat-tab-group>
               </div>

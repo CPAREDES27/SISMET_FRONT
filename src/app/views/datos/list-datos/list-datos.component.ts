@@ -23,7 +23,6 @@ export class ListDatosComponent implements OnInit {
   HoraInicio: string | undefined;
   HoraFin: string | undefined;
 
-
   currentEstacion: any;
   date1= new Date();
   
@@ -105,10 +104,7 @@ export class ListDatosComponent implements OnInit {
   
   onChange(event:any){
     
-    this.IdPrimeraEstacion=event.target['value'];
-
-    console.log(event);
-     this.Datoservice.postDavis
+    
   }
 
   Onchange2(event:any){

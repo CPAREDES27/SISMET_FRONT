@@ -33,7 +33,10 @@ export class EstacionService {
   }
 
 
- 
+  getRadiacionSolar(id:number,fechaI:string,fechaF:string):Observable<Calculo>{
+    const baseUrl = `${this.urlServices}davis/RadiacionSolar`;
+    return this.http.get<Calculo>(`${baseUrl}/${id}/${fechaI}/${fechaF}`);
+  }
 
 
 }
