@@ -26,6 +26,8 @@ export class ListDatosComponent implements OnInit {
   currentEstacion: any;
   date1= new Date();
   
+  HoraInicioFin:any;
+  HoraFinFin:any;
 
   currentYear= this.date1.getUTCFullYear();
   currentMonth = this.date1.getUTCMonth()+1;
@@ -97,23 +99,57 @@ export class ListDatosComponent implements OnInit {
   }
   
   changes(event:any){
-    console.log(event);
+    console.log(event.target['value']);
     var idEstacion = event.target['value'];
         
   }
   
   onChange(event:any){
     
-    
+    console.log(event.target['value']);
+    this.IdPrimeraEstacion= event.target['value']
   }
 
   Onchange2(event:any){
     this.IdSegundaEstacion=event.target['value'];
-    
+    console.log(event.target['value']);
   }
-
+  OnFechaInicio(event:any){
+    this.FechaInicio = event.target['value'];
+    console.log(event.target['value']);
+  }
+  OnFechaFin(event:any){
+    this.FechaFin= event.target['value'];
+    console.log(event.target['value']);
+  }
+  OnHoraInicio(event:any){
+    this.HoraInicio = event.target['value'];
+    this.HoraInicioFin= this.HoraInicio+":00";
+    console.log(this.HoraInicioFin);
+  }
+  OnHoraFin(event:any){
+    this.HoraFin = event.target['value'];
+    this.HoraFinFin = this.HoraFin+":00";
+    console.log(this.HoraFinFin);
+  }
   consultarInformacion(){
+    const Filtros = {
+      idPrimeraEstacion: Number(this.IdPrimeraEstacion),
+      idSegundaEstacion: Number(this.IdSegundaEstacion),
+      fechaInicio: this.FechaInicio,
+      fechaFin: this.FechaFin,
+      horaInicio: this.HoraInicioFin,
+      horaFin: this.HoraFinFin
+    };
 
+    this.Datoservice.postDavis(Filtros).subscribe(
+      (data) => {
+     
+      console.log(data);
+    },
+    (error) => {
+      console.log(error);
+    });
   }
 
   getEstacion(id: number) {
