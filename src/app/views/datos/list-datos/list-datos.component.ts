@@ -15,7 +15,8 @@ export class ListDatosComponent implements OnInit {
 
   constructor(private service: UsersService,private Datoservice: DatosService) { }
 
-
+  estacionOne:any;
+  estacionTwo:any;
   IdSegundaEstacion: string | undefined;
   IdPrimeraEstacion: string | undefined;
   FechaInicio: string | undefined;
@@ -63,7 +64,7 @@ export class ListDatosComponent implements OnInit {
     }
 
     this.Tiempo = this.Hora + ":" + this.Minuto ;
-
+    
 
     if(this.currentMonth<10)
     { 
@@ -81,7 +82,10 @@ export class ListDatosComponent implements OnInit {
 
     this.DateInicio = this.currentYear+"-"+this.FinalMonth+"-01";
     this.DateFin = this.currentYear+"-"+this.FinalMonth+"-"+this.FinalDay;
-
+    this.FechaInicio=this.DateInicio;
+    this.FechaFin=this.DateFin;
+    this.HoraInicio=this.Tiempo;
+    this.HoraFin=this.Tiempo;
     this.getEstacion(1);
     this.service.getUsuario(1).subscribe(
       res => {
@@ -124,12 +128,12 @@ export class ListDatosComponent implements OnInit {
   }
   OnHoraInicio(event:any){
     this.HoraInicio = event.target['value'];
-    this.HoraInicioFin= this.HoraInicio+":00";
+    this.HoraInicio= this.HoraInicio+":00";
     console.log(this.HoraInicioFin);
   }
   OnHoraFin(event:any){
     this.HoraFin = event.target['value'];
-    this.HoraFinFin = this.HoraFin+":00";
+    this.HoraFin = this.HoraFin+":00";
     console.log(this.HoraFinFin);
   }
   consultarInformacion(){
@@ -138,14 +142,16 @@ export class ListDatosComponent implements OnInit {
       idSegundaEstacion: Number(this.IdSegundaEstacion),
       fechaInicio: this.FechaInicio,
       fechaFin: this.FechaFin,
-      horaInicio: this.HoraInicioFin,
-      horaFin: this.HoraFinFin
+      horaInicio: this.HoraInicio,
+      horaFin: this.HoraFin
     };
 
     this.Datoservice.postDavis(Filtros).subscribe(
       (data) => {
-     
-      console.log(data);
+     //Aqui rata arreglo de estaciones
+        this.estacionOne=data.estacion;
+        this.estacionTwo=data.secondEstacion;
+       
     },
     (error) => {
       console.log(error);
@@ -158,7 +164,8 @@ export class ListDatosComponent implements OnInit {
       .subscribe(
         data => {
           this.currentEstacion = data.empresa.estacion;
-         
+          this.IdPrimeraEstacion=String(data.empresa.estacion[0].id);
+          this.IdSegundaEstacion=String(data.empresa.estacion[0].id);
         },
         error => {
           console.log(error);

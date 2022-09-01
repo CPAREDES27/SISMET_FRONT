@@ -41,7 +41,13 @@ $sidenav-theme: mat.define-light-theme((
     padding: 0;
     box-sizing: border-box;
 }
-
+thead, tbody { display: block; }
+//erikrata
+tbody {
+    height: 350px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
 body {
     position: relative;
     /*font-family: 'Roboto', sans-serif;*/

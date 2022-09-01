@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment'; 
+import { Observable } from 'rxjs';
+import { Estaciones } from '../shared/models/estacion.interface';
 
 
 @Injectable({
@@ -10,13 +12,9 @@ import { environment } from 'src/environments/environment';
     urlServices: string= environment.urlService;
     constructor(private http: HttpClient) { }
   
-    postDavis(data:any) {
+    postDavis(data:any):Observable<Estaciones>{
       const baseUrl = `${this.urlServices}Davis`;
-      return this.http.post(baseUrl,data);
+      return this.http.post<Estaciones>(baseUrl,data);
     }
-  
-  
-   
-  
   
   }

@@ -201,36 +201,12 @@
                           <th scope="col" style="font-size: 12px">índice UV</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            <label></label>
-                          </td>
-          
-                          <td>
-                            <label></label>
-                          </td>
-          
-                          <td>
-                            <label></label>
-                          </td>
-          
-                          <td>
-                            <label></label>
-                          </td>
-          
-                          <td>
-                            <label></label>
-                          </td>
-          
-                          <td>
-                            <label
-                              class="badge"
-                              style="color: honeydew; font-size: 10px"
-                            ></label>
-                          </td>
-          
-                          <td></td>
+                      <tbody >
+                        <tr *ngFor="let data of estacionOne">
+                          <td>{{data.temp_c}}</td>
+                          <td>{{data.temp_c}}</td>
+                          <td>{{data.temp_c}}</td>
+                          <td>{{data.temp_c}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -272,35 +248,10 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>
-                            <label></label>
-                          </td>
-          
-                          <td>
-                            <label></label>
-                          </td>
-          
-                          <td>
-                            <label></label>
-                          </td>
-          
-                          <td>
-                            <label></label>
-                          </td>
-          
-                          <td>
-                            <label></label>
-                          </td>
-          
-                          <td>
-                            <label
-                              class="badge"
-                              style="color: honeydew; font-size: 10px"
-                            ></label>
-                          </td>
-          
-                          <td></td>
+                        <tr *ngFor="let dataSecond of estacionTwo">
+                          <td>{{dataSecond.temp_c}}</td>
+                          <td>{{dataSecond.temp_c}}</td>
+                          <td>{{dataSecond.temp_c}}</td>
                         </tr>
                       </tbody>
                     </table>
