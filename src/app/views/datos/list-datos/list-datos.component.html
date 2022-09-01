@@ -177,36 +177,60 @@
                       style="font-size: 10px"
                     >
           
-                    <thead class="thead-light" style="background-color: #018A6F;">
-                      <tr>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F; color: floralwhite;" >Estacion Actual</th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                      </tr>
+                        <thead class="thead-light" style="background-color: #018A6F;">
+                          <tr>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F; color: floralwhite;" >Estacion Actual</th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                          </tr>
           
                   
-                    </thead>
+                        </thead>
                       <thead class="thead-light">
                         <tr>
-                          <th scope="col" style="font-size: 12px">Barometro</th>
-                          <th scope="col" style="font-size: 12px">Temp. C°</th>
+                          <th scope="col" style="font-size: 12px;">Fecha</th>
+                          <th scope="col" style="font-size: 12px">Punto de Rocío °C</th>
+                          <th scope="col" style="font-size: 12px">Presión mb</th>
+                          <th scope="col" style="font-size: 12px">Humedad %</th>
+                          <th scope="col" style="font-size: 12px">Temp. °C</th>
                           <th scope="col" style="font-size: 12px">Temp. Alta C°</th>
                           <th scope="col" style="font-size: 12px">Temp. Baja C°</th>
-                          <th scope="col" style="font-size: 12px">Hum %</th>
-                          <th scope="col" style="font-size: 12px"> Tasa de Lluvia</th>
+                          <th scope="col" style="font-size: 12px">Rad Solar W/m²</th>
                           <th scope="col" style="font-size: 12px">índice UV</th>
+                          <th scope="col" style="font-size: 12px">Lluvia mm</th>
+                          <th scope="col" style="font-size: 12px">ET mm</th>
+                          <th scope="col" style="font-size: 12px">Viento grados</th>
+                          <th scope="col" style="font-size: 12px">Viento dir</th>
+                          <th scope="col" style="font-size: 12px">Viento kt</th>
+
                         </tr>
                       </thead>
                       <tbody >
                         <tr *ngFor="let data of estacionOne">
+                          <td>{{data.fecha}}</td>
+                          <td>{{data.dewpoint_c}}</td>
+                          <td>{{data.pressure_mb}}</td>
+                          <td>{{data.relative_humidity}}</td>
                           <td>{{data.temp_c}}</td>
-                          <td>{{data.temp_c}}</td>
-                          <td>{{data.temp_c}}</td>
-                          <td>{{data.temp_c}}</td>
+                          <td>{{data.temp_day_high_f}}</td>
+                          <td>{{data.temp_day_low_f}}</td>
+                          <td>{{data.solar_radiation}}</td>
+                          <td>{{data.uv_index}}</td>
+                          <td>{{data.rain_day_in}}</td>
+                          <td>{{data.et_day}}</td>
+                          <td>{{data.wind_degrees}}</td>
+                          <td>{{data.wind_dir}}</td>
+                          <td>{{data.wind_kt}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -223,35 +247,60 @@
                       style="font-size: 10px"
                     >
           
-                    <thead class="thead-light" style="background-color: #018A6F;">
-                      <tr>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F; color: floralwhite;" >Estacion Actual</th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                      </tr>
+                        <thead class="thead-light" style="background-color: #018A6F;">
+                          <tr>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F; color: floralwhite;" >Estacion Actual</th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                            <th scope="col" style="background-color: #018A6F;"></th>
+                          </tr>
           
                   
-                    </thead>
+                        </thead>
                       <thead class="thead-light">
                         <tr>
-                          <th scope="col" style="font-size: 12px">Barometro</th>
-                          <th scope="col" style="font-size: 12px">Temp. C°</th>
+                          <th scope="col" style="font-size: 12px;">Fecha</th>
+                          <th scope="col" style="font-size: 12px">Punto de Rocío °C</th>
+                          <th scope="col" style="font-size: 12px">Presión mb</th>
+                          <th scope="col" style="font-size: 12px">Humedad %</th>
+                          <th scope="col" style="font-size: 12px">Temp. °C</th>
                           <th scope="col" style="font-size: 12px">Temp. Alta C°</th>
                           <th scope="col" style="font-size: 12px">Temp. Baja C°</th>
-                          <th scope="col" style="font-size: 12px">Hum %</th>
-                          <th scope="col" style="font-size: 12px"> Tasa de Lluvia</th>
+                          <th scope="col" style="font-size: 12px">Rad Solar W/m²</th>
                           <th scope="col" style="font-size: 12px">índice UV</th>
+                          <th scope="col" style="font-size: 12px">Lluvia mm</th>
+                          <th scope="col" style="font-size: 12px">ET mm</th>
+                          <th scope="col" style="font-size: 12px">Viento grados</th>
+                          <th scope="col" style="font-size: 12px">Viento dir</th>
+                          <th scope="col" style="font-size: 12px">Viento kt</th>
+
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody >
                         <tr *ngFor="let dataSecond of estacionTwo">
+                          <td>{{dataSecond.fecha}}</td>
+                          <td>{{dataSecond.dewpoint_c}}</td>
+                          <td>{{dataSecond.pressure_mb}}</td>
+                          <td>{{dataSecond.relative_humidity}}</td>
                           <td>{{dataSecond.temp_c}}</td>
-                          <td>{{dataSecond.temp_c}}</td>
-                          <td>{{dataSecond.temp_c}}</td>
+                          <td>{{dataSecond.temp_day_high_f}}</td>
+                          <td>{{dataSecond.temp_day_low_f}}</td>
+                          <td>{{dataSecond.solar_radiation}}</td>
+                          <td>{{dataSecond.uv_index}}</td>
+                          <td>{{dataSecond.rain_day_in}}</td>
+                          <td>{{dataSecond.et_day}}</td>
+                          <td>{{dataSecond.wind_degrees}}</td>
+                          <td>{{dataSecond.wind_dir}}</td>
+                          <td>{{dataSecond.wind_kt}}</td>
                         </tr>
                       </tbody>
                     </table>
