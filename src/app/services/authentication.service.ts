@@ -1,38 +1,22 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import jwtDecode from 'jwt-decode';
-import { environment } from 'src/environments/environment'; 
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import jwtDecode from "jwt-decode";
+import { environment } from "src/environments/environment";
 
-
-
-const baseUrl = 'Empresa';
-
+const baseUrl = "Empresa";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthenticationService {
+  urlServices: string = environment.urlService;
+  private rol: string = "";
 
-  urlServices: string= environment.urlService;
-  private rol:string="";
- 
-
-  
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getUsuarioPerfil() {
-    
-    var token = localStorage.getItem('token');
-    if(token != null)
-    this.rol=jwtDecode(token);
-
-
-    console.log(this.rol);
-
+    var token = localStorage.getItem("token");
+    if (token != null) this.rol = jwtDecode(token);
+    return this.rol;
   }
-
-
- 
-
-
 }

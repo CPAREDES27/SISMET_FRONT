@@ -3,6 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/shared/user.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 
@@ -14,57 +15,61 @@ import { UsersService } from 'src/app/shared/user.service';
 })
 export class NavbarComponent implements OnInit {
 
+
   userDetails: any;
+  user: any;
 
   public focus: any;
   public listTitles!: any[];
   public location: Location;
-  constructor(location: Location,  private element: ElementRef, private router: Router,private service: UsersService) {
-    this.location = location
+  constructor(
+    location: Location,
+    public auth: AuthenticationService,
+    private element: ElementRef,
+    private router: Router,
+    private service: UsersService
+  ) {
+    this.location = location;
   }
 
   ngOnInit() {
-    this.listTitles = ROUTES.filter(listTitle => listTitle);
+    this.getAuthUsuario();
+    this.getInfoUsuario();
+    this.listTitles = ROUTES.filter((listTitle) => listTitle);
+  }
 
-    
-    const user = {
-      id: 1
-
-    };
-
-    this.service.getUsuario(1).subscribe(
-      res => {
-        let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      let authToken = localStorage.getItem('token');
-      
-
+  getInfoUsuario() {
+    this.service.getUsuario(this.user.Id).subscribe(
+      (res) => {
         this.userDetails = res;
       },
-      err => {
+      (err) => {
         console.log(err);
-      },
+      }
     );
+  }
 
+  getAuthUsuario() {
+    this.user = this.auth.getUsuarioPerfil();
+    console.log(this.user);
   }
 
   onLogout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    localStorage.removeItem("token");
+    this.router.navigate(["/login"]);
   }
 
-  getTitle(){
+  getTitle() {
     var titlee = this.location.prepareExternalUrl(this.location.path());
-    if(titlee.charAt(0) === '#'){
-        titlee = titlee.slice( 1 );
+    if (titlee.charAt(0) === "#") {
+      titlee = titlee.slice(1);
     }
 
-    for(var item = 0; item < this.listTitles.length; item++){
-        if(this.listTitles[item].path === titlee){
-            return this.listTitles[item].title;
-        }
+    for (var item = 0; item < this.listTitles.length; item++) {
+      if (this.listTitles[item].path === titlee) {
+        return this.listTitles[item].title;
+      }
     }
-    return 'Dashboard';
+    return "Dashboard";
   }
-
 }

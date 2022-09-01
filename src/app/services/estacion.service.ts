@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment'; 
 import { Observable } from 'rxjs';
 import { Calculo } from '../shared/models/calculo.interface';
+import { Root } from '../shared/models/administrador.interface';
 
 
 
@@ -20,6 +21,11 @@ export class EstacionService {
   get(id: any) {
     const baseUrl = `${this.urlServices}davis`;
     return this.http.get<DataDavisDt>(`${baseUrl}/${id}`);
+  }
+
+  getEstation(id: any) {
+    const baseUrl = `${this.urlServices}davis`;
+    return this.http.get<Root>(`${baseUrl}/${id}`);
   }
 
   getAll() {

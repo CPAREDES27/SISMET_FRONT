@@ -423,6 +423,7 @@ export class DashboardComponent implements OnInit {
   empresa_Id: any;
   currentEstacion: any;
   usuario_mk:any;
+  user: any;
 
   currentUsuario: any;
   currentIndex = -1;
@@ -514,16 +515,17 @@ export class DashboardComponent implements OnInit {
 
   
    ngOnInit() {
-     this.getEstacion(1);
+    this.getAuthUsuario();
+     this.getEstacion(this.user.Id);
     
     this.getRol();
    
     const user = {
-      id: 1
+      id: this.user.Id
 
     };
 
-    this.service.getUsuario(1).subscribe(
+    this.service.getUsuario(this.user.Id).subscribe(
       res => {
         let headers = new Headers();
 
@@ -548,6 +550,12 @@ export class DashboardComponent implements OnInit {
     this.createChartGauge();
         
   }
+
+  getAuthUsuario() {
+    this.user = this.auth.getUsuarioPerfil();
+    console.log(this.user);
+  }
+
  ObtenerHighcharts(idEstacion:any) {
  
     this.estacionService.get(idEstacion).subscribe(
@@ -586,7 +594,7 @@ export class DashboardComponent implements OnInit {
 
 
   ObtenerEstacionesDelUsuario() {
-    this.service.getUsuario(1).subscribe(
+    this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.usuario_mk = data;
         
@@ -616,7 +624,7 @@ export class DashboardComponent implements OnInit {
   }
    getEstacion(id: number) {
 
-    this.service.getUsuario(1)
+    this.service.getUsuario(this.user.Id)
       .subscribe(
         data => {
           this.currentEstacion = data.empresa.estacion;

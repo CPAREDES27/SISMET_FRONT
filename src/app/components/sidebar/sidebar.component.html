@@ -20,7 +20,41 @@
             </a>
   
         </li>
+        <br />
+        <br />
+        <br /><br />
+        <br />
+        <br /><br /><br />
+    
+        <li class="sidenav-nav-item2">
+          <a
+            class="sidenav-nav-link2"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i
+              style="
+                font-size: 25px;
+                margin: 0 3.0rem;
+                color: #f3f3f3;
+                text-decoration: none;
+              "
+              class="sidenav-link-icon2 fas fa-question-circle"
+            ></i>
+            <br />
+            <span
+              style="color: #f3f3f3; text-decoration: none"
+              class="sidenav-link-text2"
+              @fadeInOut
+              *ngIf="collapsed"
+            >
+              ¿Que hay de nuevo?
+            </span>
+          </a>
+        </li>
     </ul>
+
+    <!--
     <footer class="footer">
         <ul class="sidenav-nav">
             <li class="sidenav-nav-item" *ngFor="let data of navFooter">
@@ -35,5 +69,5 @@
             </li>
         </ul>
        
-    </footer>
+    </footer>-->
 </div>

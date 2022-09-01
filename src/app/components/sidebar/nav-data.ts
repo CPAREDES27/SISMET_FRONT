@@ -11,7 +11,7 @@ export const navbarData = [
     },
     {
         routeLink: 'mapa',
-        icon: 'fas fa-map',
+        icon: 'fas fa-map-marked-alt',
         label: 'Mapas'
     },
     {
