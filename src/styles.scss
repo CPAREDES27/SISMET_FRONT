@@ -41,20 +41,15 @@ $sidenav-theme: mat.define-light-theme((
     padding: 0;
     box-sizing: border-box;
 }
-thead, tbody {  display:block; }
 
-tbody {
-    height: 350px;       /* Just for the demo          */
-    overflow-y: auto;    /* Trigger vertical scroll    */
-    overflow-x: hidden;  /* Hide the horizontal scroll */
-}
-body {
+.my-custom-scrollbar {
     position: relative;
-    /*font-family: 'Roboto', sans-serif;*/
-
-    font-family:'Segoe UI';
-}
-
+    height: 400px;
+    overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+    display: block;
+    }
 .card {
     display: flex;
     flex-direction: column;
