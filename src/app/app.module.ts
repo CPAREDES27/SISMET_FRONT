@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { 
+  BrowserAnimationsModule 
+} from '@angular/platform-browser/animations';
+import {MatDialog} from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,6 +39,8 @@ import { MatButtonModule } from "@angular/material/button";
 import {MatSelectModule} from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { AgregarEstacionComponent } from './views/datos/agregar-estacion/agregar-estacion.component';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -54,10 +59,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ViewMapComponent,
     RegisterUserComponent,
     CalculosComponent,
-    EstacionComponent
+    EstacionComponent,
+    AgregarEstacionComponent,
+
   ],
   imports: [
     BrowserModule,
+    MatDialogModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     MatSelectModule,
@@ -71,6 +79,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatNativeDateModule,
     MatDatepickerModule,
     NgbModule,
+
     ToastrModule.forRoot({
       progressBar: true
     }),
@@ -79,7 +88,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }],
+  },
+  AgregarEstacionComponent],
+  entryComponents:[MatDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

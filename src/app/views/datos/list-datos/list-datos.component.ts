@@ -1,22 +1,36 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { Router } from '@angular/router';
-import { UsersService } from 'src/app/shared/user.service';
-import { DatosService} from 'src/app/services/datos.service';
+import { Component, OnInit, ElementRef } from "@angular/core";
+import {
+  Location,
+  LocationStrategy,
+  PathLocationStrategy,
+} from "@angular/common";
+import { ActivatedRoute, Router } from "@angular/router";
+import { UsersService } from "src/app/shared/user.service";
+import { DatosService } from "src/app/services/datos.service";
+import { MatDialog } from "@angular/material/dialog";
+import { AgregarEstacionComponent } from "../agregar-estacion/agregar-estacion.component";
+import { AuthenticationService } from "src/app/services/authentication.service";
+import { EstacionService } from "src/app/services/estacion.service";
 @Component({
-  selector: 'app-list-datos',
-  templateUrl: './list-datos.component.html',
-  styleUrls: ['./list-datos.component.scss']
+  selector: "app-list-datos",
+  templateUrl: "./list-datos.component.html",
+  styleUrls: ["./list-datos.component.scss"],
 })
-
-
 export class ListDatosComponent implements OnInit {
   userDetails: any;
+  user: any;
 
-  constructor(private service: UsersService,private Datoservice: DatosService) { }
+  constructor(
+    private route: ActivatedRoute,
+    public estacionService: EstacionService,
+    private service: UsersService,
+    public auth: AuthenticationService,
+    private Datoservice: DatosService,
+    private dialog: MatDialog
+  ) {}
 
-  estacionOne:any;
-  estacionTwo:any;
+  estacionOne: any;
+  estacionTwo: any;
   IdSegundaEstacion: string | undefined;
   IdPrimeraEstacion: string | undefined;
   FechaInicio: string | undefined;
@@ -25,151 +39,193 @@ export class ListDatosComponent implements OnInit {
   HoraFin: string | undefined;
 
   currentEstacion: any;
-  date1= new Date();
-  
-  HoraInicioFin:any;
-  HoraFinFin:any;
+  date1 = new Date();
 
-  currentYear= this.date1.getUTCFullYear();
-  currentMonth = this.date1.getUTCMonth()+1;
+  HoraInicioFin: any;
+  HoraFinFin: any;
+
+  currentYear = this.date1.getUTCFullYear();
+  currentMonth = this.date1.getUTCMonth() + 1;
   currentDay = this.date1.getUTCDate();
 
   hora = this.date1.getHours();
   minuto = this.date1.getMinutes();
   segundos = this.date1.getSeconds();
 
-  DateInicio:any;
-  DateFin:any;
+  DateInicio: any;
+  DateFin: any;
   FinalMonth: any;
   FinalDay: any;
-  Tiempo:any;
-  Hora:any;
-  Minuto:any;
+  Tiempo: any;
+  Hora: any;
+  Minuto: any;
   ngOnInit() {
+    this.getAuthUsuario();
+
+    if (this.user.rol == 2) {
+      this.getEstacion(this.user.Id);
+    }
+
+    if (this.user.rol == 1) {
+      this.ObtenerEstaciones();
+    }
+
+    this.getEstacionFromMap(this.route.snapshot.paramMap.get("id"));
 
     console.log(this.date1);
     let h = this.hora;
     let m = this.minuto;
-    
-    if(this.hora<10){
-      this.Hora= "0"+h;
-    }else{
-      this.Hora= h;
+
+    if (this.hora < 10) {
+      this.Hora = "0" + h;
+    } else {
+      this.Hora = h;
     }
 
-    if(this.minuto<10){
-      this.Minuto="0"+m;
-    }else{
-      this.Minuto=m;
+    if (this.minuto < 10) {
+      this.Minuto = "0" + m;
+    } else {
+      this.Minuto = m;
     }
 
-    this.Tiempo = this.Hora + ":" + this.Minuto ;
-    
+    this.Tiempo = this.Hora + ":" + this.Minuto;
 
-    if(this.currentMonth<10)
-    { 
-      this.FinalMonth="0"+this.currentMonth;
-    }else{
-      this.FinalMonth=this.currentMonth;
+    if (this.currentMonth < 10) {
+      this.FinalMonth = "0" + this.currentMonth;
+    } else {
+      this.FinalMonth = this.currentMonth;
     }
 
-    if(this.currentDay <10)
-    {
-      this.FinalDay ="0"+this.currentDay;
-    }else{
+    if (this.currentDay < 10) {
+      this.FinalDay = "0" + this.currentDay;
+    } else {
       this.FinalDay = this.currentDay;
     }
 
-    this.DateInicio = this.currentYear+"-"+this.FinalMonth+"-01";
-    this.DateFin = this.currentYear+"-"+this.FinalMonth+"-"+this.FinalDay;
-    this.FechaInicio=this.DateInicio;
-    this.FechaFin=this.DateFin;
-    this.HoraInicio=this.Tiempo;
-    this.HoraFin=this.Tiempo;
-    this.getEstacion(1);
-    this.service.getUsuario(1).subscribe(
-      res => {
+    this.DateInicio = this.currentYear + "-" + this.FinalMonth + "-01";
+    this.DateFin =
+      this.currentYear + "-" + this.FinalMonth + "-" + this.FinalDay;
+    this.FechaInicio = this.DateInicio;
+    this.FechaFin = this.DateFin;
+    this.HoraInicio = this.Tiempo;
+    this.HoraFin = this.Tiempo;
+    this.service.getUsuario(this.user.Id).subscribe(
+      (res) => {
         let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      let authToken = localStorage.getItem('token');
-      console.log(headers.append('Authorization', `Bearer ${authToken}`));
+        headers.append("Content-Type", "application/json");
+        let authToken = localStorage.getItem("token");
+        console.log(headers.append("Authorization", `Bearer ${authToken}`));
 
         this.userDetails = res;
       },
-      err => {
+      (err) => {
         console.log(err);
-      },
+      }
     );
   }
-  
-  changes(event:any){
-    console.log(event.target['value']);
-    var idEstacion = event.target['value'];
-        
-  }
-  
-  onChange(event:any){
-    
-    console.log(event.target['value']);
-    this.IdPrimeraEstacion= event.target['value']
+
+  openDialog() {
+    const dialogRef = this.dialog.open(AgregarEstacionComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
-  Onchange2(event:any){
-    this.IdSegundaEstacion=event.target['value'];
-    console.log(event.target['value']);
+  getEstacionFromMap(id: string | null) {
+    this.estacionService.get(id).subscribe(
+      (data) => {
+        this.currentEstacion = data;
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
-  OnFechaInicio(event:any){
-    this.FechaInicio = event.target['value'];
-    console.log(event.target['value']);
+
+  changes(event: any) {
+    console.log(event.target["value"]);
+    var idEstacion = event.target["value"];
   }
-  OnFechaFin(event:any){
-    this.FechaFin= event.target['value'];
-    console.log(event.target['value']);
+
+  onChange(event: any) {
+    console.log(event.target["value"]);
+    this.IdPrimeraEstacion = event.target["value"];
   }
-  OnHoraInicio(event:any){
-    this.HoraInicio = event.target['value'];
-    this.HoraInicio= this.HoraInicio+":00";
+
+  Onchange2(event: any) {
+    this.IdSegundaEstacion = event.target["value"];
+    console.log(event.target["value"]);
+  }
+  OnFechaInicio(event: any) {
+    this.FechaInicio = event.target["value"];
+    console.log(event.target["value"]);
+  }
+  OnFechaFin(event: any) {
+    this.FechaFin = event.target["value"];
+    console.log(event.target["value"]);
+  }
+  OnHoraInicio(event: any) {
+    this.HoraInicio = event.target["value"];
+    this.HoraInicio = this.HoraInicio + ":00";
     console.log(this.HoraInicioFin);
   }
-  OnHoraFin(event:any){
-    this.HoraFin = event.target['value'];
-    this.HoraFin = this.HoraFin+":00";
+  OnHoraFin(event: any) {
+    this.HoraFin = event.target["value"];
+    this.HoraFin = this.HoraFin + ":00";
     console.log(this.HoraFinFin);
   }
-  consultarInformacion(){
+  consultarInformacion() {
     const Filtros = {
       idPrimeraEstacion: Number(this.IdPrimeraEstacion),
       idSegundaEstacion: Number(this.IdSegundaEstacion),
       fechaInicio: this.FechaInicio,
       fechaFin: this.FechaFin,
       horaInicio: this.HoraInicio,
-      horaFin: this.HoraFin
+      horaFin: this.HoraFin,
     };
 
     this.Datoservice.postDavis(Filtros).subscribe(
       (data) => {
-     //Aqui rata arreglo de estaciones
-        this.estacionOne=data.estacion;
-        this.estacionTwo=data.secondEstacion;
-       
-    },
-    (error) => {
-      console.log(error);
-    });
+        //Aqui rata arreglo de estaciones
+        this.estacionOne = data.estacion;
+        this.estacionTwo = data.secondEstacion;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  ObtenerEstaciones() {
+    this.estacionService.getAll().subscribe(
+      (data) => {
+        this.currentEstacion = data;
+
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getAuthUsuario() {
+    this.user = this.auth.getUsuarioPerfil();
+    console.log(this.user);
   }
 
   getEstacion(id: number) {
-
-    this.service.getUsuario(1)
-      .subscribe(
-        data => {
-          this.currentEstacion = data.empresa.estacion;
-          this.IdPrimeraEstacion=String(data.empresa.estacion[0].id);
-          this.IdSegundaEstacion=String(data.empresa.estacion[0].id);
-        },
-        error => {
-          console.log(error);
-        });
+    this.service.getUsuario(this.user.Id).subscribe(
+      (data) => {
+        this.currentEstacion = data.empresa.estacion;
+        this.IdPrimeraEstacion = String(data.empresa.estacion[0].id);
+        this.IdSegundaEstacion = String(data.empresa.estacion[0].id);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
-
 }

@@ -19,11 +19,7 @@ export const navbarData = [
         icon: 'fa fa-calculator',
         label: 'Cálculos'
     },
-    {
-        routeLink: 'usuario',
-        icon: 'fas fa-user',
-        label: 'Usuarios'
-    },
+
     
    
 ];

@@ -7,10 +7,14 @@
         </div>
 
         <a style="margin-right: 0.78em">
-          <i style="color: #083e5e; width: 20px; height: 20px" class="fas fa-sync"></i>
+          <i
+            style="color: #083e5e; width: 20px; height: 20px"
+            class="fas fa-sync"
+          ></i>
         </a>
 
-        <select style="
+        <select
+          style="
             font-weight: bolder;
             color: #083e5e;
             margin-left: 0.75em;
@@ -18,8 +22,16 @@
             border-radius: 0.9rem;
             border: 1px solid rgb(170, 171, 177);
             box-shadow: 0.001rem 0 0.5rem 0 #8690a3;
-          " matNativeControl required class="form-control form-control-alternative" required>
-          <option *ngFor="let stations of currentEstacion" value="{{ stations.id }}">
+          "
+          matNativeControl
+          required
+          class="form-control form-control-alternative"
+          required
+        >
+          <option
+            *ngFor="let stations of currentEstacion"
+            value="{{ stations.id }}"
+          >
             {{ stations.nombreEstacion }}
           </option>
         </select>
@@ -28,17 +40,15 @@
 
     <br />
 
-    <div class="card-header border-0">
+    <div class="card shadow" style="border-bottom: 14px solid #edf1f7">
       <div class="row align-items-center">
         <div class="col">
-          <div id="map" class="container-fluid"></div>
+          <div id="map" class="container-fluid"><div></div></div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!--
+    <!--
 <div class="map-container">
 
   <div class="map-frame">
@@ -48,3 +58,5 @@
   </div>
 
 </div>-->
+  </div>
+</div>

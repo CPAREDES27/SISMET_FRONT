@@ -28,6 +28,11 @@ export class EstacionService {
     return this.http.get<Root>(`${baseUrl}/${id}`);
   }
 
+  create(data: any) {
+    const baseUrl = `${this.urlServices}davis`;
+    return this.http.post(`${baseUrl}/CrearEstacion`, data);
+  }
+
   getAll() {
     const baseUrl = `${this.urlServices}davis`;
     return this.http.get(`${baseUrl}/GetEstaciones`);

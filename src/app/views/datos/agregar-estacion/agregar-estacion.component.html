@@ -1,0 +1,106 @@
+<body>
+
+    <div class="bg-img">
+        <main class="box">
+            <div class="media align-items-center">
+
+                <div class="media-body ">
+                    <h2 class="mb-0" style="margin-left: 0.75em; color: #083e5e">
+                        Añadir Estación
+                    </h2>
+                </div>
+            </div>
+
+            <form method="post">
+                <br />
+                <div class="pl-lg-0">
+                    <div class="row">
+                        <div class="col-lg-6 ">
+                            <div class="inputBox">
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Nombre de la estación" type="text" required
+                                        name="nombreEstacion" [(ngModel)]="nombreEstacion" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="inputBox">
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Latitud" type="text" required
+                                        name="latitud" [(ngModel)]="latitud" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="inputBox">
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Longitud" type="text" required
+                                        name="longitud" [(ngModel)]="longitud" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="inputBox">
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Usuario" type="text" required
+                                        name="usuario" [(ngModel)]="usuario" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="inputBox">
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Clave" type="password" required
+                                        name="clave" [(ngModel)]="clave" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="inputBox">
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Token" type="text" required name="token"
+                                        [(ngModel)]="token" />
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <div class="form-control-feedback">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="pl-lg-0">
+                        <div class="row">
+                            <div class="col-lg-6">
+
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="inputBox">
+                                    <button type="submit" name=""
+                                        style="float: right;  background-color: #083e5e; color: white"
+                                        class="btn btn-icon" type="submit
+                                        
+                    " (click)="register()">
+                                        <i style="color: #fff; margin-right: 0.80em" class="fas fa-save"></i>
+                                        Guardar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br /><br /><br />
+            </form>
+        </main>
+
+        <footer></footer>
+    </div>
+</body>

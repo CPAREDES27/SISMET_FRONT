@@ -1,42 +1,39 @@
-import { DataDavisDt } from './../shared/models/DataDavis.interface';
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UsersService } from 'src/app/shared/user.service';
-import { EstacionService } from 'src/app/services/estacion.service';
-import { AuthenticationService } from '../services/authentication.service';
+import { DataDavisDt } from "./../shared/models/DataDavis.interface";
+import { Component, OnInit, ElementRef } from "@angular/core";
+import {
+  Location,
+  LocationStrategy,
+  PathLocationStrategy,
+} from "@angular/common";
+import { ActivatedRoute, Router } from "@angular/router";
+import { UsersService } from "src/app/shared/user.service";
+import { EstacionService } from "src/app/services/estacion.service";
+import { AuthenticationService } from "../services/authentication.service";
 
-import { JwtDecodeOptions } from 'jwt-decode';
-import * as Highcharts from 'highcharts';
-import HighchartsMore from 'highcharts/highcharts-more';
-import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
-import HighchartsColumn from 'highcharts/modules/drilldown';
+import { JwtDecodeOptions } from "jwt-decode";
+import * as Highcharts from "highcharts";
+import HighchartsMore from "highcharts/highcharts-more";
+import HighchartsSolidGauge from "highcharts/modules/solid-gauge";
+import HighchartsColumn from "highcharts/modules/drilldown";
 
 HighchartsMore(Highcharts);
 HighchartsSolidGauge(Highcharts);
 HighchartsColumn(Highcharts);
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit {
- 
- 
-
- DataDavisDt?: DataDavisDt;
-
- 
-
-
+  DataDavisDt?: DataDavisDt;
 
   private createChartGauge(): void {
-    const chart = Highcharts.chart('chart-gauge', {
+    const chart = Highcharts.chart("chart-gauge", {
       chart: {
-        type: 'solidgauge',
+        type: "solidgauge",
       },
       title: {
-        text: 'Radiación Solar',
+        text: "Radiación Solar",
       },
       credits: {
         enabled: false,
@@ -44,21 +41,21 @@ export class DashboardComponent implements OnInit {
       pane: {
         startAngle: -90,
         endAngle: 90,
-        center: ['50%', '55%'],
-        size: '100%',
+        center: ["50%", "55%"],
+        size: "100%",
         background: {
-            innerRadius: '60%',
-            outerRadius: '100%',
-            shape: 'arc',
+          innerRadius: "60%",
+          outerRadius: "100%",
+          shape: "arc",
         },
       },
       yAxis: {
         min: 0,
         max: 100,
         stops: [
-          [0.1, '#55BF3B'], // green
-          [0.5, '#DDDF0D'], // yellow
-          [0.9, '#DF5353'], // red
+          [0.1, "#55BF3B"], // green
+          [0.5, "#DDDF0D"], // yellow
+          [0.9, "#DF5353"], // red
         ],
         minorTickInterval: null,
         tickAmount: 2,
@@ -78,28 +75,30 @@ export class DashboardComponent implements OnInit {
       tooltip: {
         enabled: false,
       },
-      series: [{
-        name: null,
-        data: [Number(this.DataDavisDt?.davis_current_observation.solar_radiation)],
-        dataLabels: {
-          format: '<div style="text-align: center"><span style="font-size: 1.25rem">{y} </span><br><span>W/m²</span></div>',
+      series: [
+        {
+          name: null,
+          data: [
+            Number(this.DataDavisDt?.davis_current_observation.solar_radiation),
+          ],
+          dataLabels: {
+            format:
+              '<div style="text-align: center"><span style="font-size: 1.25rem">{y} </span><br><span>W/m²</span></div>',
+          },
         },
-      }],
+      ],
     } as any);
-
- 
   }
 
   private createChartPiramide(): void {
-    
     const chart = Highcharts.chart(
-      'chart-column' as any,
+      "chart-column" as any,
       {
         chart: {
-          type: 'column',
+          type: "column",
         },
         title: {
-          text: 'ET',
+          text: "ET",
         },
         credits: {
           enabled: false,
@@ -108,33 +107,33 @@ export class DashboardComponent implements OnInit {
           enabled: false,
         },
         xAxis: {
-          type: 'category'
+          type: "category",
         },
         yAxis: {
           title: {
-            text: 'Total cantidades'
-          }
-      
+            text: "Total cantidades",
+          },
         },
         tooltip: {
           headerFormat: '<span style="font-size:11px"></span><br>',
-          pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> en Total<br/>'
+          pointFormat:
+            '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> en Total<br/>',
         },
         plotOptions: {
           bar: {
             dataLabels: {
               enabled: true,
-            }
+            },
           },
           series: {
             borderWidth: 0,
             dataLabels: {
               enabled: true,
-              format: '{point.y:.1f}'
-            }
-          }
+              format: "{point.y:.1f}",
+            },
+          },
         },
-        
+
         series: [
           {
             name: "Browsers",
@@ -143,40 +142,34 @@ export class DashboardComponent implements OnInit {
               {
                 name: "Día",
                 y: Number(this.DataDavisDt?.davis_current_observation.et_day),
-                drilldown: "Día"
+                drilldown: "Día",
               },
               {
                 name: "Mes",
                 y: Number(this.DataDavisDt?.davis_current_observation.et_month),
-                drilldown: "Mes"
+                drilldown: "Mes",
               },
               {
                 name: "Año",
                 y: Number(this.DataDavisDt?.davis_current_observation.et_year),
-                drilldown: "Año"
-              
-              }
-            ]
-          }
+                drilldown: "Año",
+              },
+            ],
+          },
         ],
-        
-      
-          
       } as any
     );
-
   }
 
   private createChartPiramideRain(): void {
-    
     const chart = Highcharts.chart(
-      'chart-columnRain' as any,
+      "chart-columnRain" as any,
       {
         chart: {
-          type: 'column',
+          type: "column",
         },
         title: {
-          text: 'Lluvia',
+          text: "Lluvia",
         },
         credits: {
           enabled: false,
@@ -185,33 +178,33 @@ export class DashboardComponent implements OnInit {
           enabled: false,
         },
         xAxis: {
-          type: 'category'
+          type: "category",
         },
         yAxis: {
           title: {
-            text: 'Total cantidades'
-          }
-      
+            text: "Total cantidades",
+          },
         },
         tooltip: {
           headerFormat: '<span style="font-size:11px"></span><br>',
-          pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> en Total<br/>'
+          pointFormat:
+            '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> en Total<br/>',
         },
         plotOptions: {
           bar: {
             dataLabels: {
               enabled: true,
-            }
+            },
           },
           series: {
             borderWidth: 0,
             dataLabels: {
               enabled: true,
-              format: '{point.y:.1f}'
-            }
-          }
+              format: "{point.y:.1f}",
+            },
+          },
         },
-        
+
         series: [
           {
             name: "Browsers",
@@ -219,85 +212,100 @@ export class DashboardComponent implements OnInit {
             data: [
               {
                 name: "Día",
-                y: Number(this.DataDavisDt?.davis_current_observation.rain_day_in),
-                drilldown: "Día"
+                y: Number(
+                  this.DataDavisDt?.davis_current_observation.rain_day_in
+                ),
+                drilldown: "Día",
               },
               {
                 name: "Mes",
-                y: Number(this.DataDavisDt?.davis_current_observation.rain_month_in),
-                drilldown: "Mes"
+                y: Number(
+                  this.DataDavisDt?.davis_current_observation.rain_month_in
+                ),
+                drilldown: "Mes",
               },
               {
                 name: "Año",
-                y: Number(this.DataDavisDt?.davis_current_observation.rain_year_in),
-                drilldown: "Año"
-              }
-            ]
-          }
+                y: Number(
+                  this.DataDavisDt?.davis_current_observation.rain_year_in
+                ),
+                drilldown: "Año",
+              },
+            ],
+          },
         ],
-        
-            
-          
       } as any
     );
-
   }
 
-
   private createChartTemperatura(): void {
-    
     const chart = Highcharts.chart(
-      'chart-Temperatura' as any,
+      "chart-Temperatura" as any,
       {
         chart: {
-          type: 'column'
-      },
-      title: {
-          text: 'Temperatura del día'
-      },
-      xAxis: {
-          categories: ['Hoy']
-      },
-      yAxis: {
+          type: "column",
+        },
+        title: {
+          text: "Temperatura del día",
+        },
+        xAxis: {
+          categories: ["Hoy"],
+        },
+        yAxis: {
           title: {
-              text: 'Temperatura °C'
-          }
-      },
-      tooltip: {
-        headerFormat: '<span style="font-size:11px"></span><br>',
-        pointFormat: '<span style="color:{point.color}"><b>{series.name}</b></span>: <b>{point.y:.2f}</b> a las <b>{point.name}</b><br/>'
-      },
-      credits: {
-          enabled: false
-      },
-      series: [{
-          name: 'Temp. Alta',
-          
-          data: [{
-            name: this.DataDavisDt?.davis_current_observation.temp_day_high_time,
-            y: Number(this.DataDavisDt?.davis_current_observation.temp_day_high_f)
-          }],
-          fecha: this.DataDavisDt?.davis_current_observation.temp_day_high_time
-      }, {
-          name: 'Temp. Baja',
-          data: [{
-            name: this.DataDavisDt?.davis_current_observation.temp_day_low_time,
-            y: Number(this.DataDavisDt?.davis_current_observation.temp_day_low_f)
-          }],
-          fecha: this.DataDavisDt?.davis_current_observation.temp_day_low_time
-      }]
+            text: "Temperatura °C",
+          },
+        },
+        tooltip: {
+          headerFormat: '<span style="font-size:11px"></span><br>',
+          pointFormat:
+            '<span style="color:{point.color}"><b>{series.name}</b></span>: <b>{point.y:.2f}</b> a las <b>{point.name}</b><br/>',
+        },
+        credits: {
+          enabled: false,
+        },
+        series: [
+          {
+            name: "Temp. Alta",
+
+            data: [
+              {
+                name: this.DataDavisDt?.davis_current_observation
+                  .temp_day_high_time,
+                y: Number(
+                  this.DataDavisDt?.davis_current_observation.temp_day_high_f
+                ),
+              },
+            ],
+            fecha:
+              this.DataDavisDt?.davis_current_observation.temp_day_high_time,
+          },
+          {
+            name: "Temp. Baja",
+            data: [
+              {
+                name: this.DataDavisDt?.davis_current_observation
+                  .temp_day_low_time,
+                y: Number(
+                  this.DataDavisDt?.davis_current_observation.temp_day_low_f
+                ),
+              },
+            ],
+            fecha:
+              this.DataDavisDt?.davis_current_observation.temp_day_low_time,
+          },
+        ],
       } as any
     );
-
   }
 
   private createChartGaugeUvIndex(): void {
-    const chart = Highcharts.chart('chart-gaugeUv', {
+    const chart = Highcharts.chart("chart-gaugeUv", {
       chart: {
-        type: 'solidgauge',
+        type: "solidgauge",
       },
       title: {
-        text: 'UV',
+        text: "UV",
       },
       credits: {
         enabled: false,
@@ -305,21 +313,21 @@ export class DashboardComponent implements OnInit {
       pane: {
         startAngle: -90,
         endAngle: 90,
-        center: ['50%', '55%'],
-        size: '100%',
+        center: ["50%", "55%"],
+        size: "100%",
         background: {
-            innerRadius: '60%',
-            outerRadius: '100%',
-            shape: 'arc',
+          innerRadius: "60%",
+          outerRadius: "100%",
+          shape: "arc",
         },
       },
       yAxis: {
         min: 0,
         max: 100,
         stops: [
-          [0.1, '#55BF3B'], // green
-          [0.5, '#DDDF0D'], // yellow
-          [0.9, '#DF5353'], // red
+          [0.1, "#55BF3B"], // green
+          [0.5, "#DDDF0D"], // yellow
+          [0.9, "#DF5353"], // red
         ],
         minorTickInterval: null,
         tickAmount: 2,
@@ -339,25 +347,26 @@ export class DashboardComponent implements OnInit {
       tooltip: {
         enabled: false,
       },
-      series: [{
-        name: null,
-        data: [Number(this.DataDavisDt?.davis_current_observation.uv_index)],
-        dataLabels: {
-          format: '<div style="text-align: center"><span style="font-size: 1.25rem">{y}</span><br><span>índice</span></div>',
+      series: [
+        {
+          name: null,
+          data: [Number(this.DataDavisDt?.davis_current_observation.uv_index)],
+          dataLabels: {
+            format:
+              '<div style="text-align: center"><span style="font-size: 1.25rem">{y}</span><br><span>índice</span></div>',
+          },
         },
-      }],
+      ],
     } as any);
-
- 
   }
 
   private createChartGaugeHumedad(): void {
-    const chart = Highcharts.chart('chart-gaugeHumedad', {
+    const chart = Highcharts.chart("chart-gaugeHumedad", {
       chart: {
-        type: 'solidgauge',
+        type: "solidgauge",
       },
       title: {
-        text: 'Humedad',
+        text: "Humedad",
       },
       credits: {
         enabled: false,
@@ -365,21 +374,21 @@ export class DashboardComponent implements OnInit {
       pane: {
         startAngle: -90,
         endAngle: 90,
-        center: ['50%', '55%'],
-        size: '100%',
+        center: ["50%", "55%"],
+        size: "100%",
         background: {
-            innerRadius: '60%',
-            outerRadius: '100%',
-            shape: 'arc',
+          innerRadius: "60%",
+          outerRadius: "100%",
+          shape: "arc",
         },
       },
       yAxis: {
         min: 0,
         max: 100,
         stops: [
-          [0.1, '#55BF3B'], // green
-          [0.5, '#DDDF0D'], // yellow
-          [0.9, '#DF5353'], // red
+          [0.1, "#55BF3B"], // green
+          [0.5, "#DDDF0D"], // yellow
+          [0.9, "#DF5353"], // red
         ],
         minorTickInterval: null,
         tickAmount: 2,
@@ -399,20 +408,21 @@ export class DashboardComponent implements OnInit {
       tooltip: {
         enabled: false,
       },
-      series: [{
-        name: null,
-        data: [Number(this.DataDavisDt?.relative_humidity)],
-        dataLabels: {
-          format: '<div style="text-align: center"><span style="font-size: 1.25rem">{y} %</span></div>',
+      series: [
+        {
+          name: null,
+          data: [Number(this.DataDavisDt?.relative_humidity)],
+          dataLabels: {
+            format:
+              '<div style="text-align: center"><span style="font-size: 1.25rem">{y} %</span></div>',
+          },
         },
-      }],
+      ],
     } as any);
-
- 
   }
-//example
+  //example
 
-//example
+  //example
 
   userDetails: any;
 
@@ -422,23 +432,20 @@ export class DashboardComponent implements OnInit {
   estacion_mk: any;
   empresa_Id: any;
   currentEstacion: any;
-  usuario_mk:any;
+  usuario_mk: any;
   user: any;
 
   currentUsuario: any;
   currentIndex = -1;
 
-  station_mk: any
+  station_mk: any;
 
   stations = {
-
     id: "",
-    nombreEstacion: ""
-
-  }
+    nombreEstacion: "",
+  };
 
   estaciones = {
-
     existe: false,
     dewpoint_c: "",
     pressure_mb: "",
@@ -461,94 +468,97 @@ export class DashboardComponent implements OnInit {
       temp_day_high_time: "",
       temp_day_low_f: "",
       temp_day_low_time: "",
-      uv_index: ""}
-  }
-
+      uv_index: "",
+    },
+  };
 
   usuario = {
+    id: "",
+    userName: "",
+    contrasena: "",
+    nombres: "",
+    apellidos: "",
+    estado: "",
+    intentos: "",
+    fechaCreacion: "",
+    fechaModificacion: "",
+    tipoDocumento: "",
+    nroDocumento: "",
+    correo: "",
+    empresaId: "",
+    empresa: {
+      id: "",
+      nombre: "",
+      descripcion: "",
+      estacion: [
+        {
+          id: "",
+          nombreEstacion: "",
+          latitud: "",
+          longitud: "",
+          usuario: "",
+          clave: "",
+          token: "",
+        },
+      ],
+    },
+    rolId: "",
+    rol: {
+      id: "",
+      nombre: "",
+      descripcion: "",
+      estado: "",
+    },
+  };
 
-      id: '',
-      userName: '',
-      contrasena: '',
-      nombres: '',
-      apellidos: '',
-      estado: '',
-      intentos: '',
-      fechaCreacion: '',
-      fechaModificacion: '',
-      tipoDocumento: '',
-      nroDocumento: '',
-      correo: '',
-      empresaId: '',
-      empresa: {
-        id: '',
-        nombre: '',
-        descripcion: '',
-        estacion: [
-          {
-            id: '',
-            nombreEstacion: '',
-            latitud: '',
-            longitud: '',
-            usuario: '',
-            clave: '',
-            token: ''
-          },
-        
-        ]
-      },
-      rolId: '',
-      rol: {
-        id: '',
-        nombre: '',
-        descripcion: '',
-        estado: ''
-      }
-
-
+  constructor(
+    location: Location,
+    public auth: AuthenticationService,
+    public router: Router,
+    private route: ActivatedRoute,
+    public estacionService: EstacionService,
+    private element: ElementRef,
+    private service: UsersService
+  ) {
+    this.location = location;
   }
 
-
-  constructor(location: Location, public auth: AuthenticationService, public router: Router, private route: ActivatedRoute,public estacionService: EstacionService, private element: ElementRef,private service: UsersService,private estacion:EstacionService) {
-    this.location = location
-  }
-
-  
-   ngOnInit() {
+  ngOnInit() {
     this.getAuthUsuario();
-     this.getEstacion(this.user.Id);
-    
-    this.getRol();
-   
-    const user = {
-      id: this.user.Id
 
+    if (this.user.rol == 2) {
+      this.getEstacion(this.user.Id);
+    }
+
+    if (this.user.rol == 1) {
+      this.ObtenerEstaciones();
+    }
+
+    this.getRol();
+
+    const user = {
+      id: this.user.Id,
     };
 
     this.service.getUsuario(this.user.Id).subscribe(
-      res => {
+      (res) => {
         let headers = new Headers();
 
         this.userDetails = res;
       },
-      err => {
+      (err) => {
         console.log(err);
-      },
+      }
     );
-
-
   }
 
-  changes(event:any){
-    console.log(event.target['value']);
-    var idEstacion = event.target['value'];
+  changes(event: any) {
+    console.log(event.target["value"]);
+    var idEstacion = event.target["value"];
     this.ObtenerHighcharts(idEstacion);
-   
-    
   }
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.createChartGauge();
-        
   }
 
   getAuthUsuario() {
@@ -556,11 +566,9 @@ export class DashboardComponent implements OnInit {
     console.log(this.user);
   }
 
- ObtenerHighcharts(idEstacion:any) {
- 
+  ObtenerHighcharts(idEstacion: any) {
     this.estacionService.get(idEstacion).subscribe(
       (data) => {
-        
         this.DataDavisDt = data;
         this.createChartGauge();
         this.createChartPiramide();
@@ -577,12 +585,11 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-
   ObtenerEstaciones() {
     this.estacionService.getAll().subscribe(
       (data) => {
         this.currentEstacion = data;
-       
+
         console.log(data);
       },
       (error) => {
@@ -591,13 +598,11 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-
-
   ObtenerEstacionesDelUsuario() {
     this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.usuario_mk = data;
-        
+
         console.log(data);
       },
       (error) => {
@@ -612,60 +617,44 @@ export class DashboardComponent implements OnInit {
   }
 
   setActiveTutorialSave(usuario: null, index: number) {
-    this.currentEstacion= usuario;
+    this.currentEstacion = usuario;
     this.currentIndex = index;
   }
 
-  getRol(){
-    this.auth.getUsuarioPerfil()
+  getRol() {
+    this.auth.getUsuarioPerfil();
   }
-  onChange(event:any){
-    console.log(event.target['value']);
+  onChange(event: any) {
+    console.log(event.target["value"]);
   }
-   getEstacion(id: number) {
-
-    this.service.getUsuario(this.user.Id)
-      .subscribe(
-        data => {
-          this.currentEstacion = data.empresa.estacion;
-          this.ObtenerHighcharts(this.currentEstacion[0].id)
-        },
-        error => {
-          console.log(error);
-        });
+  getEstacion(id: number) {
+    this.service.getUsuario(this.user.Id).subscribe(
+      (data) => {
+        this.currentEstacion = data.empresa.estacion;
+        this.ObtenerHighcharts(this.currentEstacion[0].id);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   onLogout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    localStorage.removeItem("token");
+    this.router.navigate(["/login"]);
   }
 
-  getTitle(){
+  getTitle() {
     var titlee = this.location.prepareExternalUrl(this.location.path());
-    if(titlee.charAt(0) === '#'){
-        titlee = titlee.slice( 1 );
+    if (titlee.charAt(0) === "#") {
+      titlee = titlee.slice(1);
     }
 
-    for(var item = 0; item < this.listTitles.length; item++){
-        if(this.listTitles[item].path === titlee){
-            return this.listTitles[item].title;
-        }
+    for (var item = 0; item < this.listTitles.length; item++) {
+      if (this.listTitles[item].path === titlee) {
+        return this.listTitles[item].title;
+      }
     }
-    return 'Dashboard';
+    return "Dashboard";
   }
-
-
-
-
-
-
-
-
-
-
-
- 
-
 }
-
-

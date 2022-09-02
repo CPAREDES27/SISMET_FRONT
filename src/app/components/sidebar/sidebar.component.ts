@@ -2,6 +2,9 @@ import { navbarFooter } from './nav-footer';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
 import { navbarData } from './nav-data';
+import { navbarDataAdmin } from './nav-data-admin';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UsersService } from 'src/app/shared/user.service';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -22,12 +25,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/usuario', title: 'Usuarios',  icon: 'ni-tv-2 text-primary', class: '' },
   { path: '/calculos', title: 'Cálculos',  icon: 'ni-tv-2 text-primary', class: '' },
   { path: '/dashboard', title: '¿Que hay de nuevo?',  icon: 'ni-tv-2 text-primary', class: '' },
-  /*{ path: '/icons', title: 'Icons',  icon:'ni-planet text-blue', class: '' },
-  { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '' },
-  { path: '/user-profile', title: 'User profile',  icon:'ni-single-02 text-yellow', class: '' },
-  { path: '/tables', title: 'Tables',  icon:'ni-bullet-list-67 text-red', class: '' },
-  { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' },
-  { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '' }*/
+
 ];
 
 @Component({
@@ -67,7 +65,12 @@ export class SidebarComponent implements OnInit {
   collapsed = false;
   screenWidth = 0;
   navData = navbarData;
+  navDataAdmin = navbarDataAdmin;
   navFooter = navbarFooter;
+  user: any;
+  userDetails: any;
+
+  constructor(public auth: AuthenticationService,private service: UsersService){}
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -80,6 +83,24 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
       this.screenWidth = window.innerWidth;
+      this.getAuthUsuario()
+      this.getInfoUsuario() 
+  }
+
+  getInfoUsuario() {
+    this.service.getUsuario(this.user.Id).subscribe(
+      (res) => {
+        this.userDetails = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getAuthUsuario() {
+    this.user = this.auth.getUsuarioPerfil();
+    console.log(this.user);
   }
 
   toggleCollapse(): void {

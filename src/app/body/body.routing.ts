@@ -13,6 +13,7 @@ export const BodyRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent},
     { path: 'datos',      component: ListDatosComponent},
     { path: 'mapa',      component: ViewMapComponent},
+    { path: 'datos-map/:id',      component: ListDatosComponent},
     { path: 'calculos',      component: CalculosComponent},
 
     //Edicion Usuarios

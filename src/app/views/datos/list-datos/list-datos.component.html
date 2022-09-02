@@ -17,45 +17,22 @@
         </a>
 
         <select
-        
-              style="font-weight: bolder; color:#083e5e
+          style="font-weight: bolder; color:#083e5e
               ; width: 27%; margin-left: 0.75em;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
-              matNativeControl
-              required
-              
-              class="form-control form-control-alternative"
-              (change)="onChange($event)"
-             
+          matNativeControl required class="form-control form-control-alternative" (change)="onChange($event)">
+          <option *ngFor="let stations of currentEstacion" value="{{ stations.id }}">
+            {{ stations.nombreEstacion }}
+          </option>
+        </select>
 
-            >
-              <option
-                *ngFor="let stations of currentEstacion"
-                value="{{ stations.id }}"
-                
-              >
-                {{ stations.nombreEstacion }}
-              </option>
-            </select>
-
-            <select
-        
-            style="font-weight: bolder; color:#083e5e
+        <select
+          style="font-weight: bolder; color:#083e5e
             ; width: 27%; margin-left: 0.75em;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
-            matNativeControl
-            required
-            class="form-control form-control-alternative"
-            (change)="Onchange2($event)"
-          
-
-          >
-            <option
-              *ngFor="let stations of currentEstacion"
-              value="{{ stations.id }}"
-              
-            >
-              {{ stations.nombreEstacion }}
-            </option>
-          </select>
+          matNativeControl required class="form-control form-control-alternative" (change)="Onchange2($event)">
+          <option *ngFor="let stations of currentEstacion" value="{{ stations.id }}">
+            {{ stations.nombreEstacion }}
+          </option>
+        </select>
       </div>
     </div>
 
@@ -65,250 +42,205 @@
       <div class="row align-items-center">
         <div class="col row" style="padding-left: 30px;">
           <div class="form-group" style="margin-right: 0.75em">
-            <label class="form-control-label" for="fecha_vencimiento"
-              >Fecha Inicio</label
-            >
+            <label class="form-control-label" for="fecha_vencimiento">Fecha Inicio</label>
             <input
-            style="font-weight: bolder; color:#083e5e
+              style="font-weight: bolder; color:#083e5e
             ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
-              type="date"
-              class="form-control form-control-alternative"
-              id="fechainicio"
-              required
-              name="fechainicio"
-              [value]="DateInicio"
-              (change)="OnFechaInicio($event)"
-            />
-            
+              type="date" class="form-control form-control-alternative" id="fechainicio" required name="fechainicio"
+              [value]="DateInicio" (change)="OnFechaInicio($event)" />
+
           </div>
 
           <div class="form-group" style="margin-right: 2.5em">
-            <label class="form-control-label" for="fecha_vencimiento"
-              >Hora Inicio</label
-            >
+            <label class="form-control-label" for="fecha_vencimiento">Hora Inicio</label>
             <input
-            style="font-weight: bolder; color:#083e5e
+              style="font-weight: bolder; color:#083e5e
             ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
-              type="time"
-              class="form-control form-control-alternative"
-              id="horainicio"
-              required
-              name="horainicio"
-              [value]="Tiempo"
-              (change)="OnHoraInicio($event)"
-            />
-            
+              type="time" class="form-control form-control-alternative" id="horainicio" required name="horainicio"
+              [value]="Tiempo" (change)="OnHoraInicio($event)" />
+
           </div>
 
           <div class="form-group" style="margin-right: 0.75em">
-            <label class="form-control-label" for="fecha_vencimiento"
-              >Fecha Fin</label
-            >
+            <label class="form-control-label" for="fecha_vencimiento">Fecha Fin</label>
             <input
-            style="font-weight: bolder; color:#083e5e
+              style="font-weight: bolder; color:#083e5e
             ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
-              type="date"
-              class="form-control form-control-alternative"
-              id="fechafin"
-              required
-              name="fechafin"    
-              [value]="DateFin"
-              (change)="OnFechaFin($event)"
-            />
-            
+              type="date" class="form-control form-control-alternative" id="fechafin" required name="fechafin"
+              [value]="DateFin" (change)="OnFechaFin($event)" />
+
           </div>
-  
+
           <div class="form-group">
-            <label class="form-control-label" for="fecha_vencimiento"
-              >Hora Fin</label
-            >
+            <label class="form-control-label" for="fecha_vencimiento">Hora Fin</label>
             <input
-            style="font-weight: bolder; color:#083e5e
+              style="font-weight: bolder; color:#083e5e
             ; width: 100%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;"
-              type="time"
-              class="form-control form-control-alternative"
-              id="horafin"
-              required
-              name="horafin"
-              [value]="Tiempo"
-              (change)="OnHoraFin($event)"
-            />
+              type="time" class="form-control form-control-alternative" id="horafin" required name="horafin"
+              [value]="Tiempo" (change)="OnHoraFin($event)" />
           </div>
           <div class="form-group">
-            
-                  <button
-                    type="submit"
-                    (click)="consultarInformacion()"
-                    name=""
-                    style="background-color: #083e5e; margin-left: 50px; margin-top:26px; margin-right: 0.80em; width: 120px; height: 40px; border-radius: 0.375rem; border-color: #b1141403"
-                  >
-                  <i style="color: #fff" class="fas fa-search"></i> 
-                  <span style="color: rgb(255, 255, 255)">Filtrar</span>
-                  </button>
-    
+
+            <button type="submit" (click)="consultarInformacion()" name=""
+              style="background-color: #083e5e; margin-left: 50px; margin-top:26px; margin-right: 0.80em; width: 120px; height: 40px; border-radius: 0.375rem; border-color: #b1141403">
+              <i style="color: #fff; margin-right: 0.80em" class="fas fa-search"></i>
+              <span style="color: rgb(255, 255, 255)"><strong>Filtrar</strong></span>
+            </button>
+
           </div>
 
 
 
         </div>
 
-        <a
-        style="background-color: #083e5e; margin-right: 0.80em"
-        class="btn btn-icon"
-      >
-        <i style="color: #fff" class="fas fa-location"></i> 
-        <span style="color: rgb(255, 255, 255)">Registrar Estación</span>
-      </a>
+        <a (click)="openDialog()" style="background-color: #083e5e; margin-right: 0.80em" class="btn btn-icon">
+          <i style="color: #fff" class="fas fa-location"></i>
+          <span style="color: rgb(255, 255, 255)">Registrar Estación</span>
+        </a>
 
-       
+
       </div>
     </div>
 
     <div class="card-header">
-               
-              <mat-tab-group>
-                <mat-tab label="Primera Estación">  
-                  <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                  <table class="table  table-striped mb-0">
-                    <thead  style="background-color: #018A6F;">
-                      <tr>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F; color: floralwhite;" >Estacion Actual</th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                        <th scope="col" style="background-color: #018A6F;"></th>
-                      </tr>
-      
-              
-                    </thead>
-                      <thead>
-                        <tr>
-                          <th  style="font-size: 12px;color: white;background-color: black;">Fecha</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">Punto de Rocío °C</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">Presión mb</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">Humedad %</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">Temp. °C</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">Temp. Alta C°</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">Temp. Baja C°</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">Rad Solar W/m²</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">índice UV</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">Lluvia mm</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">ET mm</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">Viento grados</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">Viento dir</th>
-                          <th  style="font-size: 12px;color: white;background-color: black;">Viento kt</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let data of estacionOne">
-                          <td style="color: white;background-color: black">{{data.fecha}}</td>
-                          <td>{{data.dewpoint_c}}</td>
-                          <td>{{data.pressure_mb}}</td>
-                          <td>{{data.relative_humidity}}</td>
-                          <td>{{data.temp_c}}</td>
-                          <td>{{data.temp_day_high_f}}</td>
-                          <td>{{data.temp_day_low_f}}</td>
-                          <td>{{data.solar_radiation}}</td>
-                          <td>{{data.uv_index}}</td>
-                          <td>{{data.rain_day_in}}</td>
-                          <td>{{data.et_day}}</td>
-                          <td>{{data.wind_degrees}}</td>
-                          <td>{{data.wind_dir}}</td>
-                          <td>{{data.wind_kt}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
 
-                    <!-- Projects table -->
-                    
-                  </div>
-                </mat-tab>
+      <mat-tab-group>
+        <mat-tab label="Primera Estación">
+          <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table  table-striped mb-0">
+              <thead style="background-color: #018A6F;">
+                <tr>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F; color: floralwhite;">Estacion Actual</th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                </tr>
 
-                <mat-tab label="Segunda Estación"> 
-                  <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                    <table class="table  table-striped mb-0">
-                      <thead  style="background-color: #018A6F;">
-                        <tr>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                          <th scope="col" style="background-color: #018A6F; color: floralwhite;" >Estacion Actual</th>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                          <th scope="col" style="background-color: #018A6F;"></th>
-                        </tr>
-        
-                
-                      </thead>
-                        <thead>
-                          <tr>
-                            <th  style="font-size: 12px;color: white;background-color: black;">Fecha</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">Punto de Rocío °C</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">Presión mb</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">Humedad %</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">Temp. °C</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">Temp. Alta C°</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">Temp. Baja C°</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">Rad Solar W/m²</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">índice UV</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">Lluvia mm</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">ET mm</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">Viento grados</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">Viento dir</th>
-                            <th  style="font-size: 12px;color: white;background-color: black;">Viento kt</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let data of estacionTwo">
-                            <td style="color: white;background-color: black">{{data.fecha}}</td>
-                            <td>{{data.dewpoint_c}}</td>
-                            <td>{{data.pressure_mb}}</td>
-                            <td>{{data.relative_humidity}}</td>
-                            <td>{{data.temp_c}}</td>
-                            <td>{{data.temp_day_high_f}}</td>
-                            <td>{{data.temp_day_low_f}}</td>
-                            <td>{{data.solar_radiation}}</td>
-                            <td>{{data.uv_index}}</td>
-                            <td>{{data.rain_day_in}}</td>
-                            <td>{{data.et_day}}</td>
-                            <td>{{data.wind_degrees}}</td>
-                            <td>{{data.wind_dir}}</td>
-                            <td>{{data.wind_kt}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-  
-                      <!-- Projects table -->
-                      
-                    </div>
-                </mat-tab>
-               
-              </mat-tab-group>
-           
+
+              </thead>
+              <thead>
+                <tr>
+                  <th style="font-size: 12px;color: white;background-color: black;">Fecha</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Punto de Rocío °C</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Presión mb</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Humedad %</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Temp. °C</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Temp. Alta C°</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Temp. Baja C°</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Rad Solar W/m²</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">índice UV</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Lluvia mm</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">ET mm</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Viento grados</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Viento dir</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Viento kt</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of estacionOne">
+                  <td style="color: white;background-color: black">{{data.fecha}}</td>
+                  <td>{{data.dewpoint_c}}</td>
+                  <td>{{data.pressure_mb}}</td>
+                  <td>{{data.relative_humidity}}</td>
+                  <td>{{data.temp_c}}</td>
+                  <td>{{data.temp_day_high_f}}</td>
+                  <td>{{data.temp_day_low_f}}</td>
+                  <td>{{data.solar_radiation}}</td>
+                  <td>{{data.uv_index}}</td>
+                  <td>{{data.rain_day_in}}</td>
+                  <td>{{data.et_day}}</td>
+                  <td>{{data.wind_degrees}}</td>
+                  <td>{{data.wind_dir}}</td>
+                  <td>{{data.wind_kt}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Projects table -->
+
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Segunda Estación">
+          <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table  table-striped mb-0">
+              <thead style="background-color: #018A6F;">
+                <tr>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F; color: floralwhite;">Estacion Actual</th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                </tr>
+
+
+              </thead>
+              <thead>
+                <tr>
+                  <th style="font-size: 12px;color: white;background-color: black;">Fecha</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Punto de Rocío °C</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Presión mb</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Humedad %</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Temp. °C</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Temp. Alta C°</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Temp. Baja C°</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Rad Solar W/m²</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">índice UV</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Lluvia mm</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">ET mm</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Viento grados</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Viento dir</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Viento kt</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of estacionTwo">
+                  <td style="color: white;background-color: black">{{data.fecha}}</td>
+                  <td>{{data.dewpoint_c}}</td>
+                  <td>{{data.pressure_mb}}</td>
+                  <td>{{data.relative_humidity}}</td>
+                  <td>{{data.temp_c}}</td>
+                  <td>{{data.temp_day_high_f}}</td>
+                  <td>{{data.temp_day_low_f}}</td>
+                  <td>{{data.solar_radiation}}</td>
+                  <td>{{data.uv_index}}</td>
+                  <td>{{data.rain_day_in}}</td>
+                  <td>{{data.et_day}}</td>
+                  <td>{{data.wind_degrees}}</td>
+                  <td>{{data.wind_dir}}</td>
+                  <td>{{data.wind_kt}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Projects table -->
+
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+
 
     </div>
 
   </div>
 </div>
-   
-      
-        
-
-
-

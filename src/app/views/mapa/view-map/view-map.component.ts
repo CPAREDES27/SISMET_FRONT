@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { Router, RouterLink } from "@angular/router";
 import { Map, marker, tileLayer } from "leaflet";
 import { AuthenticationService } from "src/app/services/authentication.service";
 import { EstacionService } from "src/app/services/estacion.service";
@@ -15,7 +16,12 @@ export class ViewMapComponent implements OnInit {
   id: any;
   estaciones: any;
 
+  estacion = {
+    id: "",
+  };
+
   constructor(
+    public router: Router,
     public auth: AuthenticationService,
     private service: UsersService,
     public estacionService: EstacionService
@@ -23,8 +29,27 @@ export class ViewMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAuthUsuario();
-    this.getEstacion(this.user.Id);
     this.getUbicacion(this.user.Id);
+
+    if (this.user.rol == 2) {
+      this.getEstacion(this.user.Id);
+    }
+    if (this.user.rol == 1) {
+      this.ObtenerEstaciones();
+    }
+  }
+
+  ObtenerEstaciones() {
+    this.estacionService.getAll().subscribe(
+      (data) => {
+        this.currentEstacion = data;
+
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getAuthUsuario() {
@@ -61,7 +86,12 @@ export class ViewMapComponent implements OnInit {
           this.currentEstacion[0].longitud,
         ])
           .addTo(map)
-          .bindPopup(this.currentEstacion[0].nombreEstacion);
+          //.bindPopup(this.currentEstacion[0].nombreEstacion)
+          .on("click", (ev) => {
+            this.router.navigateByUrl(
+              "/datos-map/" + this.currentEstacion[0].id
+            );
+          });
 
         map.fitBounds([
           [markerItem.getLatLng().lat, markerItem.getLatLng().lng],
@@ -72,6 +102,4 @@ export class ViewMapComponent implements OnInit {
       }
     );
   }
-
- 
 }
