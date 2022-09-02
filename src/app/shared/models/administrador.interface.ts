@@ -40,4 +40,14 @@ export interface Root {
     descripcion: string
     estado: boolean
   }
+
+
+    
+  export interface EstacionAll {
+    id: number,
+    nombreEstacion: string,
+    latitud: string,
+    longitud: string
+  }
+  
   

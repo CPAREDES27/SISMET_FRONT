@@ -17,8 +17,12 @@ import { EstacionService } from "src/app/services/estacion.service";
   styleUrls: ["./list-datos.component.scss"],
 })
 export class ListDatosComponent implements OnInit {
+
+  selectedValue = null;
+  
   userDetails: any;
   user: any;
+  estacionid: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -67,10 +71,12 @@ export class ListDatosComponent implements OnInit {
     }
 
     if (this.user.rol == 1) {
-      this.ObtenerEstaciones();
+        this.ObtenerEstaciones();
+        this.estacionid=this.route.snapshot.paramMap.get("id")
+        console.log(this.estacionid)
     }
 
-    this.getEstacionFromMap(this.route.snapshot.paramMap.get("id"));
+  
 
     console.log(this.date1);
     let h = this.hora;
@@ -137,7 +143,10 @@ export class ListDatosComponent implements OnInit {
       (data) => {
         this.currentEstacion = data;
         console.log(data);
+
+
       },
+      
       (error) => {
         console.log(error);
       }
@@ -152,6 +161,7 @@ export class ListDatosComponent implements OnInit {
   onChange(event: any) {
     console.log(event.target["value"]);
     this.IdPrimeraEstacion = event.target["value"];
+    this.estacionid = event.target["value"];
   }
 
   Onchange2(event: any) {
@@ -210,6 +220,8 @@ export class ListDatosComponent implements OnInit {
     });
   }
 
+
+  
   ObtenerEstaciones() {
     this.estacionService.getAll().subscribe(
       (data) => {

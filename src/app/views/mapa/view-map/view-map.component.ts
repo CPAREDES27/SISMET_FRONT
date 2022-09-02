@@ -10,22 +10,26 @@ import { UsersService } from "src/app/shared/user.service";
   templateUrl: "./view-map.component.html",
   styleUrls: ["./view-map.component.scss"],
 })
+
+
 export class ViewMapComponent implements OnInit {
   user: any;
   currentEstacion: any;
   id: any;
   estaciones: any;
-   map:any;
+  map: any;
   estacion = {
     id: "",
   };
-  datoEnviar:number=0;
+  datoEnviar: number = 0;
   constructor(
     public router: Router,
     public auth: AuthenticationService,
     private service: UsersService,
     public estacionService: EstacionService
   ) {}
+
+
 
   ngOnInit(): void {
     this.getAuthUsuario();
@@ -37,10 +41,18 @@ export class ViewMapComponent implements OnInit {
     if (this.user.rol == 1) {
       this.ObtenerEstaciones();
     }
-
   }
-  ngAfterViewInit():void{
-    this.map=new Map("map");
+
+
+
+
+  ngAfterViewInit(): void {
+    this.map = new Map("map");
+  }
+
+  getAuthUsuario() {
+    this.user = this.auth.getUsuarioPerfil();
+    console.log(this.user);
   }
 
   ObtenerEstaciones() {
@@ -56,11 +68,6 @@ export class ViewMapComponent implements OnInit {
     );
   }
 
-  getAuthUsuario() {
-    this.user = this.auth.getUsuarioPerfil();
-    console.log(this.user);
-  }
-
   getEstacion(id: number) {
     this.service.getUsuario(id).subscribe(
       (data) => {
@@ -73,43 +80,38 @@ export class ViewMapComponent implements OnInit {
     );
   }
 
-  
-  mostrarmapa(latitud:number,longitud:number){
+  mostrarmapa(latitud: number, longitud: number) {
     debugger;
-     
- 
-      this.map.setView([latitud, longitud], 13);
 
-        tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          maxZoom: 14,
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(this.map);
-        
-        const markerItem = marker([
-          latitud,
-          longitud
-        ])
-          .addTo(this.map)
-          //.bindPopup(this.currentEstacion[0].nombreEstacion)
-          .on("click", (ev) => {
-            this.router.navigateByUrl(
-              "/datos-map/" +  this.datoEnviar
-            );
-          });
+    this.map.setView([latitud, longitud], 13);
 
-        this.map.fitBounds([
-          [markerItem.getLatLng().lat, markerItem.getLatLng().lng],
-        ]);
-        
+    tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 14,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(this.map);
+
+    const markerItem = marker([latitud, longitud])
+      .addTo(this.map)
+      //.bindPopup(this.currentEstacion[0].nombreEstacion)
+      .on("click", (ev) => {
+        this.router.navigateByUrl("/datos-map/" + this.datoEnviar);
+      });
+
+    this.map.fitBounds([
+      [markerItem.getLatLng().lat, markerItem.getLatLng().lng],
+    ]);
   }
   getUbicacion(id: number) {
     this.service.getUsuario(id).subscribe(
       (data) => {
         this.currentEstacion = data.empresa.estacion;
         console.log(data);
-        this.datoEnviar=data.empresa.estacion[0].id;
-        this.mostrarmapa(Number(data.empresa.estacion[0].latitud),Number(data.empresa.estacion[0].longitud))
+        this.datoEnviar = data.empresa.estacion[0].id;
+        this.mostrarmapa(
+          Number(data.empresa.estacion[0].latitud),
+          Number(data.empresa.estacion[0].longitud)
+        );
       },
       (error) => {
         console.log(error);
@@ -117,24 +119,20 @@ export class ViewMapComponent implements OnInit {
     );
   }
 
-
-  getUbicacionCombo(event: any){
-    
+  getUbicacionCombo(event: any) {
     console.log("algo");
-    var estacion = event.target['value']
-    this.datoEnviar=Number(estacion);
+    var estacion = event.target["value"];
+    this.datoEnviar = Number(estacion);
     console.log(this.currentEstacion);
     let longitud;
     let latitude;
-    for(var i = 0; i<this.currentEstacion.length; i++){
-    
-      if (this.currentEstacion[i].id==estacion){
-        latitude=this.currentEstacion[i].latitud;
-        longitud=this.currentEstacion[i].longitud;
+    for (var i = 0; i < this.currentEstacion.length; i++) {
+      if (this.currentEstacion[i].id == estacion) {
+        latitude = this.currentEstacion[i].latitud;
+        longitud = this.currentEstacion[i].longitud;
       }
     }
     debugger;
-    this.mostrarmapa(Number(latitude),Number(longitud));
-
+    this.mostrarmapa(Number(latitude), Number(longitud));
   }
 }

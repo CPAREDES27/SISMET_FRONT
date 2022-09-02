@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment'; 
 import { Observable } from 'rxjs';
 import { Calculo } from '../shared/models/calculo.interface';
-import { Root } from '../shared/models/administrador.interface';
+import { EstacionAll, Root } from '../shared/models/administrador.interface';
 
 
 
@@ -35,7 +35,7 @@ export class EstacionService {
 
   getAll() {
     const baseUrl = `${this.urlServices}davis`;
-    return this.http.get(`${baseUrl}/GetEstaciones`);
+    return this.http.get<EstacionAll>(`${baseUrl}/GetEstaciones`);
   }
 
   getHorasFrio(id:number,fechaI:string,fechaF:string):Observable<Calculo>{
