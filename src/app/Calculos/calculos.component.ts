@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { AuthenticationService } from '../services/authentication.service';
 import { EstacionService } from '../services/estacion.service';
 import { Calculo } from '../shared/models/calculo.interface';
 import { UsersService } from '../shared/user.service';
@@ -11,10 +12,12 @@ import { UsersService } from '../shared/user.service';
 })
 export class CalculosComponent implements OnInit {
 
-  constructor(private service:UsersService, private estacionService: EstacionService) { }
+  constructor(private service:UsersService, private estacionService: EstacionService,public auth: AuthenticationService,) { }
   data:any;
   calculo:any;
   valor:any;
+  user: any;
+  userDetails: any;
   fechaIn:string="";
   fechaFi:string="";
   today:string="";
@@ -22,7 +25,45 @@ export class CalculosComponent implements OnInit {
   ngOnInit(): void {
     this.today = new Date().toISOString().split('T')[0];
     this.todayF = new Date().toISOString().split('T')[0];
-    this.getEstacion(1);
+
+    this.getAuthUsuario()
+
+    if (this.user.rol == 2) {
+      this.getEstacion(this.user.Id);
+    }
+
+    if (this.user.rol == 1) {
+      this.ObtenerEstaciones();
+    }
+
+
+    const user = {
+      id: this.user.Id,
+    };
+
+    this.service.getUsuario(this.user.Id).subscribe(
+      (res) => {
+
+        this.userDetails = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+
+  }
+
+  ObtenerEstaciones() {
+    this.estacionService.getAll().subscribe(
+      (data) => {
+        this.data = data;
+
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
  
   horasFrio(){
@@ -72,6 +113,12 @@ export class CalculosComponent implements OnInit {
           Swal.fire("hola");
         });
   }
+
+  getAuthUsuario() {
+    this.user = this.auth.getUsuarioPerfil();
+    console.log(this.user);
+  }
+
   getEstacion(id: number) {
     this.service.getUsuario(id)
       .subscribe(
