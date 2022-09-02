@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router";
 import { Map, marker, tileLayer } from "leaflet";
@@ -15,11 +15,11 @@ export class ViewMapComponent implements OnInit {
   currentEstacion: any;
   id: any;
   estaciones: any;
-
+   map:any;
   estacion = {
     id: "",
   };
-
+  datoEnviar:number=0;
   constructor(
     public router: Router,
     public auth: AuthenticationService,
@@ -37,6 +37,10 @@ export class ViewMapComponent implements OnInit {
     if (this.user.rol == 1) {
       this.ObtenerEstaciones();
     }
+
+  }
+  ngAfterViewInit():void{
+    this.map=new Map("map");
   }
 
   ObtenerEstaciones() {
@@ -70,34 +74,42 @@ export class ViewMapComponent implements OnInit {
   }
 
   
+  mostrarmapa(latitud:number,longitud:number){
+    debugger;
+     
+ 
+      this.map.setView([latitud, longitud], 13);
 
+        tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 14,
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(this.map);
+        
+        const markerItem = marker([
+          latitud,
+          longitud
+        ])
+          .addTo(this.map)
+          //.bindPopup(this.currentEstacion[0].nombreEstacion)
+          .on("click", (ev) => {
+            this.router.navigateByUrl(
+              "/datos-map/" +  this.datoEnviar
+            );
+          });
+
+        this.map.fitBounds([
+          [markerItem.getLatLng().lat, markerItem.getLatLng().lng],
+        ]);
+        
+  }
   getUbicacion(id: number) {
     this.service.getUsuario(id).subscribe(
       (data) => {
         this.currentEstacion = data.empresa.estacion;
         console.log(data);
-        const map = new Map("map").setView([51.505, -0.09], 13);
-        tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          maxZoom: 19,
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(map);
-
-        const markerItem = marker([
-          this.currentEstacion[0].latitud,
-          this.currentEstacion[0].longitud,
-        ])
-          .addTo(map)
-          //.bindPopup(this.currentEstacion[0].nombreEstacion)
-          .on("click", (ev) => {
-            this.router.navigateByUrl(
-              "/datos-map/" + this.currentEstacion[0].id
-            );
-          });
-
-        map.fitBounds([
-          [markerItem.getLatLng().lat, markerItem.getLatLng().lng],
-        ]);
+        this.datoEnviar=data.empresa.estacion[0].id;
+        this.mostrarmapa(Number(data.empresa.estacion[0].latitud),Number(data.empresa.estacion[0].longitud))
       },
       (error) => {
         console.log(error);
@@ -107,16 +119,22 @@ export class ViewMapComponent implements OnInit {
 
 
   getUbicacionCombo(event: any){
-
+    
+    console.log("algo");
     var estacion = event.target['value']
-
+    this.datoEnviar=Number(estacion);
+    console.log(this.currentEstacion);
+    let longitud;
+    let latitude;
     for(var i = 0; i<this.currentEstacion.length; i++){
-      if (this.currentEstacion[i]==estacion){
-        console.log(this.currentEstacion[i].latitud)
-        console.log(this.currentEstacion[i].longitud)
+    
+      if (this.currentEstacion[i].id==estacion){
+        latitude=this.currentEstacion[i].latitud;
+        longitud=this.currentEstacion[i].longitud;
       }
     }
-
+    debugger;
+    this.mostrarmapa(Number(latitude),Number(longitud));
 
   }
 }
