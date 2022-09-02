@@ -4,7 +4,25 @@ import { AuthenticationService } from '../services/authentication.service';
 import { EstacionService } from '../services/estacion.service';
 import { Calculo } from '../shared/models/calculo.interface';
 import { UsersService } from '../shared/user.service';
+import * as Highcharts from 'highcharts';
 
+
+
+declare var require: any;
+const More = require('highcharts/highcharts-more');
+More(Highcharts);
+
+import Histogram from 'highcharts/modules/histogram-bellcurve';
+Histogram(Highcharts);
+
+const Exporting = require('highcharts/modules/exporting');
+Exporting(Highcharts);
+
+const ExportData = require('highcharts/modules/export-data');
+ExportData(Highcharts);
+
+const Accessibility = require('highcharts/modules/accessibility');
+Accessibility(Highcharts);
 @Component({
   selector: 'app-calculos',
   templateUrl: './calculos.component.html',
@@ -15,6 +33,11 @@ export class CalculosComponent implements OnInit {
   constructor(private service:UsersService, private estacionService: EstacionService,public auth: AuthenticationService,) { }
   data:any;
   calculo:any;
+  public activity:any;
+  public xData:any;
+  public label:any;
+  options:any;
+  show:boolean=false;
   valor:any;
   user: any;
   userDetails: any;
@@ -66,28 +89,96 @@ export class CalculosComponent implements OnInit {
     );
   }
  
-  horasFrio(){
+  horasFrio():boolean{
 
     console.log(this.valor)
     console.log(this.today)
     console.log(this.todayF)
+    
+    if(this.today>this.todayF){
+      Swal.fire({
+        title: '',
+        html: 'La fecha inicial no debe ser mayor a la fecha final',
+        imageWidth:"100px",
+        icon:'warning',
+        confirmButtonColor: '#083E5E',
+        confirmButtonText: 'Aceptar'
+      });
+     return false;
+    
+    }
+
     var html="<b style=font-size:26px>Total de horas de frío</b></br>";
     this.estacionService.getHorasFrio(1,this.today,this.todayF)
         .subscribe(data=>{
-         this.calculo=data.valor;
-         if(this.calculo!=null){
-          Swal.fire({
-            title: '',
-            html: html+this.calculo,
-            imageUrl:"../assets/img/icons/colds.png",
-            confirmButtonColor: '#083E5E',
-            confirmButtonText: 'Aceptar'
-          })
-         }
+          this.calculo=data.valid;
+          if(this.calculo){
+           this.show=true;
+           this.histograma(data.histogramTable,data.valor);
+           Highcharts.chart('container', this.options);
+          }else{
+           this.show=false;
+           Swal.fire({
+             title: '',
+             html: 'No registra horas frio',
+             imageWidth:"100px",
+             imageUrl:"../assets/img/icons/sol.png",
+             confirmButtonColor: '#083E5E',
+             confirmButtonText: 'Aceptar'
+           })
+          }
         },
         error=>{
           Swal.fire("hola");
         });
+        return true;
+  }
+  histograma(datas:any,valor:any){
+    var horas =[];
+    var fecha=[];
+    for(var i=0;i<datas.length;i++){
+      horas[i]=datas[i].horas;
+      fecha[i]=datas[i].fecha;
+    }
+
+    
+    this.options = {
+    title: {
+        text: "<b>Total: </b>"+valor
+    },
+
+    xAxis: {
+      categories: fecha,
+      crosshair: true
+    },
+
+    yAxis: [{
+        title: { text: 'Data' }
+    }, {
+        title: { text: 'Histogram' },
+        opposite: true
+    }],
+
+    plotOptions: {
+        histogram: {
+            accessibility: {
+                pointDescriptionFormatter: function (point:any) {
+                    var ix = point.index + 1,
+                        x1 = point.x.toFixed(3),
+                        x2 = point.x2.toFixed(3),
+                        val = point.y;
+                    return ix + '. ' + x1 + ' to ' + x2 + ', ' + val + '.';
+                }
+            }
+        }
+    },
+
+    series: [{
+      name: 'Data',
+      data: horas
+  
+    }]
+};
   }
   radiacionSolar(){
 
@@ -98,10 +189,15 @@ export class CalculosComponent implements OnInit {
     this.estacionService.getRadiacionSolar(1,this.today,this.todayF)
         .subscribe(data=>{
          this.calculo=data.valor;
-         if(this.calculo!=null){
+         if(this.calculo){
+          this.show=true;
+          this.histograma(data.histogramTable,data.valor);
+          Highcharts.chart('containers', this.options);
+         }else{
+          this.show=false;
           Swal.fire({
             title: '',
-            html: html+this.calculo,
+            html: 'No registra horas frio',
             imageWidth:"100px",
             imageUrl:"../assets/img/icons/sol.png",
             confirmButtonColor: '#083E5E',
