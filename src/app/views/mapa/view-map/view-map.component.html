@@ -23,6 +23,7 @@
             border: 1px solid rgb(170, 171, 177);
             box-shadow: 0.001rem 0 0.5rem 0 #8690a3;
           "
+          (change)="getUbicacionCombo($event)"
           matNativeControl
           required
           class="form-control form-control-alternative"
@@ -31,6 +32,7 @@
           <option
             *ngFor="let stations of currentEstacion"
             value="{{ stations.id }}"
+            
           >
             {{ stations.nombreEstacion }}
           </option>
