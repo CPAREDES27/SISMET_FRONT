@@ -196,6 +196,18 @@ export class ListDatosComponent implements OnInit {
         console.log(error);
       }
     );
+
+    this.Datoservice.ExportarDatos(Filtros).subscribe(blobFile =>{
+      const url = window.URL.createObjectURL(blobFile);
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.setAttribute('style','display: none');
+      a.href = url;
+      a.download= 'ExportarDatos.xlsx';
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+    });
   }
 
   ObtenerEstaciones() {

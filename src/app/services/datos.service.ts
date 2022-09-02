@@ -16,5 +16,10 @@ import { Estaciones } from '../shared/models/estacion.interface';
       const baseUrl = `${this.urlServices}Davis`;
       return this.http.post<Estaciones>(baseUrl,data);
     }
+
+    ExportarDatos(data:any): Observable<any>{
+      const baseUrl = `${this.urlServices}Davis/ExportarData`;
+      return this.http.post(baseUrl,data, {responseType:'blob'});
+    }
   
   }
