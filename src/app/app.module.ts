@@ -41,6 +41,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AgregarEstacionComponent } from './views/datos/agregar-estacion/agregar-estacion.component';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { CambiarContrasenaComponent } from './views/usuario/cambiar-contrasena/cambiar-contrasena.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,8 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     CalculosComponent,
     EstacionComponent,
     AgregarEstacionComponent,
+    CambiarContrasenaComponent,
+ 
 
   ],
   imports: [

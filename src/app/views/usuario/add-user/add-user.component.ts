@@ -4,6 +4,8 @@ import { EmpresaService } from 'src/app/services/empresa.service';
 import { RolService } from 'src/app/services/rol.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from "sweetalert2";
+import { MatDialog } from "@angular/material/dialog";
+import { CambiarContrasenaComponent } from '../cambiar-contrasena/cambiar-contrasena.component';
 
 @Component({
   selector: 'app-add-user',
@@ -61,7 +63,7 @@ export class AddUserComponent implements OnInit {
 
   submitted = false;
 
-  constructor(private usuarioService: UsuarioService,private route: ActivatedRoute, public rolService: RolService,
+  constructor(private dialog: MatDialog,private usuarioService: UsuarioService,private route: ActivatedRoute, public rolService: RolService,
     public empresaService: EmpresaService, public router: Router) { }
 
   ngOnInit(): void {
@@ -70,6 +72,14 @@ export class AddUserComponent implements OnInit {
     this.ObtenerEmpresa();
 
  
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(CambiarContrasenaComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   

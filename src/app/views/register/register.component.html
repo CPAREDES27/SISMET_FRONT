@@ -1,8 +1,249 @@
+<div class="container-fluid">
+  <div class="header-body">
+    <!-- Card stats -->
+    <div class="row">
+      <div class="col-xl-3 col-lg-6">
+        <div class="card card-stats mb-4 mb-xl-0">
+          <div class="card-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div class="card card-profile shadow">
+        <div class="card-body pt-0 pt-md-4">
+          <div class="text-center" >
+            <div class="h5 mt-4"></div>
+            <div>
+              <img
+                src="../../../../assets/img/brand/user.png"
+                style="width: 180px; height: 170px"
+              />
+            </div>
+
+            <br />
+            <h1></h1>
+            <hr class="my-4" />
+            <a
+              style="background-color: #03983F; width: 50%;"
+              class="btn btn-icon"
+              type="submit"
+              (click)="register()"
+            >
+              <span style="color: rgb(255, 255, 255)">Registrar</span>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Registrar Usuario</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" 
+                      >Nombre de usuario</label
+                    >
+                    <input
+                    class="form-control"
+                    type="text"
+                    required
+                    [(ngModel)]="userName"
+                    name="userName"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" 
+                      >Email</label
+                    >
+                    <input
+                    class="form-control"
+                    type="email"
+                    required
+                    [(ngModel)]="correo"
+                    name="correo"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" >Nombres</label>
+                    <input
+                    class="form-control"
+                    type="text"
+                    required
+                    [(ngModel)]="nombres"
+                    name="nombres"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" 
+                      >Apellidos</label
+                    >
+                    <input
+                    class="form-control"
+                    type="text"
+                    required
+                    [(ngModel)]="apellidos"
+                    name="apellidos"
+                    />
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" 
+                      >Tipo de Documento</label
+                    >
+
+                    <select
+                    matNativeControl
+                    required
+                    class="form-control form-control-alternative"
+                    id="tipoDocumento"
+                    required
+                    [(ngModel)]="tipoDocumento"
+                    name="tipoDocumento"
+                  >
+                    <option value="DNI">DNI</option>
+                    <option value="Pasaporte">Pasaporte</option>
+                  </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" 
+                      >N° Documento</label
+                    >
+                    <input
+                      class="form-control"
+                      type="text"
+                      maxlength="12"
+                      required
+                      [(ngModel)]="nroDocumento"
+                      name="nroDocumento"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" >Rol</label>
+
+                    <select
+                    matNativeControl
+                    required
+                    class="form-control form-control-alternative"
+                    id="rolId"
+                    required
+                    name="rolId"
+                    [(ngModel)]="rolId"
+                  >
+                    <option *ngFor="let roles of rol_mk" value="{{ roles.id }}">
+                      {{ roles.nombre }}
+                    </option>
+                  </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" 
+                      >Empresa</label
+                    >
+                    <select
+                    matNativeControl
+                    required
+                    class="form-control form-control-alternative"
+                    id="empresaId"
+                    required
+                    name="empresaId"
+                    [(ngModel)]="empresaId"
+                  >
+                    <option
+                      *ngFor="let empresas of empresa_mk"
+                      value="{{ empresas.id }}"
+                    >
+                      {{ empresas.nombre }}
+                    </option>
+                  </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" 
+                      >Contraseña</label
+                    >
+
+                    <input
+                      class="form-control"
+                      type="password"
+                      required
+                      [(ngModel)]="contrasena"
+                      name="contrasena"
+                  />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" 
+                      >Repetir Contraseña</label
+                    >
+                    <input
+                    class="form-control"
+                    type="password"
+                  />
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--
 <body
   background="https://www.weatherlink.com/static/images/socialMediaShare/facebook.png"
   style="background-repeat: no-repeat; background-size: cover"
 >
   <div class="header py-7 py-lg-8"></div>
+
 
   <div class="bg-img">
     <main class="box">
@@ -85,14 +326,7 @@
             <div class="col-lg-6">
               <div class="inputBox">
                 <div class="form-group">
-                  <!--<input
-                    class="form-control"
-                    placeholder="Tipo de Documento"
-                    type="text"
-                    required
-                    [(ngModel)]="tipoDocumento"
-                    name="tipoDocumento"
-                  />-->
+                  
 
                   <select
                     matNativeControl
@@ -166,14 +400,7 @@
                     </option>
                   </select>
 
-                  <!--<input
-                  class="form-control"
-                  placeholder="Empresa"
-                  type="text"
-                  required
-                  name="empresaId"
-                  
-                />-->
+                
                 </div>
               </div>
             </div>
@@ -207,12 +434,7 @@
 
             <div class="col-md-3">
               <div class="form-control-feedback">
-                <!--
-              <ng-container *ngIf="!comparePassword && formControls.confirmPassword.touched">
-                              <span class="text-danger align-middle">
-                                <i class="fa fa-close"> Las contraseñas no son igualess</i>
-                            </span>
-              </ng-container>-->
+         
               </div>
             </div>
           </div>
@@ -250,4 +472,4 @@
 
     <footer></footer>
   </div>
-</body>
+</body>-->

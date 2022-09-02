@@ -40,7 +40,7 @@
             <br><br>
 
             <button
-            style="background-color:{{colorboton}}; width: 50%;"
+            style="background-color:#c50101; width: 50%;"
               class="btn btn-icon"
               (click)="deleteUsuario()"
             >
@@ -164,7 +164,7 @@
                           background-color: #007bff;
                           margin-left: 0.75em;
                         "
-                        href="#"
+                        (click)="openDialog()"
                         >Editar Contraseña</a
                       ></label
                     >
@@ -174,6 +174,7 @@
                       class="form-control form-control-alternative"
                       id="contrasena"
                       name="contrasena"
+                      disabled
                       [(ngModel)]="currentUsuario.contrasena"
                       required
                     />

@@ -1,3 +1,4 @@
+
 @import "../../../../assets/scss/custom/functions";
 @import "../../../../assets/scss/custom/variables";
 @import "../../../../assets/scss/custom/mixins";
@@ -55,6 +56,3 @@
 
 // Angular Differences
 @import "../../../../assets/scss/angular-differences/angular-differences";
-
-#map { height: 615px; }
-@import url("https://unpkg.com/leaflet@1.8.0/dist/leaflet.css");
