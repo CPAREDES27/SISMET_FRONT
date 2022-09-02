@@ -69,6 +69,8 @@ export class ViewMapComponent implements OnInit {
     );
   }
 
+  
+
   getUbicacion(id: number) {
     this.service.getUsuario(id).subscribe(
       (data) => {
@@ -101,5 +103,20 @@ export class ViewMapComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+
+  getUbicacionCombo(event: any){
+
+    var estacion = event.target['value']
+
+    for(var i = 0; i<this.currentEstacion.length; i++){
+      if (this.currentEstacion[i]==estacion){
+        console.log(this.currentEstacion[i].latitud)
+        console.log(this.currentEstacion[i].longitud)
+      }
+    }
+
+
   }
 }
