@@ -207,6 +207,20 @@ export class ListDatosComponent implements OnInit {
       }
     );
 
+    
+  }
+
+  ExportarDatos(){
+
+    const Filtros = {
+      idPrimeraEstacion: Number(this.IdPrimeraEstacion),
+      idSegundaEstacion: Number(this.IdSegundaEstacion),
+      fechaInicio: this.FechaInicio,
+      fechaFin: this.FechaFin,
+      horaInicio: this.HoraInicio,
+      horaFin: this.HoraFin,
+    };
+
     this.Datoservice.ExportarDatos(Filtros).subscribe(blobFile =>{
       const url = window.URL.createObjectURL(blobFile);
       const a = document.createElement('a');
