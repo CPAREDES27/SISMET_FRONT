@@ -47,6 +47,7 @@ import { MatSpinnerOverlayComponent } from './mat-spinner-overlay/mat-spinner-ov
 
 @NgModule({
   declarations: [
+    // LoginComponent,
     AppComponent,
     SidenavComponent,
     SidebarComponent,
@@ -86,6 +87,7 @@ import { MatSpinnerOverlayComponent } from './mat-spinner-overlay/mat-spinner-ov
     MatNativeDateModule,
     MatDatepickerModule,
     NgbModule,
+    
 
     ToastrModule.forRoot({
       progressBar: true

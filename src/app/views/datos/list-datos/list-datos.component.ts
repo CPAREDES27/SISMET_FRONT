@@ -67,6 +67,7 @@ export class ListDatosComponent implements OnInit {
   Minuto: any;
   todayDatos:string="";
   todayDatosF:string="";
+  carga:boolean=false;
   ngOnInit() {
 
     
@@ -243,9 +244,11 @@ export class ListDatosComponent implements OnInit {
       });
     
   }
-
+    
+  this.carga= true;
     this.Datoservice.postDavis(Filtros).subscribe(
       (data) => {
+        this.carga=false;
         //Aqui rata arreglo de estaciones
         this.estacionOne = data.estacion;
         this.estacionTwo = data.secondEstacion;
