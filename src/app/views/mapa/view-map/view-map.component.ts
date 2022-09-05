@@ -33,6 +33,7 @@ export class ViewMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAuthUsuario();
+    debugger;
     this.getUbicacion(this.user.Id);
 
     if (this.user.rol == 2) {
@@ -81,7 +82,6 @@ export class ViewMapComponent implements OnInit {
   }
 
   mostrarmapa(latitud: number, longitud: number) {
-    debugger;
 
     this.map.setView([latitud, longitud], 13);
 
@@ -132,7 +132,6 @@ export class ViewMapComponent implements OnInit {
         longitud = this.currentEstacion[i].longitud;
       }
     }
-    debugger;
     this.mostrarmapa(Number(latitude), Number(longitud));
   }
 }

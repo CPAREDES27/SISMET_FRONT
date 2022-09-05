@@ -42,6 +42,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AgregarEstacionComponent } from './views/datos/agregar-estacion/agregar-estacion.component';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CambiarContrasenaComponent } from './views/usuario/cambiar-contrasena/cambiar-contrasena.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatSpinnerOverlayComponent } from './mat-spinner-overlay/mat-spinner-overlay.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { CambiarContrasenaComponent } from './views/usuario/cambiar-contrasena/c
     EstacionComponent,
     AgregarEstacionComponent,
     CambiarContrasenaComponent,
+    MatSpinnerOverlayComponent,
  
 
   ],
@@ -79,6 +82,7 @@ import { CambiarContrasenaComponent } from './views/usuario/cambiar-contrasena/c
     ReactiveFormsModule,
     FormsModule,
     MatSliderModule,
+    MatProgressSpinnerModule,
     MatNativeDateModule,
     MatDatepickerModule,
     NgbModule,
