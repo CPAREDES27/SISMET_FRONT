@@ -11,6 +11,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { AgregarEstacionComponent } from "../agregar-estacion/agregar-estacion.component";
 import { AuthenticationService } from "src/app/services/authentication.service";
 import { EstacionService } from "src/app/services/estacion.service";
+import Swal from 'sweetalert2';
+
 @Component({
   selector: "app-list-datos",
   templateUrl: "./list-datos.component.html",
@@ -37,8 +39,8 @@ export class ListDatosComponent implements OnInit {
   estacionTwo: any;
   IdSegundaEstacion: string | undefined;
   IdPrimeraEstacion: string | undefined;
-  FechaInicio: string | undefined;
-  FechaFin: string | undefined;
+  FechaInicio: any;
+  FechaFin: any ;
   HoraInicio: string | undefined;
   HoraFin: string | undefined;
 
@@ -63,7 +65,16 @@ export class ListDatosComponent implements OnInit {
   Tiempo: any;
   Hora: any;
   Minuto: any;
+  todayDatos:string="";
+  todayDatosF:string="";
   ngOnInit() {
+
+    
+    
+
+    this.todayDatos = new Date().toISOString();
+    this.todayDatosF = new Date().toISOString();
+
     this.getAuthUsuario();
 
     if (this.user.rol == 2) {
@@ -128,6 +139,27 @@ export class ListDatosComponent implements OnInit {
         console.log(err);
       }
     );
+
+    const Filtros = {
+      idPrimeraEstacion: 1,
+      idSegundaEstacion: 1,
+      fechaInicio: this.FechaInicio,
+      fechaFin: this.FechaFin,
+      horaInicio: this.HoraInicio,
+      horaFin: this.HoraFin,
+    };
+
+    this.Datoservice.postDavis(Filtros).subscribe(
+      (data) => {
+        //Aqui rata arreglo de estaciones
+        this.estacionOne = data.estacion;
+        this.estacionTwo = data.secondEstacion;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
   }
 
   openDialog() {
@@ -170,23 +202,24 @@ export class ListDatosComponent implements OnInit {
   }
   OnFechaInicio(event: any) {
     this.FechaInicio = event.target["value"];
-    console.log(event.target["value"]);
   }
   OnFechaFin(event: any) {
     this.FechaFin = event.target["value"];
-    console.log(event.target["value"]);
   }
   OnHoraInicio(event: any) {
     this.HoraInicio = event.target["value"];
     this.HoraInicio = this.HoraInicio + ":00";
-    console.log(this.HoraInicioFin);
   }
   OnHoraFin(event: any) {
     this.HoraFin = event.target["value"];
     this.HoraFin = this.HoraFin + ":00";
-    console.log(this.HoraFinFin);
+
   }
+
   consultarInformacion() {
+
+   
+
     const Filtros = {
       idPrimeraEstacion: Number(this.IdPrimeraEstacion),
       idSegundaEstacion: Number(this.IdSegundaEstacion),
@@ -195,6 +228,21 @@ export class ListDatosComponent implements OnInit {
       horaInicio: this.HoraInicio,
       horaFin: this.HoraFin,
     };
+
+    const dateI = new Date(this.FechaInicio);
+    const dateF = new Date(this.FechaFin);
+
+    if(dateI> dateF){
+      Swal.fire({
+        title: '',
+        html: 'La fecha inicial no debe ser mayor a la fecha final',
+        imageWidth:"100px",
+        icon:'warning',
+        confirmButtonColor: '#083E5E',
+        confirmButtonText: 'Aceptar'
+      });
+    
+  }
 
     this.Datoservice.postDavis(Filtros).subscribe(
       (data) => {
@@ -221,18 +269,33 @@ export class ListDatosComponent implements OnInit {
       horaFin: this.HoraFin,
     };
 
-    this.Datoservice.ExportarDatos(Filtros).subscribe(blobFile =>{
-      const url = window.URL.createObjectURL(blobFile);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.setAttribute('style','display: none');
-      a.href = url;
-      a.download= 'ExportarDatos.xlsx';
-      a.click();
-      window.URL.revokeObjectURL(url);
-      a.remove();
-    });
-  }
+
+    if(this.FechaInicio> this.FechaFin){
+      Swal.fire({
+        title: '',
+        html: 'La fecha inicial no debe ser mayor a la fecha final',
+        imageWidth:"100px",
+        icon:'warning',
+        confirmButtonColor: '#083E5E',
+        confirmButtonText: 'Aceptar'
+      });
+    
+    
+    }
+    else{
+      this.Datoservice.ExportarDatos(Filtros).subscribe(blobFile =>{
+        const url = window.URL.createObjectURL(blobFile);
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style','display: none');
+        a.href = url;
+        a.download= 'ExportarDatos.xlsx';
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+      });
+    }
+}
 
 
   
