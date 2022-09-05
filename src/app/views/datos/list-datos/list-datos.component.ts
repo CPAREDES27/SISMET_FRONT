@@ -71,14 +71,14 @@ export class ListDatosComponent implements OnInit {
 
     
     
-
-    this.todayDatos = new Date().toISOString();
-    this.todayDatosF = new Date().toISOString();
-
     this.getAuthUsuario();
 
     if (this.user.rol == 2) {
       this.getEstacion(this.user.Id);
+      this.estacionid=this.route.snapshot.paramMap.get("id")
+      console.log(this.estacionid);
+      console.log('Hola Mundo');
+
     }
 
     if (this.user.rol == 1) {
@@ -89,7 +89,7 @@ export class ListDatosComponent implements OnInit {
 
   
 
-    console.log(this.date1);
+    console.log(this.user.Id);
     let h = this.hora;
     let m = this.minuto;
 
@@ -318,15 +318,19 @@ export class ListDatosComponent implements OnInit {
   }
 
   getEstacion(id: number) {
+   
     this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.currentEstacion = data.empresa.estacion;
         this.IdPrimeraEstacion = String(data.empresa.estacion[0].id);
         this.IdSegundaEstacion = String(data.empresa.estacion[0].id);
+
       },
       (error) => {
         console.log(error);
       }
     );
+
+    
   }
 }
