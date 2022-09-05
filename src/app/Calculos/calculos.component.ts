@@ -36,10 +36,12 @@ export class CalculosComponent implements OnInit {
   public activity:any;
   public xData:any;
   public label:any;
+  primeraEstacion:number=0;
   options:any;
   show:boolean=false;
   valor:any;
   user: any;
+  carga:boolean=false;
   userDetails: any;
   fechaIn:string="";
   fechaFi:string="";
@@ -52,10 +54,12 @@ export class CalculosComponent implements OnInit {
     this.getAuthUsuario()
 
     if (this.user.rol == 2) {
+      console.log("entreCliente")
       this.getEstacion(this.user.Id);
     }
 
     if (this.user.rol == 1) {
+      console.log("entreAdmin")
       this.ObtenerEstaciones();
     }
 
@@ -66,7 +70,6 @@ export class CalculosComponent implements OnInit {
 
     this.service.getUsuario(this.user.Id).subscribe(
       (res) => {
-
         this.userDetails = res;
       },
       (err) => {
@@ -80,8 +83,9 @@ export class CalculosComponent implements OnInit {
     this.estacionService.getAll().subscribe(
       (data) => {
         this.data = data;
-
-        console.log(data);
+        this.valor=data[0].id;
+        console.log(this.data);
+        console.log(this.valor);
       },
       (error) => {
         console.log(error);
@@ -107,16 +111,18 @@ export class CalculosComponent implements OnInit {
      return false;
     
     }
-
+    this.carga=true;
     var html="<b style=font-size:26px>Total de horas de frío</b></br>";
-    this.estacionService.getHorasFrio(1,this.today,this.todayF)
+    this.estacionService.getHorasFrio(this.valor,this.today,this.todayF)
         .subscribe(data=>{
+          this.carga=false;
           this.calculo=data.valid;
           if(this.calculo){
            this.show=true;
            this.histograma(data.histogramTable,data.valor);
            Highcharts.chart('container', this.options);
           }else{
+            
            this.show=false;
            Swal.fire({
              title: '',
@@ -133,18 +139,27 @@ export class CalculosComponent implements OnInit {
         });
         return true;
   }
-  histograma(datas:any,valor:any){
+  histograma(datas:any,valor?:any){
     var horas =[];
     var fecha=[];
+    var titulo = "";
     for(var i=0;i<datas.length;i++){
-      horas[i]=datas[i].horas;
-      fecha[i]=datas[i].fecha;
+      if(valor==undefined){
+        horas[i]=datas[i].valor;
+        fecha[i]=datas[i].mes;
+      }else{
+        horas[i]=datas[i].horas;
+        fecha[i]=datas[i].fecha;
+      }
     }
 
+    if(valor!=undefined){
+      titulo="<b>Total: </b>"+valor
+    }
     
     this.options = {
     title: {
-        text: "<b>Total: </b>"+valor
+        text: titulo
     },
 
     xAxis: {
@@ -180,14 +195,28 @@ export class CalculosComponent implements OnInit {
     }]
 };
   }
-  radiacionSolar(){
+  radiacionSolar():boolean{
 
     console.log(this.valor)
     console.log(this.today)
     console.log(this.todayF)
+    if(this.today>this.todayF){
+      Swal.fire({
+        title: '',
+        html: 'La fecha inicial no debe ser mayor a la fecha final',
+        imageWidth:"100px",
+        icon:'warning',
+        confirmButtonColor: '#083E5E',
+        confirmButtonText: 'Aceptar'
+      });
+     return false;
+    
+    }
+    this.carga=true;
     var html="<b style=font-size:26px>Total de horas de Radiación Solar</b></br>";
-    this.estacionService.getRadiacionSolar(1,this.today,this.todayF)
+    this.estacionService.getRadiacionSolar(this.valor,this.today,this.todayF)
         .subscribe(data=>{
+          this.carga=false;
          this.calculo=data.valor;
          if(this.calculo){
           this.show=true;
@@ -206,8 +235,9 @@ export class CalculosComponent implements OnInit {
          }
         },
         error=>{
-          Swal.fire("hola");
+          Swal.fire(error);
         });
+        return true;
   }
 
   getAuthUsuario() {
@@ -229,6 +259,24 @@ export class CalculosComponent implements OnInit {
   }
   changes(event:any){
     this.valor=event.target['value'];
+    console.log(this.valor);
   }
 
+  onInduccionFloral(){
+    
+    console.log(this.valor);
+    this.carga=true;
+    this.estacionService.getInduccionFloral(this.valor)
+    .subscribe(data=>{
+      this.carga=false;
+     this.calculo=data[0].valor;
+     this.histograma(data);
+     Highcharts.chart('containerInduccion', this.options);
+     console.log(this.calculo);
+    
+    },
+    error=>{
+      Swal.fire(error);
+    }); 
+  }
 }

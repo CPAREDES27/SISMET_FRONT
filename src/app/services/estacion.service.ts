@@ -33,9 +33,9 @@ export class EstacionService {
     return this.http.post(`${baseUrl}/CrearEstacion`, data);
   }
 
-  getAll() {
+  getAll():Observable<EstacionAll[]> {
     const baseUrl = `${this.urlServices}davis`;
-    return this.http.get<EstacionAll>(`${baseUrl}/GetEstaciones`);
+    return this.http.get<EstacionAll[]>(`${baseUrl}/GetEstaciones`);
   }
 
   getHorasFrio(id:number,fechaI:string,fechaF:string):Observable<Calculo>{
@@ -49,5 +49,9 @@ export class EstacionService {
     return this.http.get<Calculo>(`${baseUrl}/${id}/${fechaI}/${fechaF}`);
   }
 
+  getInduccionFloral(id:number):Observable<Calculo[]>{
+    const baseUrl = `${this.urlServices}davis/InduccionFloral`;
+    return this.http.get<Calculo[]>(`${baseUrl}/${id}`);
+  }
 
 }

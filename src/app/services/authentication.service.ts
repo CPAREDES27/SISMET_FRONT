@@ -19,4 +19,7 @@ export class AuthenticationService {
     if (token != null) this.rol = jwtDecode(token);
     return this.rol;
   }
+  getToken(){
+    return localStorage.getItem("token");
+  }
 }

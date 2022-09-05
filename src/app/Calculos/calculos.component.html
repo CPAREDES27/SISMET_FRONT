@@ -151,8 +151,30 @@
                   <div id="containers"></div>
 
                   </mat-tab>
-                  <mat-tab label="Inducción floral"> Inducción floral </mat-tab>
+                  <mat-tab label="Inducción floral"> 
+                    <div class="row col">
+                    
+                      <div class="form-group" style="margin-right: 0.75em">
+                    
+                        <a (click)="onInduccionFloral()"
+                        style="background-color: #083e5e; margin-top: 27px;margin-right: 0.80em"
+                        class="btn btn-icon"
+                      >
+                        <i style="color: #fff"  ></i> 
+                        <span style="color: rgb(255, 255, 255)" >Calcular</span>
+                      </a>
+                        
+                      </div>
+                   
+                  
+                </div>
+                <div id="containerInduccion"></div>
+
+
+                  </mat-tab>
+                  
                 </mat-tab-group>
+                <app-mat-spinner-overlay *ngIf="carga"></app-mat-spinner-overlay>
               </div>
     </div>
     

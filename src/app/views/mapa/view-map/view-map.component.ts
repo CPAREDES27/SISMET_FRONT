@@ -10,11 +10,9 @@ import { UsersService } from "src/app/shared/user.service";
   templateUrl: "./view-map.component.html",
   styleUrls: ["./view-map.component.scss"],
 })
-
-
 export class ViewMapComponent implements OnInit {
   user: any;
-  currentEstacion: any;
+  currentEstacion: any = [];
   id: any;
   estaciones: any;
   map: any;
@@ -29,22 +27,17 @@ export class ViewMapComponent implements OnInit {
     public estacionService: EstacionService
   ) {}
 
-
-
   ngOnInit(): void {
     this.getAuthUsuario();
+    debugger;
     this.getUbicacion(this.user.Id);
 
     if (this.user.rol == 2) {
       this.getEstacion(this.user.Id);
-    }
-    if (this.user.rol == 1) {
+    } else {
       this.ObtenerEstaciones();
     }
   }
-
-
-
 
   ngAfterViewInit(): void {
     this.map = new Map("map");
@@ -52,7 +45,6 @@ export class ViewMapComponent implements OnInit {
 
   getAuthUsuario() {
     this.user = this.auth.getUsuarioPerfil();
-    console.log(this.user);
   }
 
   ObtenerEstaciones() {
@@ -60,7 +52,7 @@ export class ViewMapComponent implements OnInit {
       (data) => {
         this.currentEstacion = data;
 
-        console.log(data);
+        console.log(this.currentEstacion);
       },
       (error) => {
         console.log(error);
@@ -69,10 +61,9 @@ export class ViewMapComponent implements OnInit {
   }
 
   getEstacion(id: number) {
-    this.service.getUsuario(id).subscribe(
+    this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.currentEstacion = data.empresa.estacion;
-        console.log(data);
       },
       (error) => {
         console.log(error);
@@ -81,7 +72,6 @@ export class ViewMapComponent implements OnInit {
   }
 
   mostrarmapa(latitud: number, longitud: number) {
-    debugger;
 
     this.map.setView([latitud, longitud], 13);
 
@@ -93,7 +83,6 @@ export class ViewMapComponent implements OnInit {
 
     const markerItem = marker([latitud, longitud])
       .addTo(this.map)
-      //.bindPopup(this.currentEstacion[0].nombreEstacion)
       .on("click", (ev) => {
         this.router.navigateByUrl("/datos-map/" + this.datoEnviar);
       });
@@ -103,10 +92,8 @@ export class ViewMapComponent implements OnInit {
     ]);
   }
   getUbicacion(id: number) {
-    this.service.getUsuario(id).subscribe(
+    this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
-        this.currentEstacion = data.empresa.estacion;
-        console.log(data);
         this.datoEnviar = data.empresa.estacion[0].id;
         this.mostrarmapa(
           Number(data.empresa.estacion[0].latitud),
@@ -132,7 +119,6 @@ export class ViewMapComponent implements OnInit {
         longitud = this.currentEstacion[i].longitud;
       }
     }
-    debugger;
     this.mostrarmapa(Number(latitude), Number(longitud));
   }
 }
