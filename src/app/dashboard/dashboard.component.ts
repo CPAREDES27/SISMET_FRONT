@@ -15,10 +15,16 @@ import * as Highcharts from "highcharts";
 import HighchartsMore from "highcharts/highcharts-more";
 import HighchartsSolidGauge from "highcharts/modules/solid-gauge";
 import HighchartsColumn from "highcharts/modules/drilldown";
+import HighchartsAccess from "highcharts/modules/accessibility";
+import HighchartData from "highcharts/modules/data";
+import HighchartExportData from "highcharts/modules/export-data";
 
 HighchartsMore(Highcharts);
 HighchartsSolidGauge(Highcharts);
 HighchartsColumn(Highcharts);
+HighchartExportData(Highcharts);
+HighchartData(Highcharts);
+HighchartsAccess(Highcharts);
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -420,6 +426,78 @@ export class DashboardComponent implements OnInit {
       ],
     } as any);
   }
+
+
+
+  private createChartWindRose(): void {
+        
+    const chart = Highcharts.chart("chart-windrose", {
+      data: {
+        table: 'freq',
+        startRow: 1,
+        endRow: 17,
+        endColumn: 7
+      },
+    
+      chart: {
+        polar: true,
+        type: 'column'
+      },
+    
+      title: {
+        text: 'Dirección de viento',
+        align: 'left'
+      },
+    
+      subtitle: {
+        text: '',
+        align: 'left'
+      },
+    
+      pane: {
+        size: '85%'
+      },
+    
+      legend: {
+        align: 'right',
+        verticalAlign: 'top',
+        y: 100,
+        layout: 'vertical'
+      },
+    
+      xAxis: {
+        tickmarkPlacement: 'on'
+      },
+    
+      yAxis: {
+        min: 0,
+        endOnTick: false,
+        showLastLabel: true,
+        title: {
+          text: ''
+        },
+        // labels: {
+        //   formatter: function () {
+        //     return this.value + '%';
+        //   }
+        // },
+        reversedStacks: false
+      },
+    
+      tooltip: {
+        valueSuffix: ''
+      },
+    
+      plotOptions: {
+        series: {
+          stacking: 'normal',
+          shadow: false,
+          groupPadding: 0,
+          pointPlacement: 'on'
+        }
+      }
+    } as any);
+  }
   //example
 
   //example
@@ -434,6 +512,25 @@ export class DashboardComponent implements OnInit {
   currentEstacion: any;
   usuario_mk: any;
   user: any;
+
+  WindDire:any;
+
+  NorthBool: Number= 0;
+  NorthNorthEastBool: number=0;
+  NorthEastBool: number =0;
+  EastNorthEastBool: number =0;
+  EastBool: number =0;
+  EastSouthEastBool: number = 0;
+  SouthEastBool: number =0;
+  SouthSouthEastBool: number =0;
+  SouthBool: number =0;
+  SouthSouthWestBool: number =0;
+  SouthWestBool:number =0;
+  WestSouthWestBool: number=0;
+  WestBool: number =0;
+  WestNorthWestBool: number =0;
+  NorthWestBool: number =0;
+  NorthNorthWestBool: number =0;
 
   currentUsuario: any;
   currentIndex = -1;
@@ -524,6 +621,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.NorthBool = 20;
     this.getAuthUsuario();
 
     if (this.user.rol == 2) {
@@ -567,6 +666,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ObtenerHighcharts(idEstacion: any) {
+
+    
     this.estacionService.get(idEstacion).subscribe(
       (data) => {
         this.DataDavisDt = data;
@@ -576,13 +677,286 @@ export class DashboardComponent implements OnInit {
         this.createChartTemperatura();
         this.createChartGaugeUvIndex();
         this.createChartGaugeHumedad();
+        this.createChartWindRose();
+        
 
-        console.log(this.DataDavisDt);
       },
       (error) => {
         console.log(error);
       }
     );
+
+      this.SouthWestBool =30;
+      this.NorthBool = 0;
+      this.NorthNorthEastBool= 0;
+      this.NorthEastBool= 0;
+      this.EastNorthEastBool= 0;
+      this.EastBool= 0;
+      this.EastSouthEastBool= 0;
+      this.SouthEastBool= 0;
+      this.SouthSouthEastBool= 0;
+      this.SouthBool= 0;
+      this.SouthSouthWestBool= 0;
+      this.WestSouthWestBool= 0;
+      this.WestBool= 0;
+      this.WestNorthWestBool= 0;
+      this.NorthWestBool= 0;
+      this.NorthNorthWestBool= 0;
+    
+
+    // debugger;
+    // if (this.DataDavisDt?.wind_dir=='North'){
+    //   this.NorthBool= Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if (this.DataDavisDt?.wind_dir=='North-northeast'){
+    //   this.NorthNorthEastBool = Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if (this.DataDavisDt?.wind_dir=='Northeast'){
+    //   this.NorthEastBool= Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if (this.DataDavisDt?.wind_dir=='East-northeast'){
+    //   this.EastNorthEastBool= Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if (this.DataDavisDt?.wind_dir=='East'){
+    //   this.EastBool= Number(this.DataDavisDt?.wind_degrees); 
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if(this.DataDavisDt?.wind_dir=='East-southeast'){
+    //   this.EastSouthEastBool= Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if(this.DataDavisDt?.wind_dir=='Southeast'){
+    //   this.SouthEastBool = Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if(this.DataDavisDt?.wind_dir=='South-southeast'){
+    //   this.SouthSouthEastBool = Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if(this.DataDavisDt?.wind_dir=='South'){
+    //   this.SouthBool= Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if(this.DataDavisDt?.wind_dir=='South-southwest'){
+    //   this.SouthSouthWestBool = Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if(this.DataDavisDt?.wind_dir=='Southwest'){
+    //   this.SouthWestBool = Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthSouthWestBool= 0;
+    //   this.WestSouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if(this.DataDavisDt?.wind_dir=='West-southwest'){
+    //   this.WestSouthWestBool = Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthSouthWestBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if(this.DataDavisDt?.wind_dir=='West'){
+    //   this.WestBool = Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if(this.DataDavisDt?.wind_dir=='West-northwest'){
+    //   this.WestNorthWestBool= Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.NorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if(this.DataDavisDt?.wind_dir=='Northwest'){
+    //   this.NorthWestBool= Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthSouthWestBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestSouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthNorthWestBool= 0;
+    // }else if(this.DataDavisDt?.wind_dir=='Northnorthwest'){
+    //   this.NorthNorthWestBool = Number(this.DataDavisDt?.wind_degrees);
+    //   this.NorthBool = 0;
+    //   this.NorthNorthEastBool= 0;
+    //   this.NorthEastBool= 0;
+    //   this.EastNorthEastBool= 0;
+    //   this.EastBool= 0;
+    //   this.EastSouthEastBool= 0;
+    //   this.SouthEastBool= 0;
+    //   this.SouthSouthEastBool= 0;
+    //   this.SouthBool= 0;
+    //   this.SouthWestBool= 0;
+    //   this.WestBool= 0;
+    //   this.WestNorthWestBool= 0;
+    //   this.NorthWestBool= 0;
+    // }
+
+      
+   
+    
   }
 
   ObtenerEstaciones() {
