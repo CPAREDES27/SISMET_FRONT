@@ -133,7 +133,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-lg-6">
+            <!-- <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
                   
@@ -141,33 +141,37 @@
                  
                 </div>
               </div>
-           </div>
-            
+           </div> -->
 
-
-           
-          <div class="col-xl-3 col-lg-6">
+           <div class="col-xl-3 col-lg-6">
             <div class="card card-stats mb-4 mb-xl-0">
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase mb-0">Temperatura Actual</h5>
-                    <span class="h1 font-weight-bold mb-0">{{this.DataDavisDt?.temp_c}} °C</span>
+                    <span class="titulo">Viento</span><br>
+                    <span class="submenu">Dirección: </span>
+                    <span class="respuesta font-weight-bold mb-0">{{this.DataDavisDt?.wind_dir}}</span><br>
+                    <span class="submenu">Grado: </span>
+                    <span class="respuesta font-weight-bold mb-0">{{this.DataDavisDt?.wind_degrees}}</span><br>
+                    <span class="submenu">Velocidad: </span>
+                    <span class="respuesta font-weight-bold mb-0">{{this.DataDavisDt?.wind_kt}}</span>
+                    
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                      <i class="fas fa-sun-cloud"></i>
+                      <i class="fa fa-cloud"></i>
                     </div>
                   </div>
                 </div>
                
               </div>
             </div>
+
             <div class="card card-stats mb-4 mb-xl-0">
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase mb-0">Presión</h5>
+                    <span class="titulo">Presión</span><br>
                     <span class="h1 font-weight-bold mb-0">{{this.DataDavisDt?.pressure_string}}</span>
                   </div>
                   <div class="col-auto">
@@ -179,11 +183,35 @@
                
               </div>
             </div>
+            
+
+           </div>
+
+
+           
+          <div class="col-xl-3 col-lg-6">
             <div class="card card-stats mb-4 mb-xl-0">
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase mb-0">Punto Rocío</h5>
+                    <span class="titulo">Temperatura Actual</span><br>
+                    <span class="h1 font-weight-bold mb-0">{{this.DataDavisDt?.temp_c}} °C</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                      <i class="fas fa-sun-cloud"></i>
+                    </div>
+                  </div>
+                </div>
+               
+              </div>
+            </div>
+
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <span class="titulo">Punto Rocío</span><br>
                     <span class="h1 font-weight-bold mb-0">{{this.DataDavisDt?.dewpoint_c}}</span>
                   </div>
                   <div class="col-auto">
@@ -195,6 +223,8 @@
                
               </div>
             </div>
+
+            
           </div>
           
         </div>

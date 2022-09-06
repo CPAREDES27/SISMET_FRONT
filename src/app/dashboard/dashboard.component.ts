@@ -431,6 +431,242 @@ export class DashboardComponent implements OnInit {
 
   private createChartWindRose(): void {
 
+    
+    const chart = Highcharts.chart("chart-windrose", {
+      data: {
+        table: 'freq',
+        startRow: 1,
+        endRow: 17,
+        endColumn: 7
+      },
+    
+      chart: {
+        polar: true,
+        type: 'column'
+      },
+    
+      title: {
+        text: 'Dirección de viento',
+        align: 'left'
+      },
+    
+      subtitle: {
+        text: '',
+        align: 'left'
+      },
+    
+      pane: {
+        size: '85%'
+      },
+    
+      legend: {
+        align: 'right',
+        verticalAlign: 'top',
+        y: 100,
+        layout: 'vertical'
+      },
+    
+      xAxis: {
+        tickmarkPlacement: 'on'
+      },
+    
+      yAxis: {
+        min: 0,
+        endOnTick: false,
+        showLastLabel: true,
+        title: {
+          text: ''
+        },
+        // labels: {
+        //   formatter: function () {
+        //     return this.value + '%';
+        //   }
+        // },
+        reversedStacks: false
+      },
+    
+      tooltip: {
+        valueSuffix: ''
+      },
+    
+      plotOptions: {
+        series: {
+          stacking: 'normal',
+          shadow: false,
+          groupPadding: 0,
+          pointPlacement: 'on'
+        }
+      }
+    } as any);
+  }
+  //example
+
+  //example
+
+  userDetails: any;
+
+  public focus: any;
+  public listTitles!: any[];
+  public location: Location;
+  estacion_mk: any;
+  empresa_Id: any;
+  currentEstacion: any;
+  usuario_mk: any;
+  user: any;
+
+  WindDire:any;
+
+  NorthBool: Number= 0;
+  NorthNorthEastBool: number=0;
+  NorthEastBool: number =0;
+  EastNorthEastBool: number =0;
+  EastBool: number =0;
+  EastSouthEastBool: number = 0;
+  SouthEastBool: number =0;
+  SouthSouthEastBool: number =0;
+  SouthBool: number =0;
+  SouthSouthWestBool: number =0;
+  SouthWestBool:number =0;
+  WestSouthWestBool: number=0;
+  WestBool: number =0;
+  WestNorthWestBool: number =0;
+  NorthWestBool: number =0;
+  NorthNorthWestBool: number =0;
+
+  currentUsuario: any;
+  currentIndex = -1;
+
+  station_mk: any;
+
+  stations = {
+    id: "",
+    nombreEstacion: "",
+  };
+
+  estaciones = {
+    existe: false,
+    dewpoint_c: "",
+    pressure_mb: "",
+    pressure_string: "",
+    relative_humidity: "",
+    temp_c: "",
+    temperature_string: "",
+    wind_degrees: "",
+    wind_dir: "",
+    wind_kt: "",
+    davis_current_observation: {
+      et_day: "",
+      et_month: "",
+      et_year: "",
+      rain_day_in: "",
+      rain_month_in: "",
+      rain_year_in: "",
+      solar_radiation: "",
+      temp_day_high_f: "",
+      temp_day_high_time: "",
+      temp_day_low_f: "",
+      temp_day_low_time: "",
+      uv_index: "",
+    },
+  };
+
+  usuario = {
+    id: "",
+    userName: "",
+    contrasena: "",
+    nombres: "",
+    apellidos: "",
+    estado: "",
+    intentos: "",
+    fechaCreacion: "",
+    fechaModificacion: "",
+    tipoDocumento: "",
+    nroDocumento: "",
+    correo: "",
+    empresaId: "",
+    empresa: {
+      id: "",
+      nombre: "",
+      descripcion: "",
+      estacion: [
+        {
+          id: "",
+          nombreEstacion: "",
+          latitud: "",
+          longitud: "",
+          usuario: "",
+          clave: "",
+          token: "",
+        },
+      ],
+    },
+    rolId: "",
+    rol: {
+      id: "",
+      nombre: "",
+      descripcion: "",
+      estado: "",
+    },
+  };
+
+  constructor(
+    location: Location,
+    public auth: AuthenticationService,
+    public router: Router,
+    private route: ActivatedRoute,
+    public estacionService: EstacionService,
+    private element: ElementRef,
+    private service: UsersService
+  ) {
+    this.location = location;
+  }
+
+  ngOnInit() {
+
+    
+    this.getAuthUsuario();
+
+    if (this.user.rol == 2) {
+      this.getEstacion(this.user.Id);
+    }
+
+    if (this.user.rol == 1) {
+      this.ObtenerEstaciones();
+    }
+
+    this.getRol();
+
+    const user = {
+      id: this.user.Id,
+    };
+
+    this.service.getUsuario(this.user.Id).subscribe(
+      (res) => {
+        let headers = new Headers();
+
+        this.userDetails = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  changes(event: any) {
+    console.log(event.target["value"]);
+    var idEstacion = event.target["value"];
+    this.ObtenerHighcharts(idEstacion);
+  }
+  ngAfterViewInit() {
+    this.createChartGauge();
+  }
+
+  getAuthUsuario() {
+    this.user = this.auth.getUsuarioPerfil();
+    console.log(this.user);
+  }
+
+  ObtenerTablaWindRose(){
     console.log(this.DataDavisDt);
     if (this.DataDavisDt?.wind_dir=='North'){
       this.NorthBool= Number(this.DataDavisDt?.wind_degrees);
@@ -681,238 +917,6 @@ export class DashboardComponent implements OnInit {
       this.NorthWestBool= 0;
     }
 
-    const chart = Highcharts.chart("chart-windrose", {
-      data: {
-        table: 'freq',
-        startRow: 1,
-        endRow: 17,
-        endColumn: 7
-      },
-    
-      chart: {
-        polar: true,
-        type: 'column'
-      },
-    
-      title: {
-        text: 'Dirección de viento',
-        align: 'left'
-      },
-    
-      subtitle: {
-        text: '',
-        align: 'left'
-      },
-    
-      pane: {
-        size: '85%'
-      },
-    
-      legend: {
-        align: 'right',
-        verticalAlign: 'top',
-        y: 100,
-        layout: 'vertical'
-      },
-    
-      xAxis: {
-        tickmarkPlacement: 'on'
-      },
-    
-      yAxis: {
-        min: 0,
-        endOnTick: false,
-        showLastLabel: true,
-        title: {
-          text: ''
-        },
-        // labels: {
-        //   formatter: function () {
-        //     return this.value + '%';
-        //   }
-        // },
-        reversedStacks: false
-      },
-    
-      tooltip: {
-        valueSuffix: ''
-      },
-    
-      plotOptions: {
-        series: {
-          stacking: 'normal',
-          shadow: false,
-          groupPadding: 0,
-          pointPlacement: 'on'
-        }
-      }
-    } as any);
-  }
-  //example
-
-  //example
-
-  userDetails: any;
-
-  public focus: any;
-  public listTitles!: any[];
-  public location: Location;
-  estacion_mk: any;
-  empresa_Id: any;
-  currentEstacion: any;
-  usuario_mk: any;
-  user: any;
-
-  WindDire:any;
-
-  NorthBool: Number= 0;
-  NorthNorthEastBool: number=0;
-  NorthEastBool: number =0;
-  EastNorthEastBool: number =0;
-  EastBool: number =0;
-  EastSouthEastBool: number = 0;
-  SouthEastBool: number =0;
-  SouthSouthEastBool: number =0;
-  SouthBool: number =0;
-  SouthSouthWestBool: number =0;
-  SouthWestBool:number =0;
-  WestSouthWestBool: number=0;
-  WestBool: number =0;
-  WestNorthWestBool: number =0;
-  NorthWestBool: number =0;
-  NorthNorthWestBool: number =0;
-
-  currentUsuario: any;
-  currentIndex = -1;
-
-  station_mk: any;
-
-  stations = {
-    id: "",
-    nombreEstacion: "",
-  };
-
-  estaciones = {
-    existe: false,
-    dewpoint_c: "",
-    pressure_mb: "",
-    pressure_string: "",
-    relative_humidity: "",
-    temp_c: "",
-    temperature_string: "",
-    wind_degrees: "",
-    wind_dir: "",
-    wind_kt: "",
-    davis_current_observation: {
-      et_day: "",
-      et_month: "",
-      et_year: "",
-      rain_day_in: "",
-      rain_month_in: "",
-      rain_year_in: "",
-      solar_radiation: "",
-      temp_day_high_f: "",
-      temp_day_high_time: "",
-      temp_day_low_f: "",
-      temp_day_low_time: "",
-      uv_index: "",
-    },
-  };
-
-  usuario = {
-    id: "",
-    userName: "",
-    contrasena: "",
-    nombres: "",
-    apellidos: "",
-    estado: "",
-    intentos: "",
-    fechaCreacion: "",
-    fechaModificacion: "",
-    tipoDocumento: "",
-    nroDocumento: "",
-    correo: "",
-    empresaId: "",
-    empresa: {
-      id: "",
-      nombre: "",
-      descripcion: "",
-      estacion: [
-        {
-          id: "",
-          nombreEstacion: "",
-          latitud: "",
-          longitud: "",
-          usuario: "",
-          clave: "",
-          token: "",
-        },
-      ],
-    },
-    rolId: "",
-    rol: {
-      id: "",
-      nombre: "",
-      descripcion: "",
-      estado: "",
-    },
-  };
-
-  constructor(
-    location: Location,
-    public auth: AuthenticationService,
-    public router: Router,
-    private route: ActivatedRoute,
-    public estacionService: EstacionService,
-    private element: ElementRef,
-    private service: UsersService
-  ) {
-    this.location = location;
-  }
-
-  ngOnInit() {
-
-    
-    this.getAuthUsuario();
-
-    if (this.user.rol == 2) {
-      this.getEstacion(this.user.Id);
-    }
-
-    if (this.user.rol == 1) {
-      this.ObtenerEstaciones();
-    }
-
-    this.getRol();
-
-    const user = {
-      id: this.user.Id,
-    };
-
-    this.service.getUsuario(this.user.Id).subscribe(
-      (res) => {
-        let headers = new Headers();
-
-        this.userDetails = res;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-
-  changes(event: any) {
-    console.log(event.target["value"]);
-    var idEstacion = event.target["value"];
-    this.ObtenerHighcharts(idEstacion);
-  }
-  ngAfterViewInit() {
-    this.createChartGauge();
-  }
-
-  getAuthUsuario() {
-    this.user = this.auth.getUsuarioPerfil();
-    console.log(this.user);
   }
 
   ObtenerHighcharts(idEstacion: any) {
@@ -921,8 +925,7 @@ export class DashboardComponent implements OnInit {
     this.estacionService.get(idEstacion).subscribe(
       (data) => {
         this.DataDavisDt = data;
-    
-
+        this.ObtenerTablaWindRose();
         this.createChartGauge();
         this.createChartPiramide();
         this.createChartPiramideRain();
@@ -950,7 +953,7 @@ export class DashboardComponent implements OnInit {
     this.estacionService.getAll().subscribe(
       (data) => {
         this.currentEstacion = data;
-
+        this.ObtenerHighcharts(this.currentEstacion[0].id);
         console.log(data);
       },
       (error) => {
