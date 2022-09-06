@@ -12,25 +12,57 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
-    .fixTableHead {
-      overflow-y: auto;
-      height: 600px;
-    }
-    .fixTableHead thead th {
-      position: sticky;
-      top: 0;
-    }
-    table {
-      border-collapse: collapse;        
-      width: 100%;
-    }
-    th,
-    td {
-      
-    }
-    th {
-      background: #ABDD93;
-    }
+    .hola {
+
+  max-height: 600px;
+  overflow: scroll;
+}
+
+
+/* Use position: sticky to have it stick to the edge
+ * and top, right, or left to choose which edge to stick to: */
+
+thead th {
+  position: -webkit-sticky; /* for Safari */
+  position: sticky;
+  top: 0;
+}
+
+tbody th {
+  position: -webkit-sticky; /* for Safari */
+  position: sticky;
+  left: 0;
+}
+
+
+/* To have the header in the first column stick to the left: */
+
+thead th:first-child {
+  left: 0;
+  z-index: 1;
+}
+
+
+/* Just to display it nicely: */
+
+thead th {
+  background: #000;
+  color: #FFF;
+}
+
+tbody th {
+  background: #FFF;
+  border-right: 1px solid #CCC;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: 0.8em;
+}
   </style>
 </head>
 <body class="mat-typography">

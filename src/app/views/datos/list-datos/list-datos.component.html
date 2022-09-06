@@ -116,8 +116,8 @@
 
       <mat-tab-group>
         <mat-tab label="Primera Estación">
-          <div class="fixTableHead">
-            <table class="table  table-striped mb-0">
+          <div class="hola">
+            <table>
               <thead style="background-color: #018A6F;">
                 <tr>
                   <th scope="col" style="background-color: #018A6F;"></th>
@@ -140,7 +140,7 @@
               </thead>
               <thead>
                 <tr>
-                  <th style="font-size: 12px;color: white;background-color: black;position: sticky;left:0;">Fecha</th>
+                  <th style="font-size: 12px;color: white;background-color: black;width: 180px;">Fecha</th>
                   <th style="font-size: 12px;color: white;background-color: black;">Punto de Rocío °C</th>
                   <th style="font-size: 12px;color: white;background-color: black;">Presión mb</th>
                   <th style="font-size: 12px;color: white;background-color: black;">Humedad %</th>
@@ -154,77 +154,12 @@
                   <th style="font-size: 12px;color: white;background-color: black;">Viento grados</th>
                   <th style="font-size: 12px;color: white;background-color: black;">Viento dir</th>
                   <th style="font-size: 12px;color: white;background-color: black;">Viento kt</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let data of estacionOne">
-                  <td style="color: white;background-color: black;">{{data.fecha}}</td>
-                  <td>{{data.dewpoint_c}}</td>
-                  <td>{{data.pressure_mb}}</td>
-                  <td>{{data.relative_humidity}}</td>
-                  <td>{{data.temp_c}}</td>
-                  <td>{{data.temp_day_high_f}}</td>
-                  <td>{{data.temp_day_low_f}}</td>
-                  <td>{{data.solar_radiation}}</td>
-                  <td>{{data.uv_index}}</td>
-                  <td>{{data.rain_day_in}}</td>
-                  <td>{{data.et_day}}</td>
-                  <td>{{data.wind_degrees}}</td>
-                  <td>{{data.wind_dir}}</td>
-                  <td>{{data.wind_kt}}</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <!-- Projects table -->
-
-          </div>
-        </mat-tab>
-
-        <mat-tab label="Segunda Estación">
-          <div class="table-wrapper-scroll-y my-custom-scrollbar">
-            <table class="table  table-striped mb-0">
-              <thead style="background-color: #018A6F;">
-                <tr>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                  <th scope="col" style="background-color: #018A6F; color: floralwhite;">Estacion Actual</th>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                  <th scope="col" style="background-color: #018A6F;"></th>
-                </tr>
-
-
-              </thead>
-              <thead>
-                <tr>
-                  <th style="font-size: 12px;color: white;background-color: black;">Fecha</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Punto de Rocío °C</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Presión mb</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Humedad %</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Temp. °C</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Temp. Alta C°</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Temp. Baja C°</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Rad Solar W/m²</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">índice UV</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Lluvia mm</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">ET mm</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Viento grados</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Viento dir</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Viento kt</th>
+                  
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let data of estacionTwo">
-                  <td style="color: white;background-color: black">{{data.fecha}}</td>
+                  <th style="color: white;background-color: black">{{data.fecha}}</th>
                   <td>{{data.dewpoint_c}}</td>
                   <td>{{data.pressure_mb}}</td>
                   <td>{{data.relative_humidity}}</td>
@@ -241,9 +176,70 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </mat-tab>
 
-            <!-- Projects table -->
+        <mat-tab label="Segunda Estación">
+          <div class="hola">
+            <table>
+              <thead style="background-color: #018A6F;">
+                <tr>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F; color: floralwhite;">Estacion Actual</th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                  <th scope="col" style="background-color: #018A6F;"></th>
+                </tr>
 
+
+              </thead>
+              <thead>
+                <tr>
+                  <th style="font-size: 12px;color: white;background-color: black;width: 180px;">Fecha</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Punto de Rocío °C</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Presión mb</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Humedad %</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Temp. °C</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Temp. Alta C°</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Temp. Baja C°</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Rad Solar W/m²</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">índice UV</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Lluvia mm</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">ET mm</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Viento grados</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Viento dir</th>
+                  <th style="font-size: 12px;color: white;background-color: black;">Viento kt</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of estacionTwo">
+                  <th style="color: white;background-color: black">{{data.fecha}}</th>
+                  <td>{{data.dewpoint_c}}</td>
+                  <td>{{data.pressure_mb}}</td>
+                  <td>{{data.relative_humidity}}</td>
+                  <td>{{data.temp_c}}</td>
+                  <td>{{data.temp_day_high_f}}</td>
+                  <td>{{data.temp_day_low_f}}</td>
+                  <td>{{data.solar_radiation}}</td>
+                  <td>{{data.uv_index}}</td>
+                  <td>{{data.rain_day_in}}</td>
+                  <td>{{data.et_day}}</td>
+                  <td>{{data.wind_degrees}}</td>
+                  <td>{{data.wind_dir}}</td>
+                  <td>{{data.wind_kt}}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </mat-tab>
 
