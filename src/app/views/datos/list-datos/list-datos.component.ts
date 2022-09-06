@@ -78,7 +78,6 @@ export class ListDatosComponent implements OnInit {
       this.getEstacion(this.user.Id);
       this.estacionid=this.route.snapshot.paramMap.get("id")
       console.log(this.estacionid);
-      console.log('Hola Mundo');
 
     }
 
