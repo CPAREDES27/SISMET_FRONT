@@ -29,7 +29,6 @@ export class ViewMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAuthUsuario();
-    debugger;
     this.getUbicacion(this.user.Id);
 
     if (this.user.rol == 2) {

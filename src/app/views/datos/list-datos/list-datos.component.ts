@@ -68,8 +68,13 @@ export class ListDatosComponent implements OnInit {
   todayDatos:string="";
   todayDatosF:string="";
   carga:boolean=false;
+  config:any;
   ngOnInit() {
-
+    this.config = {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: 5
+    }
     
     
     this.getAuthUsuario();
@@ -218,18 +223,10 @@ export class ListDatosComponent implements OnInit {
 
   }
 
-  consultarInformacion() {
+  consultarInformacion():boolean {
 
    
 
-    const Filtros = {
-      idPrimeraEstacion: Number(this.IdPrimeraEstacion),
-      idSegundaEstacion: Number(this.IdSegundaEstacion),
-      fechaInicio: this.FechaInicio,
-      fechaFin: this.FechaFin,
-      horaInicio: this.HoraInicio,
-      horaFin: this.HoraFin,
-    };
 
     const dateI = new Date(this.FechaInicio);
     const dateF = new Date(this.FechaFin);
@@ -243,9 +240,18 @@ export class ListDatosComponent implements OnInit {
         confirmButtonColor: '#083E5E',
         confirmButtonText: 'Aceptar'
       });
-    
+    this.carga=false;
+    return false;
   }
     
+  const Filtros = {
+    idPrimeraEstacion: Number(this.IdPrimeraEstacion),
+    idSegundaEstacion: Number(this.IdSegundaEstacion),
+    fechaInicio: this.FechaInicio,
+    fechaFin: this.FechaFin,
+    horaInicio: this.HoraInicio,
+    horaFin: this.HoraFin,
+  };
   this.carga= true;
     this.Datoservice.postDavis(Filtros).subscribe(
       (data) => {
@@ -258,7 +264,7 @@ export class ListDatosComponent implements OnInit {
         console.log(error);
       }
     );
-
+return true;
     
   }
 

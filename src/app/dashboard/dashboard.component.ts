@@ -535,7 +535,7 @@ export class DashboardComponent implements OnInit {
 
   currentUsuario: any;
   currentIndex = -1;
-
+  estacionActual:number=0;
   station_mk: any;
 
   stations = {
@@ -655,6 +655,7 @@ export class DashboardComponent implements OnInit {
   changes(event: any) {
     console.log(event.target["value"]);
     var idEstacion = event.target["value"];
+    this.estacionActual=idEstacion;
     this.ObtenerHighcharts(idEstacion);
   }
   ngAfterViewInit() {
@@ -665,9 +666,13 @@ export class DashboardComponent implements OnInit {
     this.user = this.auth.getUsuarioPerfil();
     console.log(this.user);
   }
+actualizar(){
+  console.log(this.estacionActual);
+  this.ObtenerHighcharts(this.estacionActual);
+}
 
   ObtenerTablaWindRose(){
-    console.log(this.DataDavisDt);
+    
     if (this.DataDavisDt?.wind_dir=='North'){
       this.NorthBool= Number(this.DataDavisDt?.wind_degrees);
       this.NorthNorthEastBool= 0;
@@ -953,6 +958,7 @@ export class DashboardComponent implements OnInit {
     this.estacionService.getAll().subscribe(
       (data) => {
         this.currentEstacion = data;
+        this.estacionActual=this.currentEstacion[0].id;
         this.ObtenerHighcharts(this.currentEstacion[0].id);
         console.log(data);
       },
@@ -995,6 +1001,7 @@ export class DashboardComponent implements OnInit {
     this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.currentEstacion = data.empresa.estacion;
+        this.estacionActual=this.currentEstacion[0].id;
         this.ObtenerHighcharts(this.currentEstacion[0].id);
       },
       (error) => {
