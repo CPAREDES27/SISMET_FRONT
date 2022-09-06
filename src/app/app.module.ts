@@ -44,7 +44,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CambiarContrasenaComponent } from './views/usuario/cambiar-contrasena/cambiar-contrasena.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatSpinnerOverlayComponent } from './mat-spinner-overlay/mat-spinner-overlay.component';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 @NgModule({
   declarations: [
     // LoginComponent,
@@ -87,7 +87,7 @@ import { MatSpinnerOverlayComponent } from './mat-spinner-overlay/mat-spinner-ov
     MatNativeDateModule,
     MatDatepickerModule,
     NgbModule,
-    
+    NgxPaginationModule,
 
     ToastrModule.forRoot({
       progressBar: true

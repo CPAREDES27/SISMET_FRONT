@@ -161,7 +161,9 @@ export class ListDatosComponent implements OnInit {
     );
 
   }
+  pageChanged(event:any){
 
+  }
   openDialog() {
     const dialogRef = this.dialog.open(AgregarEstacionComponent);
 
