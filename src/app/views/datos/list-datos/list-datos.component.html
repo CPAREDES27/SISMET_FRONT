@@ -116,7 +116,7 @@
 
       <mat-tab-group>
         <mat-tab label="Primera Estación">
-          <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <div class="fixTableHead">
             <table class="table  table-striped mb-0">
               <thead style="background-color: #018A6F;">
                 <tr>
@@ -140,7 +140,7 @@
               </thead>
               <thead>
                 <tr>
-                  <th style="font-size: 12px;color: white;background-color: black;">Fecha</th>
+                  <th style="font-size: 12px;color: white;background-color: black;position: sticky;left:0;">Fecha</th>
                   <th style="font-size: 12px;color: white;background-color: black;">Punto de Rocío °C</th>
                   <th style="font-size: 12px;color: white;background-color: black;">Presión mb</th>
                   <th style="font-size: 12px;color: white;background-color: black;">Humedad %</th>
@@ -158,7 +158,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let data of estacionOne">
-                  <td style="color: white;background-color: black">{{data.fecha}}</td>
+                  <td style="color: white;background-color: black;">{{data.fecha}}</td>
                   <td>{{data.dewpoint_c}}</td>
                   <td>{{data.pressure_mb}}</td>
                   <td>{{data.relative_humidity}}</td>
