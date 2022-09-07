@@ -111,7 +111,7 @@
 
       <mat-tab-group>
         <mat-tab label="Primera Estación">
-          <div width:300px style="height: 40px ;background-color: #018A6F;color: white;font-size: 14px;position: relative;">
+          <div width:300px style="height: 40px ;background-color: #00A89C;color: white;font-size: 14px;position: relative;">
             <div style="position: absolute;top:20%;left: 50%;">
               <p style="font-weight: bold;">PRIMERA ESTACIÓN</p>
             </div>
@@ -122,26 +122,29 @@
               
               <thead>
                 <tr>
-                  <th style="font-size: 12px;color: white;background-color: black;width: 180px;">Fecha</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Punto de Rocío °C</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Presión mb</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Humedad %</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Temp. °C</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Temp. Alta C°</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Temp. Baja C°</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Rad Solar W/m²</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">índice UV</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Lluvia mm</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">ET mm</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Viento grados</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Viento dir</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Viento kt</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;width: 180px;text-align: justify;">Fecha / Hora</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Punto de Rocío <br/>(°C)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Presión   <br/> (mb o hPa)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Humedad %</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Temp. <br/>(°C)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Temp. Máxima <br/>(C°)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Temp. Mínima <br/>(C°)</th>
+                  <th class="backGroundTable"  style="font-size: 12px;color: white;word-break:break-word">Rad Solar <br/>(W/m²)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Índice UV</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Lluvia <br/>(mm)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">ET <br/>(mm)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Dirección Viento <br/>(Grados)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Dirección Viento <br/>(Cardinales)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Velocidad Viento <br/>(KT)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Velocidad Viento <br/>(m/s)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Velocidad Viento <br/>(km/h)</th>
+                  
                   
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let data of estacionOne">
-                  <th style="color: white;background-color: black">{{data.fecha}}</th>
+                  <th style="color: white" class="backGroundTable">{{data.fecha | fechas}}</th>
                   <td>{{data.dewpoint_c}}</td>
                   <td>{{data.pressure_mb}}</td>
                   <td>{{data.relative_humidity}}</td>
@@ -153,8 +156,10 @@
                   <td>{{data.rain_day_in}}</td>
                   <td>{{data.et_day}}</td>
                   <td>{{data.wind_degrees}}</td>
-                  <td>{{data.wind_dir}}</td>
+                  <td>{{data.wind_dir |viento }}</td>
                   <td>{{data.wind_kt}}</td>
+                  <td>{{data.wind_ms}}</td>
+                  <td>{{data.wind_kh}}</td>
                 </tr>
               </tbody>
             </table>
@@ -162,7 +167,7 @@
         </mat-tab>
 
         <mat-tab label="Segunda Estación">
-          <div width:300px style="height: 40px ;background-color: #018A6F;color: white;font-size: 14px;position: relative;">
+          <div width:300px style="height: 40px ;background-color: #00A89C;color: white;font-size: 14px;position: relative;">
             <div style="position: absolute;top:20%;left: 50%;">
               <p style="font-weight: bold;">SEGUNDA ESTACIÓN</p>
             </div>
@@ -173,26 +178,28 @@
               
               <thead>
                 <tr>
-                  <th style="font-size: 12px;color: white;background-color: black;width: 180px;">Fecha</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Punto de Rocío °C</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Presión mb</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Humedad %</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Temp. °C</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Temp. Alta C°</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Temp. Baja C°</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Rad Solar W/m²</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">índice UV</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Lluvia mm</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">ET mm</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Viento grados</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Viento dir</th>
-                  <th style="font-size: 12px;color: white;background-color: black;">Viento kt</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;width: 180px;text-align: justify;">Fecha / Hora</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Punto de Rocío <br/>(°C)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Presión   <br/> (mb o hPa)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Humedad %</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Temp. <br/>(°C)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Temp. Máxima <br/>(C°)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Temp. Mínima <br/>(C°)</th>
+                  <th class="backGroundTable"  style="font-size: 12px;color: white;word-break:break-word">Rad Solar <br/>(W/m²)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Índice UV</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Lluvia <br/>(mm)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">ET <br/>(mm)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Dirección Viento <br/>(Grados)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Dirección Viento <br/>(Cardinales)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Velocidad Viento <br/>(KT)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Velocidad Viento <br/>(m/s)</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Velocidad Viento <br/>(km/h)</th>
                   
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let data of estacionTwo">
-                  <th style="color: white;background-color: black">{{data.fecha}}</th>
+                  <th style="color: white" class="backGroundTable">{{data.fecha | fechas}}</th>
                   <td>{{data.dewpoint_c}}</td>
                   <td>{{data.pressure_mb}}</td>
                   <td>{{data.relative_humidity}}</td>
@@ -204,8 +211,10 @@
                   <td>{{data.rain_day_in}}</td>
                   <td>{{data.et_day}}</td>
                   <td>{{data.wind_degrees}}</td>
-                  <td>{{data.wind_dir}}</td>
+                  <td>{{data.wind_dir | viento}}</td>
                   <td>{{data.wind_kt}}</td>
+                  <td>{{data.wind_ms}}</td>
+                  <td>{{data.wind_kh}}</td>
                 </tr>
               </tbody>
             </table>

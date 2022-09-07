@@ -70,6 +70,7 @@ export class ListDatosComponent implements OnInit {
   carga:boolean=false;
   config:any;
   ngOnInit() {
+    
     this.config = {
       itemsPerPage: 5,
       currentPage: 1,
@@ -222,7 +223,8 @@ export class ListDatosComponent implements OnInit {
     this.HoraFin = this.HoraFin + ":00";
 
   }
-
+  
+  
   consultarInformacion():boolean {
 
    

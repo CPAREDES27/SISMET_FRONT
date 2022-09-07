@@ -32,6 +32,7 @@ export class UsersService {
     return this.cookies.get("token");
   }
  
+ 
 
   getUsuario(id: any) {
     return this.http.get<Root>(`https://localhost:7275/api/Usuario/${id}`);

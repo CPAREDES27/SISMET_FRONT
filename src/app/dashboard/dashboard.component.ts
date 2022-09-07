@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
       },
       yAxis: {
         min: 0,
-        max: 100,
+        max: Number(this.DataDavisDt?.davis_current_observation.solar_radiation),
         stops: [
           [0.1, "#55BF3B"], // green
           [0.5, "#DDDF0D"], // yellow
@@ -161,6 +161,10 @@ export class DashboardComponent implements OnInit {
                 drilldown: "Año",
               },
             ],
+            dataLabels: {
+              format:
+                '<div>{y} mm</div>',
+            },
           },
         ],
       } as any
@@ -238,6 +242,10 @@ export class DashboardComponent implements OnInit {
                 drilldown: "Año",
               },
             ],
+            dataLabels: {
+              format:
+                '<div>{y} mm</div>',
+            },
           },
         ],
       } as any
@@ -265,29 +273,30 @@ export class DashboardComponent implements OnInit {
         tooltip: {
           headerFormat: '<span style="font-size:11px"></span><br>',
           pointFormat:
-            '<span style="color:{point.color}"><b>{series.name}</b></span>: <b>{point.y:.2f}</b> a las <b>{point.name}</b><br/>',
+            '<span style="color:{point.color}"><b>{series.name}</b></span>: <b>{point.y:.2f}</b> a las <b>{point.name}°C</b><br/>',
         },
         credits: {
           enabled: false,
         },
         series: [
           {
-            name: "Temp. Alta",
+            name: "Temp. Máxima",
 
             data: [
               {
                 name: this.DataDavisDt?.davis_current_observation
                   .temp_day_high_time,
                 y: Number(
-                  this.DataDavisDt?.davis_current_observation.temp_day_high_f
+                  this.DataDavisDt?.davis_current_observation.temp_day_high_f 
                 ),
               },
             ],
+            
             fecha:
               this.DataDavisDt?.davis_current_observation.temp_day_high_time,
           },
           {
-            name: "Temp. Baja",
+            name: "Temp. Mínima",
             data: [
               {
                 name: this.DataDavisDt?.davis_current_observation
@@ -300,6 +309,7 @@ export class DashboardComponent implements OnInit {
             fecha:
               this.DataDavisDt?.davis_current_observation.temp_day_low_time,
           },
+          
         ],
       } as any
     );
