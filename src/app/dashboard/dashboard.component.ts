@@ -273,7 +273,7 @@ export class DashboardComponent implements OnInit {
         tooltip: {
           headerFormat: '<span style="font-size:11px"></span><br>',
           pointFormat:
-            '<span style="color:{point.color}"><b>{series.name}</b></span>: <b>{point.y:.2f}</b> a las <b>{point.name}°C</b><br/>',
+            '<span style="color:{point.color}"><b>{series.name}</b></span>: <b>{point.y:.2f}</b> a las <b>{point.name}</b><br/>',
         },
         credits: {
           enabled: false,

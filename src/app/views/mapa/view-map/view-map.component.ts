@@ -70,8 +70,9 @@ export class ViewMapComponent implements OnInit {
     );
   }
 
-  mostrarmapa(latitud: number, longitud: number) {
-
+  mostrarmapa(latitud: string, longitud: string,nombre:string) {
+    var lati=Number(latitud);
+    var long=  Number(longitud);
     this.map.setView([latitud, longitud], 13);
 
     tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -80,7 +81,8 @@ export class ViewMapComponent implements OnInit {
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.map);
 
-    const markerItem = marker([latitud, longitud])
+    const markerItem = marker([lati, long])
+    .bindTooltip(nombre+"<br/>"+"Latitud: "+"<strong>"+latitud+"</strong>"+"<br/>"+"Longitud: "+"<strong>"+longitud+"<strong>")
       .addTo(this.map)
       .on("click", (ev) => {
         this.router.navigateByUrl("/datos-map/" + this.datoEnviar);
@@ -95,8 +97,9 @@ export class ViewMapComponent implements OnInit {
       (data) => {
         this.datoEnviar = data.empresa.estacion[0].id;
         this.mostrarmapa(
-          Number(data.empresa.estacion[0].latitud),
-          Number(data.empresa.estacion[0].longitud)
+          data.empresa.estacion[0].latitud,
+          data.empresa.estacion[0].longitud,
+          data.empresa.estacion[0].nombreEstacion
         );
       },
       (error) => {
@@ -112,12 +115,14 @@ export class ViewMapComponent implements OnInit {
     console.log(this.currentEstacion);
     let longitud;
     let latitude;
+    let nombre;
     for (var i = 0; i < this.currentEstacion.length; i++) {
       if (this.currentEstacion[i].id == estacion) {
         latitude = this.currentEstacion[i].latitud;
         longitud = this.currentEstacion[i].longitud;
+        nombre=this.currentEstacion[i].nombreEstacion;
       }
     }
-    this.mostrarmapa(Number(latitude), Number(longitud));
+    this.mostrarmapa(latitude, longitud,nombre);
   }
 }

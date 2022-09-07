@@ -35,66 +35,49 @@ export class ListUserComponent implements OnInit {
 
   };
 
-  
+  collection:number[] = [];
+  estacionOne: any;
+  config: any;
+  isItemsPerPage=true;
+  p = 1;
+   
+
+  index:number=0;
   submitted = false;
 
   constructor(private usuarioService: UsuarioService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
-   //this.obtenerUsuarios();
-    this.saveUser();
+    this.config = {
+      itemsPerPage: 10,
+      currentPage: 1,
+      totalItems: 5
+    }
+    this.index=1;
     this.message = '';
-    //this.getTutorial(this.route.snapshot.paramMap.get('id'));
+
+    this.getMembers();
+
   }
 
-/*
-  obtenerUsuarios() {
-    this.usuarioService.getAll()
-      .subscribe(
-        data => {
-          this.usuarios_mk= data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
-  }*/
-
-  /*
-  refreshList() {
-    this.obtenerUsuarios();
-    this.currentUsuario = null;
-    this.currentIndex = -1;
+  pageChanged(event:any){
+    
+    this.getMembers(event);
   }
-
-  setActiveTutorial(usuarios: null, index: number) {
-    this.currentUsuario = usuarios;
-    this.currentIndex = index;
-  }*/
-
-  saveUser() {
+  BuscarUsuario(){
+    console.log("buscqueda");
+  }
+  getMembers(pageNumber:number=1) {
+   
+    
     const data = {
-      /*
-      nombre: this.productos.nombre,
-      quantity: this.productos.quantity,
-      precio: this.productos.precio,
-      fecha_vencimiento: this.productos.fecha_vencimiento,
-      nombre_cat: this.productos.nombre_cat,
-      empresa: this.productos.empresa,
-      kilo: this.productos.kilo,
-      estado: this.productos.estado,
-      image: this.productos.image,
-      precio_compra: this.productos.precio_compra,*/
-
-
       username: "",
       correo: "",
       nombres: "",
       apellidos: "",
-      pagina: 1,
-      recordsPorPagina: 8
-
+      pagina: pageNumber,
+      recordsPorPagina: 10
     };
 
     this.usuarioService.create(data)
@@ -103,6 +86,11 @@ export class ListUserComponent implements OnInit {
           this.usuarios_mk= response;
           console.log(response);
           this.submitted = true;
+          this.config = {
+            itemsPerPage: 10,
+            currentPage: pageNumber,
+            totalItems: response.cantidad
+          };
         },
         error => {
           console.log(error);
@@ -110,7 +98,7 @@ export class ListUserComponent implements OnInit {
   }
 
   refreshListSave() {
-    this.saveUser();
+    this.getMembers(1);
     this.currentUsuario = null;
     this.currentIndex = -1;
   }
@@ -119,54 +107,5 @@ export class ListUserComponent implements OnInit {
     this.currentUsuario = usuarios;
     this.currentIndex = index;
   }
-
-
-  //ADD
-
-  
-
-
-  //EDIT
-  /*
-  getTutorial(product_id) {
-    this.categoriaService.get(product_id)
-      .subscribe(
-        data => {
-          this.currentCategoria = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
-  }*/
-
-  /*
-
-  updateTutorial() {
-    this.categoriaService.update(this.currentCategoria.product_id, this.currentCategoria)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.message = 'El producto fue actualizado';
-        },
-        error => {
-          console.log(error);
-        });
-  }*/
-
-  /*
-  deleteUsuario() {
-    this.usuarioService.delete(this.currentUsuario.id)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.message = 'El usuario fue eliminado';
-        },
-        error => {
-          console.log(error);
-        });
-  }
-*/
-
 
 }

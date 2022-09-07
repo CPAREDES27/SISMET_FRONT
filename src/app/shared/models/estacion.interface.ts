@@ -3,5 +3,7 @@ export interface Estaciones{
     secondEstacion:[],
     promedioTempEstacion:string,
     promedioTempSegundaEstacion:string,
-    message:string
+    message:string,
+    totalEstacionOne:number,
+    totalEstacionTwo:number
 }

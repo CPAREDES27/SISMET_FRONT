@@ -49,7 +49,7 @@ export class RegisterComponent {
   rolId: string | undefined;
   empresaId: string | undefined;
   passwordError: boolean | undefined;
-
+  carga:boolean=false;
   constructor(
     public router: Router,
     public userService: UsersService,
@@ -109,6 +109,7 @@ export class RegisterComponent {
         rolId: this.rolId,
         empresaId: this.empresaId,
       };
+      this.carga=true;
       this.userService.register(user).subscribe(
         (data) => {
           this.userService.setToken(data.token);
@@ -125,13 +126,13 @@ export class RegisterComponent {
           }
   
           if (error.status == 200) {
+            this.carga=false;
             Swal.fire({
               title: '',
               text: "Se registró el usuario correctamente.",
               icon: 'success',
               confirmButtonColor: '#083E5E',
               confirmButtonText: 'Aceptar',
-              timer: 6000
             }).then((result) =>{
               if(result.isConfirmed){
                 this.router.navigateByUrl("/usuario");

@@ -122,7 +122,7 @@
               
               <thead>
                 <tr>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;width: 180px;text-align: justify;">Fecha / Hora</th>
+                  <th class="backGroundTable" style="font-size: 12px;color: white;width: 180px;text-align: left;">Fecha / Hora</th>
                   <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Punto de Rocío <br/>(°C)</th>
                   <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Presión   <br/> (mb o hPa)</th>
                   <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Humedad %</th>
@@ -143,26 +143,27 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let data of estacionOne">
+                <tr *ngFor="let data of estacionOne | paginate: config; let i = index">
                   <th style="color: white" class="backGroundTable">{{data.fecha | fechas}}</th>
-                  <td>{{data.dewpoint_c}}</td>
-                  <td>{{data.pressure_mb}}</td>
-                  <td>{{data.relative_humidity}}</td>
-                  <td>{{data.temp_c}}</td>
-                  <td>{{data.temp_day_high_f}}</td>
-                  <td>{{data.temp_day_low_f}}</td>
-                  <td>{{data.solar_radiation}}</td>
-                  <td>{{data.uv_index}}</td>
-                  <td>{{data.rain_day_in}}</td>
-                  <td>{{data.et_day}}</td>
-                  <td>{{data.wind_degrees}}</td>
-                  <td>{{data.wind_dir |viento }}</td>
-                  <td>{{data.wind_kt}}</td>
-                  <td>{{data.wind_ms}}</td>
-                  <td>{{data.wind_kh}}</td>
+                  <td style="padding: 0.8em;">{{data.dewpoint_c}}</td>
+                  <td style="padding: 0.8em;">{{data.pressure_mb}}</td>
+                  <td style="padding: 0.8em;">{{data.relative_humidity}}</td>
+                  <td style="padding: 0.8em;">{{data.temp_c}}</td>
+                  <td style="padding: 0.8em;">{{data.temp_day_high_f}}</td>
+                  <td style="padding: 0.8em;">{{data.temp_day_low_f}}</td>
+                  <td style="padding: 0.8em;">{{data.solar_radiation}}</td>
+                  <td style="padding: 0.8em;">{{data.uv_index}}</td>
+                  <td style="padding: 0.8em;">{{data.rain_day_in}}</td>
+                  <td style="padding: 0.8em;">{{data.et_day}}</td>
+                  <td style="padding: 0.8em;">{{data.wind_degrees}}</td>
+                  <td style="padding: 0.8em;">{{data.wind_dir |viento }}</td>
+                  <td style="padding: 0.8em;">{{data.wind_kt}}</td>
+                  <td style="padding: 0.8em;">{{data.wind_ms}}</td>
+                  <td style="padding: 0.8em;">{{data.wind_kh}}</td>
                 </tr>
               </tbody>
             </table>
+            <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pageChanged($event)"></pagination-controls>
           </div>
         </mat-tab>
 
@@ -198,26 +199,28 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let data of estacionTwo">
+                <tr *ngFor="let data of estacionTwo | paginate: config2; let i = index">
                   <th style="color: white" class="backGroundTable">{{data.fecha | fechas}}</th>
-                  <td>{{data.dewpoint_c}}</td>
-                  <td>{{data.pressure_mb}}</td>
-                  <td>{{data.relative_humidity}}</td>
-                  <td>{{data.temp_c}}</td>
-                  <td>{{data.temp_day_high_f}}</td>
-                  <td>{{data.temp_day_low_f}}</td>
-                  <td>{{data.solar_radiation}}</td>
-                  <td>{{data.uv_index}}</td>
-                  <td>{{data.rain_day_in}}</td>
-                  <td>{{data.et_day}}</td>
-                  <td>{{data.wind_degrees}}</td>
-                  <td>{{data.wind_dir | viento}}</td>
-                  <td>{{data.wind_kt}}</td>
-                  <td>{{data.wind_ms}}</td>
-                  <td>{{data.wind_kh}}</td>
+                  <td style="padding: 0.8em;">{{data.dewpoint_c}}</td>
+                  <td style="padding: 0.8em;">{{data.pressure_mb}}</td>
+                  <td style="padding: 0.8em;">{{data.relative_humidity}}</td>
+                  <td style="padding: 0.8em;">{{data.temp_c}}</td>
+                  <td style="padding: 0.8em;">{{data.temp_day_high_f}}</td>
+                  <td style="padding: 0.8em;">{{data.temp_day_low_f}}</td>
+                  <td style="padding: 0.8em;">{{data.solar_radiation}}</td>
+                  <td style="padding: 0.8em;">{{data.uv_index}}</td>
+                  <td style="padding: 0.8em;">{{data.rain_day_in}}</td>
+                  <td style="padding: 0.8em;">{{data.et_day}}</td>
+                  <td style="padding: 0.8em;">{{data.wind_degrees}}</td>
+                  <td style="padding: 0.8em;">{{data.wind_dir | viento}}</td>
+                  <td style="padding: 0.8em;">{{data.wind_kt}}</td>
+                  <td style="padding: 0.8em;">{{data.wind_ms}}</td>
+                  <td style="padding: 0.8em;">{{data.wind_kh}}</td>
                 </tr>
               </tbody>
             </table>
+            <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pageChanged2($event)"></pagination-controls>
+            
           </div>
         </mat-tab>
 

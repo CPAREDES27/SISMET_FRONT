@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment'; 
+import { Usuarios } from '../shared/models/usuario.interface';
 
-
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -18,9 +19,9 @@ export class UsuarioService {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
-  create(data: any) {
+  create(data: any):Observable<Usuarios> {
     const baseUrl = `${this.urlServices}Usuario`;
-    return this.http.post(`${baseUrl}/ObtenerUsuarios`, data);
+    return this.http.post<Usuarios>(`${baseUrl}/ObtenerUsuarios`, data);
   }
 
   update(id: any, data: any) {

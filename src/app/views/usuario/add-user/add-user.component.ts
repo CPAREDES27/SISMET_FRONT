@@ -130,7 +130,7 @@ export class AddUserComponent implements OnInit {
       .subscribe(
         data => {
           this.currentUsuario = data;
-          this.mensaje = this.currentUsuario.estado ==1 ? 'Eliminar Usuario' : 'Habilitar Usuario';
+          this.mensaje = this.currentUsuario.estado ==1 ? 'Eliminar' : 'Habilitar';
           this.colorboton = this.currentUsuario.estado== 1 ? '#BC0303' : '#083E5E';
           console.log(data);
         },
