@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { CalculosComponent } from '../Calculos/calculos.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { CuentaComponent } from '../views/cuenta/cuenta.component';
 import { ListDatosComponent } from '../views/datos/list-datos/list-datos.component';
 import { ViewMapComponent } from '../views/mapa/view-map/view-map.component';
 import { RegisterComponent } from '../views/register/register.component';
@@ -15,6 +16,7 @@ export const BodyRoutes: Routes = [
     { path: 'mapa',      component: ViewMapComponent},
     { path: 'datos-map/:id',      component: ListDatosComponent},
     { path: 'calculos',      component: CalculosComponent},
+    { path: 'cuenta/:id',      component: CuentaComponent},
 
     //Edicion Usuarios
     { path: 'usuario',      component: ListUserComponent},

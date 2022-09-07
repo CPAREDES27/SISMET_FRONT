@@ -47,6 +47,8 @@ import { MatSpinnerOverlayComponent } from './mat-spinner-overlay/mat-spinner-ov
 import {NgxPaginationModule} from 'ngx-pagination';
 import { VientoPipe } from './viento.pipe';
 import { FechasPipe } from './fechas.pipe';
+import { CuentaComponent } from './views/cuenta/cuenta.component';
+
 @NgModule({
   declarations: [
     // LoginComponent,
@@ -71,6 +73,7 @@ import { FechasPipe } from './fechas.pipe';
     MatSpinnerOverlayComponent,
     VientoPipe,
     FechasPipe,
+    CuentaComponent,
  
 
   ],
