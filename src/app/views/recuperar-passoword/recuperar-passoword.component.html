@@ -1,13 +1,10 @@
-<body background="https://www.weatherlink.com/static/images/socialMediaShare/facebook.png" style="background-repeat: no-repeat;background-size: cover;">
+<body
+  background="https://www.weatherlink.com/static/images/socialMediaShare/facebook.png"
+  style="background-repeat: no-repeat; background-size: cover"
+>
+  <div class="header py-7 py-lg-8"></div>
 
-
-    <div
-    class="header py-7 py-lg-8"
-  
-  ></div>
-  
-  
-  <div class="container mt--8 pb-5"  >
+  <div class="container mt--8 pb-5">
     <div class="row justify-content-center">
       <div class="col-lg-5 col-md-7">
         <div
@@ -20,16 +17,16 @@
         >
           <div class="card-body px-lg-5 py-lg-5">
             <div class="text-center text-muted mb-4">
-                <img
+              <img
                 src="https://icon-library.com/images/white-icon-png/white-icon-png-18.jpg"
                 style="width: 50px; height: 50px"
               />
-              
+
               <h2 style="color: #fff; text-align: center">
-                Introduzca la dirección de correo electrónico o nombre de usuario
+                Introduzca la dirección de correo electrónico
               </h2>
             </div>
-            <form >
+            <form method="post">
               <div class="form-group mb-3">
                 <div class="input-group input-group-alternative">
                   <div class="input-group-prepend">
@@ -39,31 +36,45 @@
                   </div>
                   <input
                     class="form-control"
+                    placeholder="Correo electrónico"
+                    type="text"
                     required
-                    placeholder="Nombre de usuario"
-                    type="text"  
-    
+                    [(ngModel)]="dato"
+                    name="dato"
                   />
                 </div>
               </div>
               <div class="form-group">
-            
-  
                 <div class="text-center">
                   <button
                     type="button"
                     style="
-                      background-color: #083E5E;
+                      background-color: #083e5e;
                       border-radius: 8px;
                       width: 100%;
                       height: 100%;
                     "
                     class="btn btn-primary my-2"
+                    (click)="recuperar()"
                   >
                     Aceptar
                   </button>
+
+                  <button
+                    type="button"
+                    style="
+                      background-color: #c50101;
+                      border-radius: 8px;
+                      border-color: #c50101;
+                      width: 100%;
+                      height: 100%;
+                    "
+                    class="btn btn-primary my-2"
+                    routerLink="/login"
+                  >
+                    Cancelar
+                  </button>
                 </div>
-  
               </div>
             </form>
           </div>
@@ -71,6 +82,4 @@
       </div>
     </div>
   </div>
-  
-  
-  </body>
+</body>

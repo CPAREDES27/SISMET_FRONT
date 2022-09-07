@@ -33,6 +33,11 @@ export class UsuarioService {
     return this.http.delete(`${baseUrl}/${id}`);
   }
 
+  recuperar(data: any) {
+    const baseUrl = `${this.urlServices}Usuario`;
+    return this.http.post(`${baseUrl}/CambiarContrasena`,data);
+  }
+
 
  
 

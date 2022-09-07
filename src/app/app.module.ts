@@ -45,6 +45,8 @@ import { CambiarContrasenaComponent } from './views/usuario/cambiar-contrasena/c
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatSpinnerOverlayComponent } from './mat-spinner-overlay/mat-spinner-overlay.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { CuentaComponent } from './views/cuenta/cuenta.component';
+
 @NgModule({
   declarations: [
     // LoginComponent,
@@ -67,6 +69,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     AgregarEstacionComponent,
     CambiarContrasenaComponent,
     MatSpinnerOverlayComponent,
+    CuentaComponent,
  
 
   ],

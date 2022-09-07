@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import { Router } from "@angular/router";
 import { ThisReceiver } from "@angular/compiler";
 
+
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",

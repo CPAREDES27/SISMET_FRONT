@@ -1,0 +1,266 @@
+<div class="container-fluid mt--7" style="padding-top: 90px">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div class="card card-profile shadow">
+        <div class="card-body pt-0 pt-md-4">
+          <div class="text-center" *ngIf="currentUsuario">
+            <div class="h5 mt-4"></div>
+            <div>
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/219/219986.png"
+                style="width: 180px; height: 170px"
+              />
+            </div>
+
+            <br />
+            <h1>{{ currentUsuario.userName }}</h1>
+            <hr class="my-4" />
+
+            <button
+              style="background-color: #083e5e; width: 50%"
+              class="btn btn-icon"
+              type="submit"
+              (click)="updateUsuario()"
+            >
+              <i style="color: #fff" class="fas fa-save"></i>
+              <span style="color: rgb(255, 255, 255)">Guardar</span>
+            </button>
+            <br /><br />
+
+            <button
+              style="background-color: #c50101; width: 50%"
+              class="btn btn-icon"
+              (click)="onLogout()"
+            >
+              <span style="color: rgb(255, 255, 255)">Cerrar Sesión</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Cuenta</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form *ngIf="currentUsuario">
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="nombres"
+                      >Nombres</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      id="nombres"
+                      required
+                      [(ngModel)]="currentUsuario.nombres"
+                      name="nombres"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="apellidos"
+                      >Apellidos</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      id="apellidos"
+                      required
+                      equired
+                      [(ngModel)]="currentUsuario.apellidos"
+                      name="apellidos"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="correo">Email</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      id="correo"
+                      required
+                      equired
+                      [(ngModel)]="currentUsuario.correo"
+                      name="correo"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="userName"
+                      >Usuario</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      id="userName"
+                      name="userName"
+                      [(ngModel)]="currentUsuario.userName"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="estado"
+                      >Estado</label
+                    >
+
+                    <select
+                      matNativeControl
+                      required
+                      disabled
+                      class="form-control form-control-alternative"
+                      id="estado"
+                      name="estado"
+                      placeholder="estado"
+                      [(ngModel)]="currentUsuario.estado"
+                    >
+                      <option value="true">Activo</option>
+                      <option value="false">No Activo</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="contrasena"
+                      >Contraseña
+                      <a
+                        class="badge"
+                        style="
+                          color: honeydew;
+                          font-size: 10px;
+                          background-color: #007bff;
+                          margin-left: 0.75em;
+                        "
+                        (click)="openDialog()"
+                        >Editar Contraseña</a
+                      ></label
+                    >
+
+                    <input
+                      type="password"
+                      class="form-control form-control-alternative"
+                      id="contrasena"
+                      name="contrasena"
+                      disabled
+                      [(ngModel)]="currentUsuario.contrasena"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="tipoDocumento"
+                      >Tipo de Documento</label
+                    >
+       
+                    <select
+                      matNativeControl
+                      required
+                      class="form-control form-control-alternative"
+                      id="tipoDocumento"
+                      required
+                      name="tipoDocumento"
+                      [(ngModel)]="currentUsuario.tipoDocumento"
+                    >
+                      <option value="DNI">DNI</option>
+                      <option value="Pasaporte">Pasaporte</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="nroDocumento"
+                      >N° Documento</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control form-control-alternative"
+                      name="nroDocumento"
+                      id="nroDocumento"
+                      maxlength="12"
+                      required
+                      [(ngModel)]="currentUsuario.nroDocumento"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="rolId">Rol</label>
+
+                    <select
+                      matNativeControl
+                      required
+                      class="form-control form-control-alternative"
+                      id="rolId"
+                      required
+                      name="rolId"
+                      disabled
+                      [(ngModel)]="currentUsuario.rolId"
+                    >
+                      <option
+                        *ngFor="let roles of rol_mk"
+                        value="{{ roles.id }}"
+                      >
+                        {{ roles.nombre }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="empresaId"
+                      >Empresa</label
+                    >
+
+                    <select
+                      matNativeControl
+                      required
+                      class="form-control form-control-alternative"
+                      id="empresaId"
+                      required
+                      disabled
+                      name="empresaId"
+                      [(ngModel)]="currentUsuario.empresaId"
+                    >
+                      <option
+                        *ngFor="let empresas of empresa_mk"
+                        value="{{ empresas.id }}"
+                      >
+                        {{ empresas.nombre }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

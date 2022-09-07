@@ -1,22 +1,9 @@
-<div class="container-fluid">
-  <div class="header-body">
-    <!-- Card stats -->
-    <div class="row">
-      <div class="col-xl-3 col-lg-6">
-        <div class="card card-stats mb-4 mb-xl-0">
-          <div class="card-body"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container-fluid mt--7">
+<div class="container-fluid mt--7" style="padding-top: 90px">
   <div class="row">
     <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
       <div class="card card-profile shadow">
         <div class="card-body pt-0 pt-md-4">
-          <div class="text-center" >
+          <div class="text-center">
             <div class="h5 mt-4"></div>
             <div>
               <img
@@ -29,14 +16,13 @@
             <h1></h1>
             <hr class="my-4" />
             <a
-              style="background-color: #03983F; width: 50%;"
+              style="background-color: #03983f; width: 50%"
               class="btn btn-icon"
               type="submit"
               (click)="register()"
             >
               <span style="color: rgb(255, 255, 255)">Registrar</span>
             </a>
-
           </div>
         </div>
       </div>
@@ -56,29 +42,25 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" 
-                      >Nombre de usuario</label
-                    >
+                    <label class="form-control-label">Nombre de usuario</label>
                     <input
-                    class="form-control"
-                    type="text"
-                    required
-                    [(ngModel)]="userName"
-                    name="userName"
+                      class="form-control"
+                      type="text"
+                      required
+                      [(ngModel)]="userName"
+                      name="userName"
                     />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" 
-                      >Email</label
-                    >
+                    <label class="form-control-label">Email</label>
                     <input
-                    class="form-control"
-                    type="email"
-                    required
-                    [(ngModel)]="correo"
-                    name="correo"
+                      class="form-control"
+                      type="email"
+                      required
+                      [(ngModel)]="correo"
+                      name="correo"
                     />
                   </div>
                 </div>
@@ -86,59 +68,52 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" >Nombres</label>
+                    <label class="form-control-label">Nombres</label>
                     <input
-                    class="form-control"
-                    type="text"
-                    required
-                    [(ngModel)]="nombres"
-                    name="nombres"
+                      class="form-control"
+                      type="text"
+                      required
+                      [(ngModel)]="nombres"
+                      name="nombres"
                     />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" 
-                      >Apellidos</label
-                    >
+                    <label class="form-control-label">Apellidos</label>
                     <input
-                    class="form-control"
-                    type="text"
-                    required
-                    [(ngModel)]="apellidos"
-                    name="apellidos"
+                      class="form-control"
+                      type="text"
+                      required
+                      [(ngModel)]="apellidos"
+                      name="apellidos"
                     />
                   </div>
                 </div>
               </div>
 
-
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" 
-                      >Tipo de Documento</label
-                    >
+                    <label class="form-control-label">Tipo de Documento</label>
 
                     <select
-                    matNativeControl
-                    required
-                    class="form-control form-control-alternative"
-                    id="tipoDocumento"
-                    required
-                    [(ngModel)]="tipoDocumento"
-                    name="tipoDocumento"
-                  >
-                    <option value="DNI">DNI</option>
-                    <option value="Pasaporte">Pasaporte</option>
-                  </select>
+                      matNativeControl
+                      required
+                      class="form-control form-control-alternative"
+                      id="tipoDocumento"
+                      required
+                      [(ngModel)]="tipoDocumento"
+                      name="tipoDocumento"
+                    >
+                      <option value="DNI">DNI</option>
+                      <option value="Pasaporte">Pasaporte</option>
+                    </select>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" 
-                      >N° Documento</label
-                    >
+                    <label class="form-control-label">N° Documento</label>
                     <input
                       class="form-control"
                       type="text"
@@ -154,45 +129,46 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" >Rol</label>
+                    <label class="form-control-label">Rol</label>
 
                     <select
-                    matNativeControl
-                    required
-                    class="form-control form-control-alternative"
-                    id="rolId"
-                    required
-                    name="rolId"
-                    [(ngModel)]="rolId"
-                  >
-                    <option *ngFor="let roles of rol_mk" value="{{ roles.id }}">
-                      {{ roles.nombre }}
-                    </option>
-                  </select>
+                      matNativeControl
+                      required
+                      class="form-control form-control-alternative"
+                      id="rolId"
+                      required
+                      name="rolId"
+                      [(ngModel)]="rolId"
+                    >
+                      <option
+                        *ngFor="let roles of rol_mk"
+                        value="{{ roles.id }}"
+                      >
+                        {{ roles.nombre }}
+                      </option>
+                    </select>
                   </div>
                 </div>
 
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" 
-                      >Empresa</label
-                    >
+                    <label class="form-control-label">Empresa</label>
                     <select
-                    matNativeControl
-                    required
-                    class="form-control form-control-alternative"
-                    id="empresaId"
-                    required
-                    name="empresaId"
-                    [(ngModel)]="empresaId"
-                  >
-                    <option
-                      *ngFor="let empresas of empresa_mk"
-                      value="{{ empresas.id }}"
+                      matNativeControl
+                      required
+                      class="form-control form-control-alternative"
+                      id="empresaId"
+                      required
+                      name="empresaId"
+                      [(ngModel)]="empresaId"
                     >
-                      {{ empresas.nombre }}
-                    </option>
-                  </select>
+                      <option
+                        *ngFor="let empresas of empresa_mk"
+                        value="{{ empresas.id }}"
+                      >
+                        {{ empresas.nombre }}
+                      </option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -200,9 +176,7 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" 
-                      >Contraseña</label
-                    >
+                    <label class="form-control-label">Contraseña</label>
 
                     <input
                       class="form-control"
@@ -210,23 +184,16 @@
                       required
                       [(ngModel)]="contrasena"
                       name="contrasena"
-                  />
+                    />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" 
-                      >Repetir Contraseña</label
-                    >
-                    <input
-                    class="form-control"
-                    type="password"
-                  />
+                    <label class="form-control-label">Repetir Contraseña</label>
+                    <input class="form-control" type="password" />
                   </div>
                 </div>
               </div>
-
-
             </div>
           </form>
         </div>
@@ -234,242 +201,3 @@
     </div>
   </div>
 </div>
-
-
-
-<!--
-<body
-  background="https://www.weatherlink.com/static/images/socialMediaShare/facebook.png"
-  style="background-repeat: no-repeat; background-size: cover"
->
-  <div class="header py-7 py-lg-8"></div>
-
-
-  <div class="bg-img">
-    <main class="box">
-      <div class="media align-items-center">
-        <img
-          src="https://icon-library.com/images/white-icon-png/white-icon-png-18.jpg"
-          style="width: 50px; height: 50px"
-        />
-
-        <div class="media-body">
-          <h2 class="mb-0" style="margin-left: 0.75em; color: #fff">
-            Registrarse
-          </h2>
-        </div>
-      </div>
-
-      <form method="post">
-        <br />
-        <div class="pl-lg-0">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="inputBox">
-                <div class="form-group">
-                  <input
-                    class="form-control"
-                    placeholder="Nombre de Usuario"
-                    type="text"
-                    required
-                    [(ngModel)]="userName"
-                    name="userName"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="inputBox">
-                <div class="form-group">
-                  <input
-                    class="form-control"
-                    placeholder="Email"
-                    type="email"
-                    required
-                    [(ngModel)]="correo"
-                    name="correo"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="inputBox">
-                <div class="form-group">
-                  <input
-                    class="form-control"
-                    placeholder="Nombres"
-                    type="text"
-                    required
-                    [(ngModel)]="nombres"
-                    name="nombres"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="inputBox">
-                <div class="form-group">
-                  <input
-                    class="form-control"
-                    placeholder="Apellidos"
-                    type="text"
-                    required
-                    [(ngModel)]="apellidos"
-                    name="apellidos"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6">
-              <div class="inputBox">
-                <div class="form-group">
-                  
-
-                  <select
-                    matNativeControl
-                    required
-                    class="form-control form-control-alternative"
-                    id="tipoDocumento"
-                    required
-                    [(ngModel)]="tipoDocumento"
-                    name="tipoDocumento"
-                  >
-                    <option value="DNI">DNI</option>
-                    <option value="Pasaporte">Pasaporte</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="inputBox">
-                <div class="form-group">
-                  <input
-                    class="form-control"
-                    placeholder="Nro Documento"
-                    type="text"
-                    maxlength="12"
-                    required
-                    [(ngModel)]="nroDocumento"
-                    name="nroDocumento"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6">
-              <div class="inputBox">
-                <div class="form-group">
-                  <select
-                    matNativeControl
-                    required
-                    class="form-control form-control-alternative"
-                    id="rolId"
-                    required
-                    name="rolId"
-                    placeholder="Rol"
-                    [(ngModel)]="rolId"
-                  >
-                    <option *ngFor="let roles of rol_mk" value="{{ roles.id }}">
-                      {{ roles.nombre }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="inputBox">
-                <div class="form-group">
-                  <select
-                    matNativeControl
-                    required
-                    class="form-control form-control-alternative"
-                    id="empresaId"
-                    required
-                    name="empresaId"
-                    placeholder="Empresa"
-                    [(ngModel)]="empresaId"
-                  >
-                    <option
-                      *ngFor="let empresas of empresa_mk"
-                      value="{{ empresas.id }}"
-                    >
-                      {{ empresas.nombre }}
-                    </option>
-                  </select>
-
-                
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6">
-              <div class="inputBox">
-                <div class="form-group">
-                  <input
-                    class="form-control"
-                    placeholder="Contraseña"
-                    type="password"
-                    required
-                    [(ngModel)]="contrasena"
-                    name="contrasena"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6">
-              <div class="inputBox">
-                <div class="form-group">
-                  <input
-                    class="form-control"
-                    placeholder="Repetir Contraseña"
-                    type="password"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <div class="form-control-feedback">
-         
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="pl-lg-0">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="inputBox">
-                  <div class="checks text-center" style="text-decoration: none">
-                    <span>¿Si tiene una cuenta? <a style="text-decoration:none; color:white
-                    ;"href="/login"><strong>Iniciar Sesion</strong></a></span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="inputBox">
-                  <button
-                    type="submit"
-                    (click)="register()"
-                    name=""
-                    style="float: left; background-color: #083e5e;"
-                    
-                  >
-                    Registrar
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br /><br /><br />
-      </form>
-    </main>
-
-    <footer></footer>
-  </div>
-</body>-->
