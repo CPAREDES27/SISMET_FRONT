@@ -30,7 +30,7 @@ export class AgregarEstacionComponent implements OnInit {
     private router: Router,
     private service: UsersService,
     public dialogRef: MatDialogRef<AgregarEstacionComponent>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAuthUsuario();
@@ -39,7 +39,6 @@ export class AgregarEstacionComponent implements OnInit {
 
   getAuthUsuario() {
     this.user = this.auth.getUsuarioPerfil();
-    console.log(this.user);
   }
 
   getInfoUsuario() {
@@ -81,7 +80,6 @@ export class AgregarEstacionComponent implements OnInit {
       };
       this.estacionService.create(estacion).subscribe(
         (data) => {
-          console.log(data);
           this.submitted = true;
         },
         (error) => {

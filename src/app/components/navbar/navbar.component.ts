@@ -50,7 +50,6 @@ export class NavbarComponent implements OnInit {
 
   getAuthUsuario() {
     this.user = this.auth.getUsuarioPerfil();
-    console.log(this.user);
   }
 
   onLogout() {

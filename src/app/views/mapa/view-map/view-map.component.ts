@@ -25,7 +25,7 @@ export class ViewMapComponent implements OnInit {
     public auth: AuthenticationService,
     private service: UsersService,
     public estacionService: EstacionService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getAuthUsuario();
@@ -51,7 +51,6 @@ export class ViewMapComponent implements OnInit {
       (data) => {
         this.currentEstacion = data;
 
-        console.log(this.currentEstacion);
       },
       (error) => {
         console.log(error);
@@ -70,9 +69,9 @@ export class ViewMapComponent implements OnInit {
     );
   }
 
-  mostrarmapa(latitud: string, longitud: string,nombre:string) {
-    var lati=Number(latitud);
-    var long=  Number(longitud);
+  mostrarmapa(latitud: string, longitud: string, nombre: string) {
+    var lati = Number(latitud);
+    var long = Number(longitud);
     this.map.setView([latitud, longitud], 13);
 
     tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -82,7 +81,7 @@ export class ViewMapComponent implements OnInit {
     }).addTo(this.map);
 
     const markerItem = marker([lati, long])
-    .bindTooltip(nombre+"<br/>"+"Latitud: "+"<strong>"+latitud+"</strong>"+"<br/>"+"Longitud: "+"<strong>"+longitud+"<strong>")
+      .bindTooltip(nombre + "<br/>" + "Latitud: " + "<strong>" + latitud + "</strong>" + "<br/>" + "Longitud: " + "<strong>" + longitud + "<strong>")
       .addTo(this.map)
       .on("click", (ev) => {
         this.router.navigateByUrl("/datos-map/" + this.datoEnviar);
@@ -109,10 +108,8 @@ export class ViewMapComponent implements OnInit {
   }
 
   getUbicacionCombo(event: any) {
-    console.log("algo");
     var estacion = event.target["value"];
     this.datoEnviar = Number(estacion);
-    console.log(this.currentEstacion);
     let longitud;
     let latitude;
     let nombre;
@@ -120,9 +117,9 @@ export class ViewMapComponent implements OnInit {
       if (this.currentEstacion[i].id == estacion) {
         latitude = this.currentEstacion[i].latitud;
         longitud = this.currentEstacion[i].longitud;
-        nombre=this.currentEstacion[i].nombreEstacion;
+        nombre = this.currentEstacion[i].nombreEstacion;
       }
     }
-    this.mostrarmapa(latitude, longitud,nombre);
+    this.mostrarmapa(latitude, longitud, nombre);
   }
 }

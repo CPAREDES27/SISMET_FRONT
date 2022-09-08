@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import {NgbPaginationConfig} from '@ng-bootstrap/ng-bootstrap'; 
+import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-list-user',
@@ -17,7 +17,7 @@ export class ListUserComponent implements OnInit {
   currentIndex = -1;
   userName = '';
   message = '';
-  color: any; 
+  color: any;
 
   usuarios = {
     id: '',
@@ -35,17 +35,17 @@ export class ListUserComponent implements OnInit {
 
   };
 
-  collection:number[] = [];
+  collection: number[] = [];
   estacionOne: any;
   config: any;
-  isItemsPerPage=true;
+  isItemsPerPage = true;
   p = 1;
-   
 
-  index:number=0;
+
+  index: number = 0;
   submitted = false;
 
-  constructor(private usuarioService: UsuarioService,private route: ActivatedRoute) { }
+  constructor(private usuarioService: UsuarioService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -54,23 +54,22 @@ export class ListUserComponent implements OnInit {
       currentPage: 1,
       totalItems: 5
     }
-    this.index=1;
+    this.index = 1;
     this.message = '';
 
     this.getMembers();
 
   }
 
-  pageChanged(event:any){
-    
+  pageChanged(event: any) {
+
     this.getMembers(event);
   }
-  BuscarUsuario(){
-    console.log("buscqueda");
+  BuscarUsuario() {
   }
-  getMembers(pageNumber:number=1) {
-   
-    
+  getMembers(pageNumber: number = 1) {
+
+
     const data = {
       username: "",
       correo: "",
@@ -83,8 +82,7 @@ export class ListUserComponent implements OnInit {
     this.usuarioService.create(data)
       .subscribe(
         response => {
-          this.usuarios_mk= response;
-          console.log(response);
+          this.usuarios_mk = response;
           this.submitted = true;
           this.config = {
             itemsPerPage: 10,

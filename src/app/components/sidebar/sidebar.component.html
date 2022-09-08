@@ -23,7 +23,7 @@
     </li>
 
 
-    <ng-container *ngIf="userDetails.rolId == 1">
+    <ng-container *ngIf="userDetails?.rolId == 1">
       <li class="sidenav-nav-item" *ngFor="let data of navDataAdmin">
         <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" routerLinkActive="active"
           [routerLinkActiveOptions]="{exact: true}">

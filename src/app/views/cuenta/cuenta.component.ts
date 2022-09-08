@@ -17,10 +17,10 @@ export class CuentaComponent implements OnInit {
 
   empresa_mk: any;
   rol_mk: any;
-  user:any;
+  user: any;
   currentEmpresa: any;
-  mensaje : string = "";
-  colorboton : string ="";
+  mensaje: string = "";
+  colorboton: string = "";
 
   empresas = {
     id: "",
@@ -43,7 +43,7 @@ export class CuentaComponent implements OnInit {
   userName = '';
   message = '';
 
-  
+
   usuarios = {
     userName: '',
     contrasena: '',
@@ -56,8 +56,8 @@ export class CuentaComponent implements OnInit {
     tipoDocumento: '',
     nroDocumento: '',
     correo: '',
-    rolId:'',
-    empresaId:''
+    rolId: '',
+    empresaId: ''
 
   };
 
@@ -65,8 +65,8 @@ export class CuentaComponent implements OnInit {
 
   submitted = false;
 
-  constructor(private dialog: MatDialog,private usuarioService: UsuarioService,private route: ActivatedRoute, public rolService: RolService,
-    public empresaService: EmpresaService, public router: Router,public auth: AuthenticationService,) { }
+  constructor(private dialog: MatDialog, private usuarioService: UsuarioService, private route: ActivatedRoute, public rolService: RolService,
+    public empresaService: EmpresaService, public router: Router, public auth: AuthenticationService,) { }
 
   ngOnInit() {
 
@@ -75,33 +75,31 @@ export class CuentaComponent implements OnInit {
     this.ObtenerRoles();
     this.ObtenerEmpresa();
 
-    
+
   }
 
   getAuthUsuario() {
     this.user = this.auth.getUsuarioPerfil();
   }
 
-  
+
   openDialog() {
-    const dialogRef = this.dialog.open(CambiarContrasenaComponent,{
+    const dialogRef = this.dialog.open(CambiarContrasenaComponent, {
       data: {
         id: this.currentUsuario.id
-  
-         }
+
+      }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
-  
+
   ObtenerRoles() {
     this.rolService.getAll().subscribe(
       (data) => {
         this.rol_mk = data;
-        console.log(data);
       },
       (error) => {
         console.log(error);
@@ -113,7 +111,6 @@ export class CuentaComponent implements OnInit {
     this.empresaService.getAll().subscribe(
       (data) => {
         this.empresa_mk = data;
-        console.log(data);
       },
       (error) => {
         console.log(error);
@@ -143,7 +140,6 @@ export class CuentaComponent implements OnInit {
       .subscribe(
         data => {
           this.currentUsuario = data;
-          console.log(data);
         },
         error => {
           console.log(error);
@@ -154,8 +150,7 @@ export class CuentaComponent implements OnInit {
     this.usuarioService.update(this.currentUsuario.id, this.currentUsuario)
       .subscribe(
         (res: any) => {
-          if (res.value.mensaje != "") 
-          {
+          if (res.value.mensaje != "") {
             Swal.fire({
               title: '',
               text: res.value.mensaje,
@@ -163,25 +158,25 @@ export class CuentaComponent implements OnInit {
               confirmButtonColor: '#083E5E',
               confirmButtonText: 'Aceptar',
               timer: 6000
-            }).then((result) =>{
-              if(result.isConfirmed){
+            }).then((result) => {
+              if (result.isConfirmed) {
                 this.router.navigateByUrl("/dashboard");
               }
             })
           }
-          
+
         },
-  
+
         (error) => {
           if (error.status == 400)
-          Swal.fire("¡Ha ocurrido un error!",error,'error');
-          
+            Swal.fire("¡Ha ocurrido un error!", error, 'error');
+
           else console.log(error);
         });
-              
+
   }
 
-  
+
 
 
 

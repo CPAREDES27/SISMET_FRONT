@@ -12,14 +12,14 @@ export class AuthenticationService {
   urlServices: string = environment.urlService;
   private rol: string = "";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getUsuarioPerfil() {
     var token = localStorage.getItem("token");
     if (token != null) this.rol = jwtDecode(token);
     return this.rol;
   }
-  getToken(){
+  getToken() {
     return localStorage.getItem("token");
   }
 }

@@ -13,14 +13,14 @@ export class RecuperarPassowordComponent implements OnInit {
   dato: string | undefined;
   submitted = false;
 
-  constructor(public userService: UsuarioService,public router: Router,) { }
+  constructor(public userService: UsuarioService, public router: Router,) { }
 
 
   ngOnInit(): void {
   }
 
   recuperar() {
-    if (this.dato =='' || this.dato == undefined ){
+    if (this.dato == '' || this.dato == undefined) {
       Swal.fire({
         title: 'Atención!',
         text: "Debe completar el campo solicitado.",
@@ -29,16 +29,16 @@ export class RecuperarPassowordComponent implements OnInit {
         confirmButtonText: 'Aceptar'
       })
     }
-    else{
+    else {
       const contrasena = {
         dato: this.dato,
       };
-      
+
 
       this.userService.recuperar(contrasena).subscribe(
-      
+
         (res: any) => {
-  
+
           if (res.message != '') {
             Swal.fire({
               title: '',
@@ -47,14 +47,15 @@ export class RecuperarPassowordComponent implements OnInit {
               confirmButtonColor: '#083E5E',
               confirmButtonText: 'Aceptar',
               timer: 6000
-            }).then((result) =>{
-              if(result.isConfirmed){
+            }).then((result) => {
+              if (result.isConfirmed) {
                 this.router.navigateByUrl("/login");
 
               }
             })
-            
-          }},
+
+          }
+        },
         (error) => {
           if (error.status == 400) {
             Swal.fire({
@@ -67,7 +68,6 @@ export class RecuperarPassowordComponent implements OnInit {
           }
 
           if (error.status == 401) {
-            console.log(this.dato);
             Swal.fire({
               title: '',
               text: 'Correo inválido.',
@@ -77,14 +77,14 @@ export class RecuperarPassowordComponent implements OnInit {
             })
           }
 
-          
+
         },
-       
+
       );
     }
 
 
-    
+
   }
 
 }

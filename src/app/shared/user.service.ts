@@ -5,19 +5,18 @@ import { CookieService } from "ngx-cookie-service";
 import { Root } from "./models/administrador.interface";
 
 @Injectable({
-  providedIn: "root" 
+  providedIn: "root"
 })
 export class UsersService {
-  constructor(private http: HttpClient, private cookies: CookieService) {}
+  constructor(private http: HttpClient, private cookies: CookieService) { }
 
-  private dataEstacion:any;
+  private dataEstacion: any;
 
-  setDataEstacion(data:any){
-    this.dataEstacion=data;
-    console.log(this.dataEstacion);
+  setDataEstacion(data: any) {
+    this.dataEstacion = data;
   }
-  get getDataEstacion(){
-   return this.dataEstacion;
+  get getDataEstacion() {
+    return this.dataEstacion;
   }
   login(user: any): Observable<any> {
     return this.http.post("https://localhost:7275/api/Seguridad/login", user);
@@ -31,8 +30,8 @@ export class UsersService {
   getToken() {
     return this.cookies.get("token");
   }
- 
- 
+
+
 
   getUsuario(id: any) {
     return this.http.get<Root>(`https://localhost:7275/api/Usuario/${id}`);

@@ -18,7 +18,7 @@ export class UserService {
 
   userRole: number | undefined;
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   registerUser(formData: any): Observable<{ message: string }> {
     const {
@@ -30,7 +30,6 @@ export class UserService {
       tipoDocumento,
       nroDocumento,
     } = formData;
-    console.log(formData);
     return this.httpClient.post<{ message: string }>(
       `${this.SERVER_URL}Usuario/agregar`,
       {
