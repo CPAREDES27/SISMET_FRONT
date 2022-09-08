@@ -297,10 +297,6 @@ export class ListDatosComponent implements OnInit {
 
 
   consultarInformacion(): boolean {
-
-    debugger;
-
-
     const dateI = new Date(this.FechaInicio);
     const dateF = new Date(this.FechaFin);
 
