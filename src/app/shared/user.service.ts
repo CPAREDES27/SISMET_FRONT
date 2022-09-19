@@ -12,7 +12,7 @@ export class UsersService {
   constructor(private http: HttpClient, private cookies: CookieService) { }
 
   private dataEstacion: any;
-
+  urlServices: string = environment.urlService;
   setDataEstacion(data: any) {
     this.dataEstacion = data;
   }
