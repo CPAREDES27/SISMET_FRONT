@@ -6,7 +6,7 @@ export const environment = {
   production: false,
 
   
-  urlService: "https://localhost:7275/api/"
+  urlService: "https://envirored.com/back/api/"
 };
 
 /*

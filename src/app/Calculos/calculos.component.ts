@@ -135,7 +135,15 @@ export class CalculosComponent implements OnInit {
           }
         },
         error=>{
-          Swal.fire("hola");
+          Swal.fire({
+            title: 'Error',
+            html: error.message,
+            imageWidth:"100px",
+            imageUrl:"../assets/img/icons/sol.png",
+            confirmButtonColor: '#083E5E',
+            confirmButtonText: 'Aceptar'
+          });
+          this.carga=false;
         });
         return true;
   }

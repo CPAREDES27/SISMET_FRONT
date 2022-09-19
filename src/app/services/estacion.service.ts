@@ -27,17 +27,14 @@ export class EstacionService {
     const baseUrl = `${this.urlServices}davis`;
     return this.http.get<Root>(`${baseUrl}/${id}`);
   }
-
   create(data: any) {
     const baseUrl = `${this.urlServices}davis`;
     return this.http.post(`${baseUrl}/CrearEstacion`, data);
   }
-
   getAll():Observable<EstacionAll[]> {
     const baseUrl = `${this.urlServices}davis`;
     return this.http.get<EstacionAll[]>(`${baseUrl}/GetEstaciones`);
   }
-
   getHorasFrio(id:number,fechaI:string,fechaF:string):Observable<Calculo>{
     const baseUrl = `${this.urlServices}davis`;
     return this.http.get<Calculo>(`${baseUrl}/${id}/${fechaI}/${fechaF}`);
