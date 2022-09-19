@@ -11,27 +11,26 @@ import Swal from "sweetalert2";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  
+
   forma!: FormGroup;
-  
+
   usuario: string | undefined;
   password: string | undefined;
-  carga:boolean=false;
+  carga: boolean = false;
   spinnerOn: string = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
-  spinnerOff: string = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="false" hidden></span>' ;
+  spinnerOff: string = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="false" hidden></span>';
   constructor(
     public toastr: ToastrService,
     public userService: UsersService,
     public router: Router
-  ) {}
+  ) { }
 
-  
+
   ngOnInit() {
-    
-    let spin = document.getElementById('spin1') as InnerHTML;
-    spin.innerHTML=this.spinnerOff;
 
-    console.log(localStorage.getItem("token"));
+    let spin = document.getElementById('spin1') as InnerHTML;
+    spin.innerHTML = this.spinnerOff;
+
     if (localStorage.getItem("token") != null)
       this.router.navigateByUrl("/dashboard");
   }
@@ -48,16 +47,15 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    
+
     let spin = document.getElementById('spin1') as InnerHTML;
-    spin.innerHTML=this.spinnerOn;
-    
+    spin.innerHTML = this.spinnerOn;
+
 
     const user = { usuario: this.usuario, password: this.password };
     this.userService.login(user).subscribe(
       (res: any) => {
-        if (res.value.message != "") 
-        {
+        if (res.value.message != "") {
           Swal.fire({
             title: '',
             text: res.value.message,
@@ -65,20 +63,20 @@ export class LoginComponent implements OnInit {
             confirmButtonColor: '#083E5E',
             confirmButtonText: 'Aceptar'
           })
-          spin.innerHTML=this.spinnerOff;
+          spin.innerHTML = this.spinnerOff;
         }
         else {
           localStorage.setItem("token", res.value.authToken);
           this.router.navigateByUrl("/dashboard");
-          spin.innerHTML=this.spinnerOff;
+          spin.innerHTML = this.spinnerOff;
         }
       },
 
-      
+
       (error) => {
         if (error.status == 400)
-        Swal.fire('Completar los Campos.');
-        
+          Swal.fire('Completar los Campos.');
+
         else console.log(error);
       }
     );

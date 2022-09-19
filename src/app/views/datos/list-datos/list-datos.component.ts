@@ -21,7 +21,7 @@ import Swal from 'sweetalert2';
 export class ListDatosComponent implements OnInit {
 
   selectedValue = null;
-  
+
   userDetails: any;
   user: any;
   estacionid: any;
@@ -33,14 +33,14 @@ export class ListDatosComponent implements OnInit {
     public auth: AuthenticationService,
     private Datoservice: DatosService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   estacionOne: any;
   estacionTwo: any;
   IdSegundaEstacion: string | undefined;
   IdPrimeraEstacion: string | undefined;
   FechaInicio: any;
-  FechaFin: any ;
+  FechaFin: any;
   HoraInicio: string | undefined;
   HoraFin: string | undefined;
 
@@ -65,15 +65,15 @@ export class ListDatosComponent implements OnInit {
   Tiempo: any;
   Hora: any;
   Minuto: any;
-  todayDatos:string="";
-  todayDatosF:string="";
-  carga:boolean=false;
+  todayDatos: string = "";
+  todayDatosF: string = "";
+  carga: boolean = false;
   config: any;
   config2: any;
-  isItemsPerPage=true;
+  isItemsPerPage = true;
   p = 1;
   ngOnInit() {
-    
+
     this.config = {
       itemsPerPage: 5,
       currentPage: 1,
@@ -84,28 +84,24 @@ export class ListDatosComponent implements OnInit {
       currentPage: 1,
       totalItems: 10
     }
-    
-    
+
+
     this.getAuthUsuario();
 
     if (this.user.rol == 2) {
       this.getEstacion(this.user.Id);
-      this.estacionid=this.route.snapshot.paramMap.get("id")
-      console.log(this.estacionid);
-
+      this.estacionid = this.route.snapshot.paramMap.get("id")
     }
 
     if (this.user.rol == 1) {
-        this.ObtenerEstaciones();
-        this.estacionid=this.route.snapshot.paramMap.get("id")
-        console.log(this.estacionid)
-        this.IdPrimeraEstacion="1";
-        this.IdSegundaEstacion="1";
+      this.ObtenerEstaciones();
+      this.estacionid = this.route.snapshot.paramMap.get("id")
+      this.IdPrimeraEstacion = "1";
+      this.IdSegundaEstacion = "1";
     }
 
-  
 
-    console.log(this.user.Id);
+
     let h = this.hora;
     let m = this.minuto;
 
@@ -147,7 +143,6 @@ export class ListDatosComponent implements OnInit {
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
         let authToken = localStorage.getItem("token");
-        console.log(headers.append("Authorization", `Bearer ${authToken}`));
 
         this.userDetails = res;
       },
@@ -189,8 +184,7 @@ export class ListDatosComponent implements OnInit {
     );
 
   }
-  getMembers(pageNumber:number=1){
-    console.log(pageNumber);
+  getMembers(pageNumber: number = 1) {
     var Filtros = {
       idPrimeraEstacion: Number(this.IdPrimeraEstacion),
       idSegundaEstacion: Number(this.IdSegundaEstacion),
@@ -201,9 +195,9 @@ export class ListDatosComponent implements OnInit {
       pagina: pageNumber,
       recordsPorPagina: 10
     };
-    this.Datoservice.postDavisPaginado(Filtros).subscribe(data=>{
-      this.estacionOne=data.estacion;
-      this.estacionTwo=data.secondEstacion;
+    this.Datoservice.postDavisPaginado(Filtros).subscribe(data => {
+      this.estacionOne = data.estacion;
+      this.estacionTwo = data.secondEstacion;
       this.config = {
         itemsPerPage: 10,
         currentPage: pageNumber,
@@ -216,8 +210,7 @@ export class ListDatosComponent implements OnInit {
       };
     });
   }
-  getMembers2(pageNumber:number=1){
-    console.log(pageNumber);
+  getMembers2(pageNumber: number = 1) {
     var Filtros = {
       idPrimeraEstacion: Number(this.IdPrimeraEstacion),
       idSegundaEstacion: Number(this.IdSegundaEstacion),
@@ -228,9 +221,9 @@ export class ListDatosComponent implements OnInit {
       pagina: pageNumber,
       recordsPorPagina: 10
     };
-    this.Datoservice.postDavisPaginado(Filtros).subscribe(data=>{
-      this.estacionOne=data.estacion;
-      this.estacionTwo=data.secondEstacion;
+    this.Datoservice.postDavisPaginado(Filtros).subscribe(data => {
+      this.estacionOne = data.estacion;
+      this.estacionTwo = data.secondEstacion;
       this.config = {
         itemsPerPage: 10,
         currentPage: pageNumber,
@@ -243,33 +236,31 @@ export class ListDatosComponent implements OnInit {
       };
     });
   }
-  pageChanged(event:any){
- 
+  pageChanged(event: any) {
+
     this.getMembers(event);
   }
-  pageChanged2(event:any){
- 
+  pageChanged2(event: any) {
+
     this.getMembers2(event);
   }
   openDialog() {
     const dialogRef = this.dialog.open(AgregarEstacionComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
     });
   }
-  
-  
+
+
 
   getEstacionFromMap(id: string | null) {
     this.estacionService.get(id).subscribe(
       (data) => {
         this.currentEstacion = data;
-        console.log(data);
 
 
       },
-      
+
       (error) => {
         console.log(error);
       }
@@ -277,19 +268,16 @@ export class ListDatosComponent implements OnInit {
   }
 
   changes(event: any) {
-    console.log(event.target["value"]);
     var idEstacion = event.target["value"];
   }
 
   onChange(event: any) {
-    console.log(event.target["value"]);
     this.IdPrimeraEstacion = event.target["value"];
     this.estacionid = event.target["value"];
   }
 
   Onchange2(event: any) {
     this.IdSegundaEstacion = event.target["value"];
-    console.log(event.target["value"]);
   }
   OnFechaInicio(event: any) {
     this.FechaInicio = event.target["value"];
@@ -306,44 +294,40 @@ export class ListDatosComponent implements OnInit {
     this.HoraFin = this.HoraFin + ":00";
 
   }
-  
-  
-  consultarInformacion():boolean {
-
-   debugger;
 
 
+  consultarInformacion(): boolean {
     const dateI = new Date(this.FechaInicio);
     const dateF = new Date(this.FechaFin);
 
-    if(dateI> dateF){
+    if (dateI > dateF) {
       Swal.fire({
         title: '',
         html: 'La fecha inicial no debe ser mayor a la fecha final',
-        imageWidth:"100px",
-        icon:'warning',
+        imageWidth: "100px",
+        icon: 'warning',
         confirmButtonColor: '#083E5E',
         confirmButtonText: 'Aceptar'
       });
-    this.carga=false;
-    return false;
-  }
-    
-  var Filtros = {
-    idPrimeraEstacion: Number(this.IdPrimeraEstacion),
-    idSegundaEstacion:  Number(this.IdSegundaEstacion),
-    fechaInicio: this.FechaInicio,
-    fechaFin: this.FechaFin,
-    horaInicio: this.HoraInicio,
-    horaFin: this.HoraFin,
-    pagina: 1,
-    recordsPorPagina: 10
-  };
-  
-  this.carga= true;
+      this.carga = false;
+      return false;
+    }
+
+    var Filtros = {
+      idPrimeraEstacion: Number(this.IdPrimeraEstacion),
+      idSegundaEstacion: Number(this.IdSegundaEstacion),
+      fechaInicio: this.FechaInicio,
+      fechaFin: this.FechaFin,
+      horaInicio: this.HoraInicio,
+      horaFin: this.HoraFin,
+      pagina: 1,
+      recordsPorPagina: 10
+    };
+
+    this.carga = true;
     this.Datoservice.postDavisPaginado(Filtros).subscribe(
       (data) => {
-        this.carga=false;
+        this.carga = false;
         //Aqui rata arreglo de estaciones
         this.estacionOne = data.estacion;
         this.estacionTwo = data.secondEstacion;
@@ -362,11 +346,11 @@ export class ListDatosComponent implements OnInit {
         console.log(error);
       }
     );
-return true;
-    
+    return true;
+
   }
 
-  ExportarDatos(){
+  ExportarDatos() {
 
     const Filtros = {
       idPrimeraEstacion: Number(this.IdPrimeraEstacion),
@@ -378,41 +362,39 @@ return true;
     };
 
 
-    if(this.FechaInicio> this.FechaFin){
+    if (this.FechaInicio > this.FechaFin) {
       Swal.fire({
         title: '',
         html: 'La fecha inicial no debe ser mayor a la fecha final',
-        imageWidth:"100px",
-        icon:'warning',
+        imageWidth: "100px",
+        icon: 'warning',
         confirmButtonColor: '#083E5E',
         confirmButtonText: 'Aceptar'
       });
-    
-    
+
+
     }
-    else{
-      this.Datoservice.ExportarDatos(Filtros).subscribe(blobFile =>{
+    else {
+      this.Datoservice.ExportarDatos(Filtros).subscribe(blobFile => {
         const url = window.URL.createObjectURL(blobFile);
         const a = document.createElement('a');
         document.body.appendChild(a);
-        a.setAttribute('style','display: none');
+        a.setAttribute('style', 'display: none');
         a.href = url;
-        a.download= 'ExportarDatos.xlsx';
+        a.download = 'ExportarDatos.xlsx';
         a.click();
         window.URL.revokeObjectURL(url);
         a.remove();
       });
     }
-}
+  }
 
 
-  
+
   ObtenerEstaciones() {
     this.estacionService.getAll().subscribe(
       (data) => {
         this.currentEstacion = data;
-
-        console.log(data);
       },
       (error) => {
         console.log(error);
@@ -422,11 +404,10 @@ return true;
 
   getAuthUsuario() {
     this.user = this.auth.getUsuarioPerfil();
-    console.log(this.user);
   }
 
   getEstacion(id: number) {
-   
+
     this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.currentEstacion = data.empresa.estacion;
@@ -439,6 +420,6 @@ return true;
       }
     );
 
-    
+
   }
 }

@@ -6,20 +6,18 @@ import { Root } from "./models/administrador.interface";
 import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: "root" 
+  providedIn: "root"
 })
 export class UsersService {
-  urlServices: string= environment.urlService;
-  constructor(private http: HttpClient, private cookies: CookieService) {}
+  constructor(private http: HttpClient, private cookies: CookieService) { }
 
-  private dataEstacion:any;
+  private dataEstacion: any;
 
-  setDataEstacion(data:any){
-    this.dataEstacion=data;
-    console.log(this.dataEstacion);
+  setDataEstacion(data: any) {
+    this.dataEstacion = data;
   }
-  get getDataEstacion(){
-   return this.dataEstacion;
+  get getDataEstacion() {
+    return this.dataEstacion;
   }
   login(user: any): Observable<any> {
     const baseUrl = `${this.urlServices}Seguridad`;
@@ -35,8 +33,8 @@ export class UsersService {
   getToken() {
     return this.cookies.get("token");
   }
- 
- 
+
+
 
   getUsuario(id: any) {
     const baseUrl = `${this.urlServices}Usuario`;

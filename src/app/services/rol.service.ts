@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment'; 
+import { environment } from 'src/environments/environment';
 
 
 
@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class RolService {
-  urlServices: string= environment.urlService;
+  urlServices: string = environment.urlService;
   constructor(private http: HttpClient) { }
 
   getAll() {
@@ -18,7 +18,7 @@ export class RolService {
   }
 
 
- 
+
 
 
 }

@@ -1,4 +1,4 @@
-export interface Usuarios{
-    usuarios:[],
-    cantidad:number    
+export interface Usuarios {
+    usuarios: [],
+    cantidad: number
 }

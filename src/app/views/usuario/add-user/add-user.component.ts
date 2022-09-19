@@ -17,8 +17,8 @@ export class AddUserComponent implements OnInit {
   empresa_mk: any;
   rol_mk: any;
   currentEmpresa: any;
-  mensaje : string = "";
-  colorboton : string ="";
+  mensaje: string = "";
+  colorboton: string = "";
 
   empresas = {
     id: "",
@@ -41,7 +41,7 @@ export class AddUserComponent implements OnInit {
   userName = '';
   message = '';
 
-  
+
   usuarios = {
     userName: '',
     contrasena: '',
@@ -54,8 +54,8 @@ export class AddUserComponent implements OnInit {
     tipoDocumento: '',
     nroDocumento: '',
     correo: '',
-    rolId:'',
-    empresaId:''
+    rolId: '',
+    empresaId: ''
 
   };
 
@@ -63,37 +63,35 @@ export class AddUserComponent implements OnInit {
 
   submitted = false;
 
-  constructor(private dialog: MatDialog,private usuarioService: UsuarioService,private route: ActivatedRoute, public rolService: RolService,
+  constructor(private dialog: MatDialog, private usuarioService: UsuarioService, private route: ActivatedRoute, public rolService: RolService,
     public empresaService: EmpresaService, public router: Router) { }
 
   ngOnInit(): void {
-     this.getUsuario(this.route.snapshot.paramMap.get('id'));
-     this.ObtenerRoles();
+    this.getUsuario(this.route.snapshot.paramMap.get('id'));
+    this.ObtenerRoles();
     this.ObtenerEmpresa();
 
- 
+
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(CambiarContrasenaComponent,{
+    const dialogRef = this.dialog.open(CambiarContrasenaComponent, {
       data: {
         id: this.currentUsuario.id
-  
-         }
+
+      }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
 
-  
+
   ObtenerRoles() {
     this.rolService.getAll().subscribe(
       (data) => {
         this.rol_mk = data;
-        console.log(data);
       },
       (error) => {
         console.log(error);
@@ -105,7 +103,6 @@ export class AddUserComponent implements OnInit {
     this.empresaService.getAll().subscribe(
       (data) => {
         this.empresa_mk = data;
-        console.log(data);
       },
       (error) => {
         console.log(error);
@@ -130,23 +127,21 @@ export class AddUserComponent implements OnInit {
       .subscribe(
         data => {
           this.currentUsuario = data;
-          this.mensaje = this.currentUsuario.estado ==1 ? 'Eliminar' : 'Habilitar';
-          this.colorboton = this.currentUsuario.estado== 1 ? '#BC0303' : '#083E5E';
-          console.log(data);
+          this.mensaje = this.currentUsuario.estado == 1 ? 'Eliminar' : 'Habilitar';
+          this.colorboton = this.currentUsuario.estado == 1 ? '#BC0303' : '#083E5E';
         },
         error => {
           console.log(error);
         });
   }
 
-  
+
 
   updateUsuario() {
     this.usuarioService.update(this.currentUsuario.id, this.currentUsuario)
       .subscribe(
         (res: any) => {
-          if (res.value.mensaje != "") 
-          {
+          if (res.value.mensaje != "") {
             Swal.fire({
               title: '',
               text: res.value.mensaje,
@@ -154,29 +149,29 @@ export class AddUserComponent implements OnInit {
               confirmButtonColor: '#083E5E',
               confirmButtonText: 'Aceptar',
               timer: 6000
-            }).then((result) =>{
-              if(result.isConfirmed){
+            }).then((result) => {
+              if (result.isConfirmed) {
                 this.router.navigateByUrl("/usuario");
               }
             })
           }
-          
+
         },
-  
+
         (error) => {
           if (error.status == 400)
-          Swal.fire("¡Ha ocurrido un error!",error,'error');
-          
+            Swal.fire("¡Ha ocurrido un error!", error, 'error');
+
           else console.log(error);
         });
-              
+
   }
 
   deleteUsuario() {
 
 
-    var mensaje = this.currentUsuario.estado== 1? "¿Desea eliminar el usuario?" : "¿Desea activar el usuario?"
-  
+    var mensaje = this.currentUsuario.estado == 1 ? "¿Desea eliminar el usuario?" : "¿Desea activar el usuario?"
+
     Swal.fire({
       title: '',
       text: mensaje,
@@ -189,11 +184,10 @@ export class AddUserComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
 
-          this.usuarioService.delete(this.currentUsuario.id)
+        this.usuarioService.delete(this.currentUsuario.id)
           .subscribe(
             (res: any) => {
-              if (res.message != "") 
-              {
+              if (res.message != "") {
                 Swal.fire({
                   title: '',
                   text: res.message,
@@ -201,25 +195,25 @@ export class AddUserComponent implements OnInit {
                   confirmButtonColor: '#083E5E',
                   confirmButtonText: 'Aceptar',
                   timer: 6000
-                }).then((result) =>{
-                  if(result.isConfirmed){
+                }).then((result) => {
+                  if (result.isConfirmed) {
                     this.router.navigateByUrl("/usuario");
                   }
                 })
               }
             },
-      
+
             (error) => {
               if (error.status == 400)
-              Swal.fire("¡Ha ocurrido un error!",error,'error');
-              
+                Swal.fire("¡Ha ocurrido un error!", error, 'error');
+
               else console.log(error);
             });
-          
+
       }
     })
 
-    
+
   }
 
 }

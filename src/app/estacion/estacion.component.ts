@@ -10,12 +10,12 @@ import { UsersService } from '../shared/user.service';
 })
 export class EstacionComponent implements OnInit {
 
-  constructor(private service:UsersService) { }
-  data:any;
-  valor:number=0;
+  constructor(private service: UsersService) { }
+  data: any;
+  valor: number = 0;
   ngOnInit(): void {
     this.getEstacion(1);
-    
+
   }
 
   getEstacion(id: number) {
@@ -23,16 +23,16 @@ export class EstacionComponent implements OnInit {
       .subscribe(
         data => {
           this.data = data.empresa.estacion;
-          this.valor=data.empresa.estacion[0].id;
-          
+          this.valor = data.empresa.estacion[0].id;
+
           this.service.setDataEstacion(this.data);
         },
         error => {
           console.log(error);
         });
   }
-  changes(event:any){
-    this.valor=event.target['value'];
+  changes(event: any) {
+    this.valor = event.target['value'];
   }
 
 }

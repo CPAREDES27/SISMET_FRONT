@@ -49,7 +49,6 @@ export class CambiarContrasenaComponent implements OnInit {
         })
       )
       .subscribe((passwordState) => {
-        console.log(passwordState);
         this.comparePassword = passwordState;
       });
 
@@ -60,7 +59,6 @@ export class CambiarContrasenaComponent implements OnInit {
     this._usuarioService.get(id).subscribe(
       (data) => {
         this.currentUsuario = data;
-        console.log(data);
       },
       (error) => {
         console.log(error);

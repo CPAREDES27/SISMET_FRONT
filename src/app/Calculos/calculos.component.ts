@@ -30,23 +30,23 @@ Accessibility(Highcharts);
 })
 export class CalculosComponent implements OnInit {
 
-  constructor(private service:UsersService, private estacionService: EstacionService,public auth: AuthenticationService,) { }
-  data:any;
-  calculo:any;
-  public activity:any;
-  public xData:any;
-  public label:any;
-  primeraEstacion:number=0;
-  options:any;
-  show:boolean=false;
-  valor:any;
+  constructor(private service: UsersService, private estacionService: EstacionService, public auth: AuthenticationService,) { }
+  data: any;
+  calculo: any;
+  public activity: any;
+  public xData: any;
+  public label: any;
+  primeraEstacion: number = 0;
+  options: any;
+  show: boolean = false;
+  valor: any;
   user: any;
-  carga:boolean=false;
+  carga: boolean = false;
   userDetails: any;
-  fechaIn:string="";
-  fechaFi:string="";
-  today:string="";
-  todayF:string="";
+  fechaIn: string = "";
+  fechaFi: string = "";
+  today: string = "";
+  todayF: string = "";
   ngOnInit(): void {
     this.today = new Date().toISOString().split('T')[0];
     this.todayF = new Date().toISOString().split('T')[0];
@@ -54,12 +54,10 @@ export class CalculosComponent implements OnInit {
     this.getAuthUsuario()
 
     if (this.user.rol == 2) {
-      console.log("entreCliente")
       this.getEstacion(this.user.Id);
     }
 
     if (this.user.rol == 1) {
-      console.log("entreAdmin")
       this.ObtenerEstaciones();
     }
 
@@ -83,58 +81,53 @@ export class CalculosComponent implements OnInit {
     this.estacionService.getAll().subscribe(
       (data) => {
         this.data = data;
-        this.valor=data[0].id;
-        console.log(this.data);
-        console.log(this.valor);
+        this.valor = data[0].id;
       },
       (error) => {
         console.log(error);
       }
     );
   }
- 
-  horasFrio():boolean{
 
-    console.log(this.valor)
-    console.log(this.today)
-    console.log(this.todayF)
-    
-    if(this.today>this.todayF){
+  horasFrio(): boolean {
+
+
+    if (this.today > this.todayF) {
       Swal.fire({
         title: '',
         html: 'La fecha inicial no debe ser mayor a la fecha final',
-        imageWidth:"100px",
-        icon:'warning',
+        imageWidth: "100px",
+        icon: 'warning',
         confirmButtonColor: '#083E5E',
         confirmButtonText: 'Aceptar'
       });
-     return false;
-    
+      return false;
+
     }
-    this.carga=true;
-    var html="<b style=font-size:26px>Total de horas de frío</b></br>";
-    this.estacionService.getHorasFrio(this.valor,this.today,this.todayF)
-        .subscribe(data=>{
-          this.carga=false;
-          this.calculo=data.valid;
-          if(this.calculo){
-           this.show=true;
-           this.histograma(data.histogramTable,data.valor);
-           Highcharts.chart('container', this.options);
-          }else{
-            
-           this.show=false;
-           Swal.fire({
-             title: '',
-             html: 'No registra horas frio',
-             imageWidth:"100px",
-             imageUrl:"../assets/img/icons/sol.png",
-             confirmButtonColor: '#083E5E',
-             confirmButtonText: 'Aceptar'
-           })
-          }
-        },
-        error=>{
+    this.carga = true;
+    var html = "<b style=font-size:26px>Total de horas de frío</b></br>";
+    this.estacionService.getHorasFrio(this.valor, this.today, this.todayF)
+      .subscribe(data => {
+        this.carga = false;
+        this.calculo = data.valid;
+        if (this.calculo) {
+          this.show = true;
+          this.histograma(data.histogramTable, data.valor);
+          Highcharts.chart('container', this.options);
+        } else {
+
+          this.show = false;
+          Swal.fire({
+            title: '',
+            html: 'No registra horas frio',
+            imageWidth: "100px",
+            imageUrl: "../assets/img/icons/sol.png",
+            confirmButtonColor: '#083E5E',
+            confirmButtonText: 'Aceptar'
+          })
+        }
+      },
+        error => {
           Swal.fire({
             title: 'Error',
             html: error.message,
@@ -145,112 +138,108 @@ export class CalculosComponent implements OnInit {
           });
           this.carga=false;
         });
-        return true;
+    return true;
   }
-  histograma(datas:any,valor?:any){
-    var horas =[];
-    var fecha=[];
+  histograma(datas: any, valor?: any) {
+    var horas = [];
+    var fecha = [];
     var titulo = "";
-    for(var i=0;i<datas.length;i++){
-      if(valor==undefined){
-        horas[i]=datas[i].valor;
-        fecha[i]=datas[i].mes;
-      }else{
-        horas[i]=datas[i].horas;
-        fecha[i]=datas[i].fecha;
+    for (var i = 0; i < datas.length; i++) {
+      if (valor == undefined) {
+        horas[i] = datas[i].valor;
+        fecha[i] = datas[i].mes;
+      } else {
+        horas[i] = datas[i].horas;
+        fecha[i] = datas[i].fecha;
       }
     }
 
-    if(valor!=undefined){
-      titulo="<b>Total: </b>"+valor
+    if (valor != undefined) {
+      titulo = "<b>Total: </b>" + valor
     }
-    
+
     this.options = {
-    title: {
+      title: {
         text: titulo
-    },
+      },
 
-    xAxis: {
-      categories: fecha,
-      crosshair: true
-    },
+      xAxis: {
+        categories: fecha,
+        crosshair: true
+      },
 
-    yAxis: [{
+      yAxis: [{
         title: { text: 'Data' }
-    }, {
+      }, {
         title: { text: 'Histogram' },
         opposite: true
-    }],
+      }],
 
-    plotOptions: {
+      plotOptions: {
         histogram: {
-            accessibility: {
-                pointDescriptionFormatter: function (point:any) {
-                    var ix = point.index + 1,
-                        x1 = point.x.toFixed(3),
-                        x2 = point.x2.toFixed(3),
-                        val = point.y;
-                    return ix + '. ' + x1 + ' to ' + x2 + ', ' + val + '.';
-                }
+          accessibility: {
+            pointDescriptionFormatter: function (point: any) {
+              var ix = point.index + 1,
+                x1 = point.x.toFixed(3),
+                x2 = point.x2.toFixed(3),
+                val = point.y;
+              return ix + '. ' + x1 + ' to ' + x2 + ', ' + val + '.';
             }
+          }
         }
-    },
+      },
 
-    series: [{
-      name: 'Data',
-      data: horas
-  
-    }]
-};
+      series: [{
+        name: 'Data',
+        data: horas
+
+      }]
+    };
   }
-  radiacionSolar():boolean{
+  radiacionSolar(): boolean {
 
-    console.log(this.valor)
-    console.log(this.today)
-    console.log(this.todayF)
-    if(this.today>this.todayF){
+    if (this.today > this.todayF) {
       Swal.fire({
         title: '',
         html: 'La fecha inicial no debe ser mayor a la fecha final',
-        imageWidth:"100px",
-        icon:'warning',
+        imageWidth: "100px",
+        icon: 'warning',
         confirmButtonColor: '#083E5E',
         confirmButtonText: 'Aceptar'
       });
-     return false;
-    
+      return false;
+
     }
-    this.carga=true;
-    var html="<b style=font-size:26px>Total de horas de Radiación Solar</b></br>";
-    this.estacionService.getRadiacionSolar(this.valor,this.today,this.todayF)
-        .subscribe(data=>{
-          this.carga=false;
-         this.calculo=data.valor;
-         if(this.calculo){
-          this.show=true;
-          this.histograma(data.histogramTable,data.valor);
+    this.carga = true;
+    var html = "<b style=font-size:26px>Total de horas de Radiación Solar</b></br>";
+    this.estacionService.getRadiacionSolar(this.valor, this.today, this.todayF)
+      .subscribe(data => {
+        this.carga = false;
+        this.calculo = data.valor;
+        if (this.calculo) {
+          this.show = true;
+          this.histograma(data.histogramTable, data.valor);
           Highcharts.chart('containers', this.options);
-         }else{
-          this.show=false;
+        } else {
+          this.show = false;
           Swal.fire({
             title: '',
             html: 'No registra horas frio',
-            imageWidth:"100px",
-            imageUrl:"../assets/img/icons/sol.png",
+            imageWidth: "100px",
+            imageUrl: "../assets/img/icons/sol.png",
             confirmButtonColor: '#083E5E',
             confirmButtonText: 'Aceptar'
           })
-         }
-        },
-        error=>{
+        }
+      },
+        error => {
           Swal.fire(error);
         });
-        return true;
+    return true;
   }
 
   getAuthUsuario() {
     this.user = this.auth.getUsuarioPerfil();
-    console.log(this.user);
   }
 
   getEstacion(id: number) {
@@ -258,33 +247,30 @@ export class CalculosComponent implements OnInit {
       .subscribe(
         data => {
           this.data = data.empresa.estacion;
-          this.valor=data.empresa.estacion[0].id;
-       
+          this.valor = data.empresa.estacion[0].id;
+
         },
         error => {
           console.log(error);
         });
   }
-  changes(event:any){
-    this.valor=event.target['value'];
-    console.log(this.valor);
+  changes(event: any) {
+    this.valor = event.target['value'];
   }
 
-  onInduccionFloral(){
-    
-    console.log(this.valor);
-    this.carga=true;
+  onInduccionFloral() {
+
+    this.carga = true;
     this.estacionService.getInduccionFloral(this.valor)
-    .subscribe(data=>{
-      this.carga=false;
-     this.calculo=data[0].valor;
-     this.histograma(data);
-     Highcharts.chart('containerInduccion', this.options);
-     console.log(this.calculo);
-    
-    },
-    error=>{
-      Swal.fire(error);
-    }); 
+      .subscribe(data => {
+        this.carga = false;
+        this.calculo = data[0].valor;
+        this.histograma(data);
+        Highcharts.chart('containerInduccion', this.options);
+
+      },
+        error => {
+          Swal.fire(error);
+        });
   }
 }

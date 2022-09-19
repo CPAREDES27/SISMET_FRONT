@@ -49,13 +49,13 @@ export class RegisterComponent {
   rolId: string | undefined;
   empresaId: string | undefined;
   passwordError: boolean | undefined;
-  carga:boolean=false;
+  carga: boolean = false;
   constructor(
     public router: Router,
     public userService: UsersService,
     public rolService: RolService,
     public empresaService: EmpresaService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.ObtenerRoles();
@@ -66,7 +66,6 @@ export class RegisterComponent {
     this.rolService.getAll().subscribe(
       (data) => {
         this.rol_mk = data;
-        console.log(data);
       },
       (error) => {
         console.log(error);
@@ -78,7 +77,6 @@ export class RegisterComponent {
     this.empresaService.getAll().subscribe(
       (data) => {
         this.empresa_mk = data;
-        console.log(data);
       },
       (error) => {
         console.log(error);
@@ -87,8 +85,8 @@ export class RegisterComponent {
   }
 
   register() {
-    if (this.userName =='' || this.correo ==undefined || this.correo==''|| this.nombres =='' || this.nombres ==undefined || this.apellidos=='' || this.apellidos==undefined||
-    this.tipoDocumento == undefined || this.nroDocumento==undefined || this.nroDocumento =='' || this.empresaId==undefined || this.rolId==undefined){
+    if (this.userName == '' || this.correo == undefined || this.correo == '' || this.nombres == '' || this.nombres == undefined || this.apellidos == '' || this.apellidos == undefined ||
+      this.tipoDocumento == undefined || this.nroDocumento == undefined || this.nroDocumento == '' || this.empresaId == undefined || this.rolId == undefined) {
       Swal.fire({
         title: 'Atención!',
         text: "Debe de llenar todos los campos",
@@ -97,7 +95,7 @@ export class RegisterComponent {
         confirmButtonText: 'Aceptar'
       })
     }
-    else{
+    else {
       const user = {
         userName: this.userName,
         contrasena: this.contrasena,
@@ -109,7 +107,7 @@ export class RegisterComponent {
         rolId: this.rolId,
         empresaId: this.empresaId,
       };
-      this.carga=true;
+      this.carga = true;
       this.userService.register(user).subscribe(
         (data) => {
           this.userService.setToken(data.token);
@@ -124,28 +122,27 @@ export class RegisterComponent {
               confirmButtonText: 'Aceptar'
             })
           }
-  
+
           if (error.status == 200) {
-            this.carga=false;
+            this.carga = false;
             Swal.fire({
               title: '',
               text: "Se registró el usuario correctamente.",
               icon: 'success',
               confirmButtonColor: '#083E5E',
               confirmButtonText: 'Aceptar',
-            }).then((result) =>{
-              if(result.isConfirmed){
+            }).then((result) => {
+              if (result.isConfirmed) {
                 this.router.navigateByUrl("/usuario");
               }
             })
-            
+
           }
         }
       );
     }
 
 
-    
+
   }
 }
- 

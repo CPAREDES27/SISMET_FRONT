@@ -20,6 +20,6 @@ export const navbarData = [
         label: 'Cálculos'
     },
 
-    
-   
+
+
 ];

@@ -16,7 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
   ],
   exports: [
-   
+
   ]
 })
 export class ComponentsModule { }

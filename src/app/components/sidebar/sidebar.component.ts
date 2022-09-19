@@ -19,12 +19,12 @@ declare interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Boletín',  icon: 'ni-tv-2 text-primary', class: '' },
-  { path: '/datos', title: 'Datos',  icon: 'ni-tv-2 text-primary', class: '' },
-  { path: '/mapa', title: 'Mapas',  icon: 'ni-tv-2 text-primary', class: '' },
-  { path: '/usuario', title: 'Usuarios',  icon: 'ni-tv-2 text-primary', class: '' },
-  { path: '/calculos', title: 'Cálculos',  icon: 'ni-tv-2 text-primary', class: '' },
-  { path: '/dashboard', title: '¿Que hay de nuevo?',  icon: 'ni-tv-2 text-primary', class: '' },
+  { path: '/dashboard', title: 'Boletín', icon: 'ni-tv-2 text-primary', class: '' },
+  { path: '/datos', title: 'Datos', icon: 'ni-tv-2 text-primary', class: '' },
+  { path: '/mapa', title: 'Mapas', icon: 'ni-tv-2 text-primary', class: '' },
+  { path: '/usuario', title: 'Usuarios', icon: 'ni-tv-2 text-primary', class: '' },
+  { path: '/calculos', title: 'Cálculos', icon: 'ni-tv-2 text-primary', class: '' },
+  { path: '/dashboard', title: '¿Que hay de nuevo?', icon: 'ni-tv-2 text-primary', class: '' },
 
 ];
 
@@ -35,24 +35,24 @@ export const ROUTES: RouteInfo[] = [
   animations: [
     trigger('fadeInOut', [
       transition(':enter', [
-        style({opacity: 0}),
+        style({ opacity: 0 }),
         animate('350ms',
-          style({opacity: 1})
+          style({ opacity: 1 })
         )
       ]),
       transition(':leave', [
-        style({opacity: 1}),
+        style({ opacity: 1 }),
         animate('350ms',
-          style({opacity: 0})
+          style({ opacity: 0 })
         )
       ])
     ]),
     trigger('rotate', [
       transition(':enter', [
-        animate('1000ms', 
+        animate('1000ms',
           keyframes([
-            style({transform: 'rotate(0deg)', offset: '0'}),
-            style({transform: 'rotate(2turn)', offset: '1'})
+            style({ transform: 'rotate(0deg)', offset: '0' }),
+            style({ transform: 'rotate(2turn)', offset: '1' })
           ])
         )
       ])
@@ -70,21 +70,21 @@ export class SidebarComponent implements OnInit {
   user: any;
   userDetails: any;
 
-  constructor(public auth: AuthenticationService,private service: UsersService){}
+  constructor(public auth: AuthenticationService, private service: UsersService) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screenWidth = window.innerWidth;
-    if(this.screenWidth <= 768 ) {
+    if (this.screenWidth <= 768) {
       this.collapsed = false;
-      this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+      this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
     }
   }
 
   ngOnInit(): void {
-      this.screenWidth = window.innerWidth;
-      this.getAuthUsuario()
-      this.getInfoUsuario() 
+    this.screenWidth = window.innerWidth;
+    this.getAuthUsuario()
+    this.getInfoUsuario()
   }
 
   getInfoUsuario() {
@@ -100,17 +100,16 @@ export class SidebarComponent implements OnInit {
 
   getAuthUsuario() {
     this.user = this.auth.getUsuarioPerfil();
-    console.log(this.user);
   }
 
   toggleCollapse(): void {
     this.collapsed = !this.collapsed;
-    this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+    this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
   }
 
   closeSidenav(): void {
     this.collapsed = false;
-    this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+    this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
   }
 }
 

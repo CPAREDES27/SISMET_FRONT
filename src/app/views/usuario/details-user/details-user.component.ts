@@ -49,9 +49,9 @@ export class DetailsUserComponent implements OnInit {
     tipoDocumento: '',
     nroDocumento: '',
     correo: '',
-    rolId:'',
-    empresaId:''
-    
+    rolId: '',
+    empresaId: ''
+
 
   };
 
@@ -59,12 +59,12 @@ export class DetailsUserComponent implements OnInit {
 
   submitted = false;
 
-  constructor(private usuarioService: UsuarioService,private route: ActivatedRoute, public rolService: RolService,
+  constructor(private usuarioService: UsuarioService, private route: ActivatedRoute, public rolService: RolService,
     public empresaService: EmpresaService, public router: Router) { }
 
   ngOnInit(): void {
-     this.getUsuario(this.route.snapshot.paramMap.get('id'));
-     this.ObtenerRoles();
+    this.getUsuario(this.route.snapshot.paramMap.get('id'));
+    this.ObtenerRoles();
     this.ObtenerEmpresa();
   }
 
@@ -72,7 +72,6 @@ export class DetailsUserComponent implements OnInit {
     this.rolService.getAll().subscribe(
       (data) => {
         this.rol_mk = data;
-        console.log(data);
       },
       (error) => {
         console.log(error);
@@ -84,7 +83,6 @@ export class DetailsUserComponent implements OnInit {
     this.empresaService.getAll().subscribe(
       (data) => {
         this.empresa_mk = data;
-        console.log(data);
       },
       (error) => {
         console.log(error);
@@ -109,7 +107,6 @@ export class DetailsUserComponent implements OnInit {
       .subscribe(
         data => {
           this.currentUsuario = data;
-          console.log(data);
         },
         error => {
           console.log(error);
@@ -120,15 +117,14 @@ export class DetailsUserComponent implements OnInit {
     this.usuarioService.update(this.currentUsuario.id, this.currentUsuario)
       .subscribe(
         response => {
-          console.log(response);
           this.message = 'El usuario fue actualizado.';
-          Swal.fire("","El usuario fue eliminado.",'success');
+          Swal.fire("", "El usuario fue eliminado.", 'success');
           this.router.navigateByUrl("/usuario");
         },
         error => {
           console.log(error);
-          Swal.fire("¡Ha ocurrido un error!",error,'error');
-          
+          Swal.fire("¡Ha ocurrido un error!", error, 'error');
+
         });
   }
 
@@ -136,14 +132,13 @@ export class DetailsUserComponent implements OnInit {
     this.usuarioService.delete(this.currentUsuario.id)
       .subscribe(
         response => {
-          console.log(response);
           this.message = 'El usuario fue eliminado';
-          Swal.fire("","El usuario fue eliminado.",'success');
+          Swal.fire("", "El usuario fue eliminado.", 'success');
           this.router.navigateByUrl("/usuario");
         },
         error => {
           console.log(error);
-          Swal.fire("¡Ha ocurrido un error!",error,'error');
+          Swal.fire("¡Ha ocurrido un error!", error, 'error');
         });
   }
 
