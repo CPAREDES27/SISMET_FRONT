@@ -25,7 +25,9 @@ export class ListDatosComponent implements OnInit {
   userDetails: any;
   user: any;
   estacionid: any;
-
+  visible :boolean=false;
+  primeraEstacion:string="";
+  segundaEstacion:string="";
   constructor(
     private route: ActivatedRoute,
     public estacionService: EstacionService,
@@ -43,7 +45,8 @@ export class ListDatosComponent implements OnInit {
   FechaFin: any;
   HoraInicio: string | undefined;
   HoraFin: string | undefined;
-
+  primeraEstacionTest:string="";
+  segundaEstacionTest:string="";
   currentEstacion: any;
   date1 = new Date();
 
@@ -75,7 +78,7 @@ export class ListDatosComponent implements OnInit {
   ngOnInit() {
 
     this.config = {
-      itemsPerPage: 5,
+      itemsPerPage: 10,
       currentPage: 1,
       totalItems: 10
     }
@@ -89,6 +92,7 @@ export class ListDatosComponent implements OnInit {
     this.getAuthUsuario();
 
     if (this.user.rol == 2) {
+      this.visible=true;
       this.getEstacion(this.user.Id);
       this.estacionid = this.route.snapshot.paramMap.get("id")
     }
@@ -150,38 +154,7 @@ export class ListDatosComponent implements OnInit {
         console.log(err);
       }
     );
-
-    var Filtros = {
-      idPrimeraEstacion: 1,
-      idSegundaEstacion: 1,
-      fechaInicio: this.FechaInicio,
-      fechaFin: this.FechaFin,
-      horaInicio: this.HoraInicio,
-      horaFin: this.HoraFin,
-      pagina: 1,
-      recordsPorPagina: 10
-    };
-
-    this.Datoservice.postDavisPaginado(Filtros).subscribe(
-      (data) => {
-        //Aqui rata arreglo de estaciones
-        this.estacionOne = data.estacion;
-        this.estacionTwo = data.secondEstacion;
-        this.config = {
-          itemsPerPage: 10,
-          currentPage: 1,
-          totalItems: data.totalEstacionOne
-        };
-        this.config2 = {
-          itemsPerPage: 10,
-          currentPage: 1,
-          totalItems: data.totalEstacionTwo
-        };
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  
 
   }
   getMembers(pageNumber: number = 1) {
@@ -248,6 +221,9 @@ export class ListDatosComponent implements OnInit {
     const dialogRef = this.dialog.open(AgregarEstacionComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
+
+      this.getEstacion(this.user.Id);
+   
     });
   }
 
@@ -274,10 +250,15 @@ export class ListDatosComponent implements OnInit {
   onChange(event: any) {
     this.IdPrimeraEstacion = event.target["value"];
     this.estacionid = event.target["value"];
+   
+    this.primeraEstacionTest = event.target["innerText"].split("\n")[Number(this.IdPrimeraEstacion)-1];
+    
   }
 
   Onchange2(event: any) {
     this.IdSegundaEstacion = event.target["value"];
+    let number = Number(this.IdSegundaEstacion);
+    this.segundaEstacionTest = event.target["innerText"].split("\n")[Number(this.IdSegundaEstacion)-1];
   }
   OnFechaInicio(event: any) {
     this.FechaInicio = event.target["value"];
@@ -329,18 +310,29 @@ export class ListDatosComponent implements OnInit {
       (data) => {
         this.carga = false;
         //Aqui rata arreglo de estaciones
-        this.estacionOne = data.estacion;
-        this.estacionTwo = data.secondEstacion;
-        this.config = {
-          itemsPerPage: 10,
-          currentPage: 1,
-          totalItems: data.totalEstacionOne
-        };
-        this.config2 = {
-          itemsPerPage: 10,
-          currentPage: 1,
-          totalItems: data.totalEstacionTwo
-        };
+        if(data.totalEstacionOne == 0){
+         this.estacionOne =[]; 
+        }else{
+          this.primeraEstacion=this.primeraEstacionTest;
+          this.estacionOne = data.estacion;
+          this.config = {
+            itemsPerPage: 10,
+            currentPage: 1,
+            totalItems: data.totalEstacionOne
+          };
+        }
+        if(data.totalEstacionTwo == 0){
+          this.estacionTwo = [];
+        }else{
+          this.segundaEstacion = this.segundaEstacionTest;
+          this.estacionTwo = data.secondEstacion;
+          this.config2 = {
+            itemsPerPage: 10,
+            currentPage: 1,
+            totalItems: data.totalEstacionTwo
+          };
+        }
+       
       },
       (error) => {
         console.log(error);
@@ -395,6 +387,9 @@ export class ListDatosComponent implements OnInit {
     this.estacionService.getAll().subscribe(
       (data) => {
         this.currentEstacion = data;
+        this.primeraEstacion = data[0].nombreEstacion; 
+       
+        this.segundaEstacion =data[0].nombreEstacion; 
       },
       (error) => {
         console.log(error);
@@ -411,9 +406,40 @@ export class ListDatosComponent implements OnInit {
     this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.currentEstacion = data.empresa.estacion;
+        
         this.IdPrimeraEstacion = String(data.empresa.estacion[0].id);
         this.IdSegundaEstacion = String(data.empresa.estacion[0].id);
-
+        var Filtros = {
+          idPrimeraEstacion:this.IdPrimeraEstacion,
+          idSegundaEstacion: this.IdPrimeraEstacion,
+          fechaInicio: this.FechaInicio,
+          fechaFin: this.FechaFin,
+          horaInicio: this.HoraInicio,
+          horaFin: this.HoraFin,
+          pagina: 1,
+          recordsPorPagina: 10
+        };
+    
+        this.Datoservice.postDavisPaginado(Filtros).subscribe(
+          (data) => {
+            //Aqui rata arreglo de estaciones
+            this.estacionOne = data.estacion;
+            this.estacionTwo = data.secondEstacion;
+            this.config = {
+              itemsPerPage: 10,
+              currentPage: 1,
+              totalItems: data.totalEstacionOne
+            };
+            this.config2 = {
+              itemsPerPage: 10,
+              currentPage: 1,
+              totalItems: data.totalEstacionTwo
+            };
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       },
       (error) => {
         console.log(error);

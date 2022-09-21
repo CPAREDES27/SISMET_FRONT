@@ -29,9 +29,11 @@ export class ViewMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAuthUsuario();
-    this.getUbicacion(this.user.Id);
+    debugger;
+
 
     if (this.user.rol == 2) {
+      this.getUbicacion(this.user.Id);
       this.getEstacion(this.user.Id);
     } else {
       this.ObtenerEstaciones();
@@ -49,8 +51,13 @@ export class ViewMapComponent implements OnInit {
   ObtenerEstaciones() {
     this.estacionService.getAll().subscribe(
       (data) => {
+        debugger;
         this.currentEstacion = data;
-
+        this.mostrarmapa(
+          data[0].latitud,
+          data[0].longitud,
+          data[0].nombreEstacion
+        );
       },
       (error) => {
         console.log(error);
@@ -95,6 +102,7 @@ export class ViewMapComponent implements OnInit {
     this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.datoEnviar = data.empresa.estacion[0].id;
+        debugger;
         this.mostrarmapa(
           data.empresa.estacion[0].latitud,
           data.empresa.estacion[0].longitud,

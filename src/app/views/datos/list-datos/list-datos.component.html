@@ -98,7 +98,7 @@
 
         </div>
 
-        <a (click)="openDialog()" style="background-color: #083e5e; margin-right: 0.80em" class="btn btn-icon">
+        <a (click)="openDialog()"  *ngIf="visible" style="background-color: #083e5e; margin-right: 0.80em" class="btn btn-icon">
           <i style="color: #fff" class="fas fa-location"></i>
           <span style="color: rgb(255, 255, 255)">Registrar Estación</span>
         </a>
@@ -113,7 +113,7 @@
         <mat-tab label="Primera Estación">
           <div width:300px style="height: 40px ;background-color: #00A89C;color: white;font-size: 14px;position: relative;">
             <div style="position: absolute;top:20%;left: 50%;">
-              <p style="font-weight: bold;">PRIMERA ESTACIÓN</p>
+              <p style="font-weight: bold;">{{primeraEstacion}}</p>
             </div>
             
           </div>
@@ -143,7 +143,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let data of estacionOne | paginate: config; let i = index">
+                <tr *ngFor="let data of estacionOne | paginate: { id: 'pagination1',
+                itemsPerPage: config.itemsPerPage,
+                currentPage: config.currentPage,
+                totalItems: config.totalItems }">
                   <th style="color: white" class="backGroundTable">{{data.fecha | fechas}}</th>
                   <td style="padding: 0.8em;">{{data.dewpoint_c}}</td>
                   <td style="padding: 0.8em;">{{data.pressure_mb}}</td>
@@ -163,14 +166,14 @@
                 </tr>
               </tbody>
             </table>
-            <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pageChanged($event)"></pagination-controls>
+            <pagination-controls id="pagination1" previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pageChanged($event)"></pagination-controls>
           </div>
         </mat-tab>
 
         <mat-tab label="Segunda Estación">
           <div width:300px style="height: 40px ;background-color: #00A89C;color: white;font-size: 14px;position: relative;">
             <div style="position: absolute;top:20%;left: 50%;">
-              <p style="font-weight: bold;">SEGUNDA ESTACIÓN</p>
+              <p style="font-weight: bold;">{{segundaEstacion}}</p>
             </div>
             
           </div>
@@ -199,7 +202,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let data of estacionTwo | paginate: config2; let i = index">
+                <tr *ngFor="let data of estacionTwo | paginate: { id: 'pagination2',
+                itemsPerPage: config2.itemsPerPage,
+                currentPage: config2.currentPage,
+                totalItems: config2.totalItems }">
                   <th style="color: white" class="backGroundTable">{{data.fecha | fechas}}</th>
                   <td style="padding: 0.8em;">{{data.dewpoint_c}}</td>
                   <td style="padding: 0.8em;">{{data.pressure_mb}}</td>
@@ -219,7 +225,7 @@
                 </tr>
               </tbody>
             </table>
-            <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pageChanged2($event)"></pagination-controls>
+            <pagination-controls id="pagination2" previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pageChanged2($event)"></pagination-controls>
             
           </div>
         </mat-tab>

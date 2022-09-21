@@ -5,6 +5,7 @@ import { AuthenticationService } from "src/app/services/authentication.service";
 import { EstacionService } from "src/app/services/estacion.service";
 import { UsersService } from "src/app/shared/user.service";
 import Swal from "sweetalert2";
+import { ListDatosComponent } from "../list-datos/list-datos.component";
 
 @Component({
   selector: "app-agregar-estacion",
@@ -14,6 +15,7 @@ import Swal from "sweetalert2";
 export class AgregarEstacionComponent implements OnInit {
   user: any;
   userDetails: any;
+
 
   nombreEstacion: string | undefined;
   latitud: string | undefined;
@@ -100,10 +102,10 @@ export class AgregarEstacionComponent implements OnInit {
               icon: "success",
               confirmButtonColor: "#083E5E",
               confirmButtonText: "Aceptar",
-              timer: 6000,
             }).then((result) => {
               if (result.isConfirmed) {
                 this.dialogRef.close();
+           
               }
             });
           }
@@ -111,4 +113,7 @@ export class AgregarEstacionComponent implements OnInit {
       );
     }
   }
+
+
+  
 }
