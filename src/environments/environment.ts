@@ -6,7 +6,7 @@ export const environment = {
   production: false,
 
 
-  urlService: "https://back.envirored.com/api/",
+  urlService: "https://localhost:7275/api/",
   DANGEROUSLY_DISABLE_HOST_CHECK: true,
   disableHostCheck: true
 };

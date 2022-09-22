@@ -250,15 +250,25 @@ export class ListDatosComponent implements OnInit {
   onChange(event: any) {
     this.IdPrimeraEstacion = event.target["value"];
     this.estacionid = event.target["value"];
-   
-    this.primeraEstacionTest = event.target["innerText"].split("\n")[Number(this.IdPrimeraEstacion)-1];
+     
+    for(var i=0;i<this.currentEstacion.length;i++){
+      if(this.currentEstacion[i].id == this.IdPrimeraEstacion){
+        this.primeraEstacionTest = this.currentEstacion[i].nombreEstacion;
+      }
+    }
+  
     
   }
 
   Onchange2(event: any) {
     this.IdSegundaEstacion = event.target["value"];
     let number = Number(this.IdSegundaEstacion);
-    this.segundaEstacionTest = event.target["innerText"].split("\n")[Number(this.IdSegundaEstacion)-1];
+    
+    for(var i=0;i<this.currentEstacion.length;i++){
+      if(this.currentEstacion[i].id == this.IdSegundaEstacion){
+        this.segundaEstacionTest = this.currentEstacion[i].nombreEstacion;
+      }
+    }
   }
   OnFechaInicio(event: any) {
     this.FechaInicio = event.target["value"];
@@ -280,7 +290,9 @@ export class ListDatosComponent implements OnInit {
   consultarInformacion(): boolean {
     const dateI = new Date(this.FechaInicio);
     const dateF = new Date(this.FechaFin);
-
+    debugger;
+    this.primeraEstacion = this.primeraEstacionTest;
+    this.segundaEstacion = this.segundaEstacionTest;
     if (dateI > dateF) {
       Swal.fire({
         title: '',
@@ -390,6 +402,45 @@ export class ListDatosComponent implements OnInit {
         this.primeraEstacion = data[0].nombreEstacion; 
        
         this.segundaEstacion =data[0].nombreEstacion; 
+
+
+        this.IdPrimeraEstacion = String(data[0].id);
+        this.IdSegundaEstacion = String(data[0].id);
+        this.primeraEstacion = data[0].nombreEstacion;
+        this.segundaEstacion = data[0].nombreEstacion;
+        this.segundaEstacionTest = this.primeraEstacion;
+        this.primeraEstacionTest = this.segundaEstacion;
+        var Filtros = {
+          idPrimeraEstacion:this.IdPrimeraEstacion,
+          idSegundaEstacion: this.IdPrimeraEstacion,
+          fechaInicio: this.FechaInicio,
+          fechaFin: this.FechaFin,
+          horaInicio: this.HoraInicio,
+          horaFin: this.HoraFin,
+          pagina: 1,
+          recordsPorPagina: 10
+        };
+    
+        this.Datoservice.postDavisPaginado(Filtros).subscribe(
+          (data) => {
+            //Aqui rata arreglo de estaciones
+            this.estacionOne = data.estacion;
+            this.estacionTwo = data.secondEstacion;
+            this.config = {
+              itemsPerPage: 10,
+              currentPage: 1,
+              totalItems: data.totalEstacionOne
+            };
+            this.config2 = {
+              itemsPerPage: 10,
+              currentPage: 1,
+              totalItems: data.totalEstacionTwo
+            };
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       },
       (error) => {
         console.log(error);
@@ -409,6 +460,10 @@ export class ListDatosComponent implements OnInit {
         
         this.IdPrimeraEstacion = String(data.empresa.estacion[0].id);
         this.IdSegundaEstacion = String(data.empresa.estacion[0].id);
+        this.primeraEstacion = data.empresa.estacion[0].nombreEstacion;
+        this.segundaEstacion = data.empresa.estacion[0].nombreEstacion;
+        this.segundaEstacionTest = this.primeraEstacion;
+        this.primeraEstacionTest = this.segundaEstacion;
         var Filtros = {
           idPrimeraEstacion:this.IdPrimeraEstacion,
           idSegundaEstacion: this.IdPrimeraEstacion,

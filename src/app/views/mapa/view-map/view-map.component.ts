@@ -29,7 +29,7 @@ export class ViewMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAuthUsuario();
-    debugger;
+    
 
 
     if (this.user.rol == 2) {
@@ -51,7 +51,7 @@ export class ViewMapComponent implements OnInit {
   ObtenerEstaciones() {
     this.estacionService.getAll().subscribe(
       (data) => {
-        debugger;
+        
         this.currentEstacion = data;
         this.mostrarmapa(
           data[0].latitud,
@@ -79,30 +79,37 @@ export class ViewMapComponent implements OnInit {
   mostrarmapa(latitud: string, longitud: string, nombre: string) {
     var lati = Number(latitud);
     var long = Number(longitud);
+    if(this.map){
+      this.map.remove();
+      this.map = new Map("map");
+    }
     this.map.setView([latitud, longitud], 13);
-
+ 
     tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 14,
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.map);
 
-    const markerItem = marker([lati, long])
+    var markerItem = null;
+     markerItem = marker([lati, long])
       .bindTooltip(nombre + "<br/>" + "Latitud: " + "<strong>" + latitud + "</strong>" + "<br/>" + "Longitud: " + "<strong>" + longitud + "<strong>")
       .addTo(this.map)
       .on("click", (ev) => {
         this.router.navigateByUrl("/datos-map/" + this.datoEnviar);
       });
-
-    this.map.fitBounds([
-      [markerItem.getLatLng().lat, markerItem.getLatLng().lng],
-    ]);
+      
+    
+    // console.log("hola",markerItem);
+    // this.map.fitBounds([
+    //   [markerItem.getLatLng().lat, markerItem.getLatLng().lng],
+    // ]);
   }
   getUbicacion(id: number) {
     this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.datoEnviar = data.empresa.estacion[0].id;
-        debugger;
+      
         this.mostrarmapa(
           data.empresa.estacion[0].latitud,
           data.empresa.estacion[0].longitud,
