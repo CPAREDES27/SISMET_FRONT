@@ -46,10 +46,11 @@ export class ListUserComponent implements OnInit {
   index: number = 0;
   submitted = false;
 
-  constructor(private usuarioService: UsuarioService, private route: ActivatedRoute) { }
+  constructor(private usuarioService: UsuarioService, private route: ActivatedRoute, public router: Router,) { }
 
   ngOnInit(): void {
-
+    if (localStorage.getItem("token") == null || localStorage.getItem("token") === undefined)
+    this.router.navigateByUrl("/login");
     this.config = {
       itemsPerPage: 10,
       currentPage: 1,

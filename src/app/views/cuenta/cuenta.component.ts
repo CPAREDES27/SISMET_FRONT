@@ -69,7 +69,8 @@ export class CuentaComponent implements OnInit {
     public empresaService: EmpresaService, public router: Router, public auth: AuthenticationService,) { }
 
   ngOnInit() {
-
+    if (localStorage.getItem("token") == null || localStorage.getItem("token") === undefined)
+    this.router.navigateByUrl("/login");
     this.getAuthUsuario();
     this.getUsuario(this.route.snapshot.paramMap.get("id"));
     this.ObtenerRoles();

@@ -67,9 +67,14 @@ export class AddUserComponent implements OnInit {
     public empresaService: EmpresaService, public router: Router) { }
 
   ngOnInit(): void {
-    this.getUsuario(this.route.snapshot.paramMap.get('id'));
-    this.ObtenerRoles();
-    this.ObtenerEmpresa();
+    if (localStorage.getItem("token") == null || localStorage.getItem("token") === undefined)
+    this.router.navigateByUrl("/login");
+    else{
+      this.getUsuario(this.route.snapshot.paramMap.get('id'));
+      this.ObtenerRoles();
+      this.ObtenerEmpresa();
+    }
+  
 
 
   }
