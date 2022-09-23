@@ -30,9 +30,7 @@ export class LoginComponent implements OnInit {
 
     let spin = document.getElementById('spin1') as InnerHTML;
     spin.innerHTML = this.spinnerOff;
-
-    if (localStorage.getItem("token") != null)
-      this.router.navigateByUrl("/dashboard");
+    localStorage.clear();
   }
 
   setForm() {
