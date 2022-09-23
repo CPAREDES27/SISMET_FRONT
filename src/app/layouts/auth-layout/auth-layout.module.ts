@@ -16,8 +16,7 @@ import { RegisterComponent } from '../../views/register/register.component';
     // NgbModule
   ],
   declarations: [
-    LoginComponent,
-    RegisterComponent
+    LoginComponent
   ]
 })
 export class AuthLayoutModule { }

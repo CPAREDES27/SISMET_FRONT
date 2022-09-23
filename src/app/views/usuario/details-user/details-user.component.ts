@@ -36,7 +36,7 @@ export class DetailsUserComponent implements OnInit {
   currentIndex = -1;
   userName = '';
   message = '';
-
+  carga : boolean=false;
   usuarios = {
     userName: '',
     contrasena: '',
@@ -69,23 +69,44 @@ export class DetailsUserComponent implements OnInit {
   }
 
   ObtenerRoles() {
+ 
     this.rolService.getAll().subscribe(
       (data) => {
         this.rol_mk = data;
+      
       },
       (error) => {
+        this.carga = false;
+        Swal.fire({
+          title: '',
+          html: 'No hay conexión con el servidor',
+          imageWidth: "100px",
+          icon: 'error',
+          confirmButtonColor: '#083E5E',
+          confirmButtonText: 'Aceptar'
+        });
         console.log(error);
       }
     );
   }
 
   ObtenerEmpresa() {
+    debugger;
     this.empresaService.getAll().subscribe(
       (data) => {
         this.empresa_mk = data;
+        this.carga=false;
       },
       (error) => {
-        console.log(error);
+        Swal.fire({
+          title: '',
+          html: 'No hay conexión con el servidor',
+          imageWidth: "100px",
+          icon: 'error',
+          confirmButtonColor: '#083E5E',
+          confirmButtonText: 'Aceptar'
+        });
+        this.carga=false;
       }
     );
   }
@@ -103,25 +124,46 @@ export class DetailsUserComponent implements OnInit {
 
   //EDIT
   getUsuario(id: string | null) {
+    this.carga = true;
     this.usuarioService.get(id)
       .subscribe(
         data => {
           this.currentUsuario = data;
+          this.carga =false;
         },
         error => {
-          console.log(error);
+          Swal.fire({
+            title: '',
+            html: 'No hay conexión con el servidor',
+            imageWidth: "100px",
+            icon: 'error',
+            confirmButtonColor: '#083E5E',
+            confirmButtonText: 'Aceptar'
+          });
+          this.carga=false;
         });
   }
 
   updateUsuario() {
+    this.carga = true;
     this.usuarioService.update(this.currentUsuario.id, this.currentUsuario)
       .subscribe(
         response => {
           this.message = 'El usuario fue actualizado.';
           Swal.fire("", "El usuario fue eliminado.", 'success');
+          this.carga = false;
           this.router.navigateByUrl("/usuario");
         },
         error => {
+          Swal.fire({
+            title: '',
+            html: 'No hay conexión con el servidor',
+            imageWidth: "100px",
+            icon: 'error',
+            confirmButtonColor: '#083E5E',
+            confirmButtonText: 'Aceptar'
+          });
+          this.carga=false;
           console.log(error);
           Swal.fire("¡Ha ocurrido un error!", error, 'error');
 

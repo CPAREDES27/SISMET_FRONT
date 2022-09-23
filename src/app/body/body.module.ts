@@ -15,7 +15,7 @@ import { BodyRoutes } from './body.routing';
     HttpClientModule,
   ],
   declarations: [
-    DashboardComponent
+
   ]
 })
 

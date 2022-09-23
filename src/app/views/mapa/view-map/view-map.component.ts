@@ -5,6 +5,7 @@ import { Map, marker, tileLayer } from "leaflet";
 import { AuthenticationService } from "src/app/services/authentication.service";
 import { EstacionService } from "src/app/services/estacion.service";
 import { UsersService } from "src/app/shared/user.service";
+import Swal from 'sweetalert2';
 @Component({
   selector: "app-view-map",
   templateUrl: "./view-map.component.html",
@@ -15,6 +16,7 @@ export class ViewMapComponent implements OnInit {
   currentEstacion: any = [];
   id: any;
   estaciones: any;
+  carga:boolean=false;
   map: any;
   estacion = {
     id: "",
@@ -60,18 +62,36 @@ export class ViewMapComponent implements OnInit {
         );
       },
       (error) => {
-        console.log(error);
+        
+        Swal.fire({
+          title: '',
+          html: 'No hay conexión con el servidor',
+          imageWidth: "100px",
+          icon: 'error',
+          confirmButtonColor: '#083E5E',
+          confirmButtonText: 'Aceptar'
+        });
+        this.carga=false;
       }
     );
   }
 
   getEstacion(id: number) {
+    this.carga=true;
     this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.currentEstacion = data.empresa.estacion;
       },
       (error) => {
-        console.log(error);
+        Swal.fire({
+          title: '',
+          html: 'No hay conexión con el servidor',
+          imageWidth: "100px",
+          icon: 'error',
+          confirmButtonColor: '#083E5E',
+          confirmButtonText: 'Aceptar'
+        });
+        this.carga=false;
       }
     );
   }
@@ -106,18 +126,28 @@ export class ViewMapComponent implements OnInit {
     // ]);
   }
   getUbicacion(id: number) {
+    this.carga=true;
     this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.datoEnviar = data.empresa.estacion[0].id;
-      
+        this.carga=false;
         this.mostrarmapa(
           data.empresa.estacion[0].latitud,
           data.empresa.estacion[0].longitud,
           data.empresa.estacion[0].nombreEstacion
         );
+       
       },
       (error) => {
-        console.log(error);
+        Swal.fire({
+          title: '',
+          html: 'No hay conexión con el servidor',
+          imageWidth: "100px",
+          icon: 'error',
+          confirmButtonColor: '#083E5E',
+          confirmButtonText: 'Aceptar'
+        });
+        this.carga=false;
       }
     );
   }

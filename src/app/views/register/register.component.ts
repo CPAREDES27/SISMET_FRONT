@@ -46,6 +46,7 @@ export class RegisterComponent {
   tipoDocumento: string | undefined;
   nroDocumento: string | undefined;
   correo: string | undefined;
+  
   rolId: string | undefined;
   empresaId: string | undefined;
   passwordError: boolean | undefined;

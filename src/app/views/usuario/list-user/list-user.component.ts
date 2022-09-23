@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
-
+import { of } from 'rxjs';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-list-user',
   templateUrl: './list-user.component.html',
@@ -18,7 +19,7 @@ export class ListUserComponent implements OnInit {
   userName = '';
   message = '';
   color: any;
-
+  employees:any=[];
   usuarios = {
     id: '',
     userName: '',
@@ -34,14 +35,14 @@ export class ListUserComponent implements OnInit {
     correo: ''
 
   };
-
+  busqueda:string="";
   collection: number[] = [];
   estacionOne: any;
   config: any;
   isItemsPerPage = true;
   p = 1;
-
-
+  filterValueLower:string="";
+  carga : boolean=false;
   index: number = 0;
   submitted = false;
 
@@ -64,21 +65,26 @@ export class ListUserComponent implements OnInit {
   pageChanged(event: any) {
 
     this.getMembers(event);
+    
   }
   BuscarUsuario() {
+    console.log(this.busqueda)
+    this.filterValueLower = this.busqueda.toLowerCase();
+    this.getMembers(1);
+    
   }
   getMembers(pageNumber: number = 1) {
 
-
+    debugger;
     const data = {
       username: "",
       correo: "",
-      nombres: "",
+      nombres: this.filterValueLower==""?"":this.filterValueLower,
       apellidos: "",
       pagina: pageNumber,
       recordsPorPagina: 10
     };
-
+    this.carga=true;
     this.usuarioService.create(data)
       .subscribe(
         response => {
@@ -89,9 +95,18 @@ export class ListUserComponent implements OnInit {
             currentPage: pageNumber,
             totalItems: response.cantidad
           };
+          this.carga=false;
         },
         error => {
-          console.log(error);
+          Swal.fire({
+            title: '',
+            html: 'No hay conexión con el servidor',
+            imageWidth: "100px",
+            icon: 'error',
+            confirmButtonColor: '#083E5E',
+            confirmButtonText: 'Aceptar'
+          });
+          this.carga=false;
         });
   }
 

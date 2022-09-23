@@ -23,6 +23,7 @@ export class AgregarEstacionComponent implements OnInit {
   usuario: string | undefined;
   clave: string | undefined;
   token: string | undefined;
+  carga: boolean = false;
 
   submitted = false;
 
@@ -80,12 +81,14 @@ export class AgregarEstacionComponent implements OnInit {
         token: this.token,
         empresaId: this.userDetails.empresaId,
       };
+      this.carga=true;
       this.estacionService.create(estacion).subscribe(
         (data) => {
           this.submitted = true;
         },
         (error) => {
           if (error.status == 400) {
+            this.carga=false;
             Swal.fire({
               title: "",
               text: error.error,
@@ -96,6 +99,7 @@ export class AgregarEstacionComponent implements OnInit {
           }
 
           if (error.status == 200) {
+            this.carga=false;
             Swal.fire({
               title: "",
               text: "Se registró la estación correctamente.",

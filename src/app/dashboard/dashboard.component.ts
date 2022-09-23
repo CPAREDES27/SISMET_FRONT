@@ -31,6 +31,7 @@ HighchartsAccess(Highcharts);
   styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit {
+    carga:boolean=false;
   DataDavisDt?: DataDavisDt;
 
   private createChartGauge(): void {
@@ -632,8 +633,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
     this.getAuthUsuario();
 
     if (this.user.rol == 2) {
@@ -653,11 +652,12 @@ export class DashboardComponent implements OnInit {
     this.service.getUsuario(this.user.Id).subscribe(
       (res) => {
         let headers = new Headers();
-
+     
         this.userDetails = res;
       },
       (err) => {
         console.log(err);
+       
       }
     );
   }
@@ -932,8 +932,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ObtenerHighcharts(idEstacion: any) {
-
-
+    this.carga = true;
     this.estacionService.get(idEstacion).subscribe(
       (data) => {
         this.DataDavisDt = data;
@@ -944,8 +943,8 @@ export class DashboardComponent implements OnInit {
         this.createChartTemperatura();
         this.createChartGaugeUvIndex();
         this.createChartGaugeHumedad();
-        this.createChartWindRose();
-
+        //this.createChartWindRose();
+        this.carga=false;
 
 
       },
@@ -962,11 +961,13 @@ export class DashboardComponent implements OnInit {
   }
 
   ObtenerEstaciones() {
+
     this.estacionService.getAll().subscribe(
       (data) => {
         this.currentEstacion = data;
         this.estacionActual = this.currentEstacion[0].id;
         this.ObtenerHighcharts(this.currentEstacion[0].id);
+
       },
       (error) => {
         console.log(error);
@@ -1002,11 +1003,13 @@ export class DashboardComponent implements OnInit {
   onChange(event: any) {
   }
   getEstacion(id: number) {
+    
     this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.currentEstacion = data.empresa.estacion;
         this.estacionActual = this.currentEstacion[0].id;
         this.ObtenerHighcharts(this.currentEstacion[0].id);
+     
       },
       (error) => {
         console.log(error);

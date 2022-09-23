@@ -23,8 +23,8 @@
                 <div class="col">
                   <h3 class="mb-0">Lista de Usuarios</h3>
                 </div>
-                    
-                
+               
+              
                     <a 
                     style="background-color: #083e5e; margin-right: 0.80em"
                     class="btn btn-icon" routerLink="/register"
@@ -35,15 +35,17 @@
 
                 <div class="input-group input-group-alternative col text-right"  style="font-weight: bolder; color:#083e5e
                 ; margin-left: 0.75em; width: 30%;border-radius: .9rem;border: 1px solid rgb(170, 171, 177);box-shadow: 0.001rem 0 0.5rem 0 #8690a3;">
-                  <input style="width: 30%"class="form-control" placeholder="Buscar usuario" type="text" />
+                  <input style="width: 30%"class="form-control" placeholder="Buscar usuario" type="text" [(ngModel)]="busqueda" />
                   <a class="input-group-prepend" (click)="BuscarUsuario()">
                     <span class="input-group-text" style="color: rgb(39, 39, 39)"><i class="fas fa-search"></i></span>
                   </a>
                 </div>
               </div>
             </div>
+            <app-mat-spinner-overlay *ngIf="carga"></app-mat-spinner-overlay>
             <div class="table-responsive">
               <!-- Projects table -->
+              <app-mat-spinner-overlay *ngIf="carga"></app-mat-spinner-overlay>
               <table class="table align-items-center table-flush" style="font-size: 10px;">
                 <thead>
                   <tr >
@@ -99,11 +101,16 @@
                   </tr>
                 </tbody>
               </table>
+              
               <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pageChanged($event)"></pagination-controls>
             </div>
+            
           </div>
+
         </div>
       </div>
     </div>
+    
   </div>
+  
 </div>

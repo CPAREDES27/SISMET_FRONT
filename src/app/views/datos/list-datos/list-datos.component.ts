@@ -218,11 +218,13 @@ export class ListDatosComponent implements OnInit {
     this.getMembers2(event);
   }
   openDialog() {
+
     const dialogRef = this.dialog.open(AgregarEstacionComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
 
       this.getEstacion(this.user.Id);
+ 
    
     });
   }
@@ -347,7 +349,15 @@ export class ListDatosComponent implements OnInit {
        
       },
       (error) => {
-        console.log(error);
+        this.carga=false;
+        Swal.fire({
+          title: '',
+          html: 'No hay conexión con el servidor',
+          imageWidth: "100px",
+          icon: 'error',
+          confirmButtonColor: '#083E5E',
+          confirmButtonText: 'Aceptar'
+        });
       }
     );
     return true;
@@ -379,7 +389,9 @@ export class ListDatosComponent implements OnInit {
 
     }
     else {
+      this.carga = true;
       this.Datoservice.ExportarDatos(Filtros).subscribe(blobFile => {
+        this.carga = false;
         const url = window.URL.createObjectURL(blobFile);
         const a = document.createElement('a');
         document.body.appendChild(a);
@@ -389,6 +401,17 @@ export class ListDatosComponent implements OnInit {
         a.click();
         window.URL.revokeObjectURL(url);
         a.remove();
+      },
+      (error)=>{
+        Swal.fire({
+          title: '',
+          html: 'No hay conexión con el servidor',
+          imageWidth: "100px",
+          icon: 'error',
+          confirmButtonColor: '#083E5E',
+          confirmButtonText: 'Aceptar'
+        });
+        this.carga = false;
       });
     }
   }
@@ -453,11 +476,11 @@ export class ListDatosComponent implements OnInit {
   }
 
   getEstacion(id: number) {
-
+    this.carga=true;
     this.service.getUsuario(this.user.Id).subscribe(
       (data) => {
         this.currentEstacion = data.empresa.estacion;
-        
+         this.carga=false;
         this.IdPrimeraEstacion = String(data.empresa.estacion[0].id);
         this.IdSegundaEstacion = String(data.empresa.estacion[0].id);
         this.primeraEstacion = data.empresa.estacion[0].nombreEstacion;
@@ -474,8 +497,9 @@ export class ListDatosComponent implements OnInit {
           pagina: 1,
           recordsPorPagina: 10
         };
-    
+        this.carga=true;
         this.Datoservice.postDavisPaginado(Filtros).subscribe(
+          
           (data) => {
             //Aqui rata arreglo de estaciones
             this.estacionOne = data.estacion;
@@ -490,14 +514,24 @@ export class ListDatosComponent implements OnInit {
               currentPage: 1,
               totalItems: data.totalEstacionTwo
             };
+            this.carga=false;
           },
           (error) => {
             console.log(error);
           }
         );
+      
       },
       (error) => {
-        console.log(error);
+        Swal.fire({
+          title: '',
+          html: 'No hay conexión con el servidor',
+          imageWidth: "100px",
+          icon: 'error',
+          confirmButtonColor: '#083E5E',
+          confirmButtonText: 'Aceptar'
+        });
+        this.carga=false;
       }
     );
 

@@ -41,7 +41,7 @@ export class AddUserComponent implements OnInit {
   userName = '';
   message = '';
 
-
+  carga:boolean=false;
   usuarios = {
     userName: '',
     contrasena: '',
@@ -138,10 +138,12 @@ export class AddUserComponent implements OnInit {
 
 
   updateUsuario() {
+    this.carga = true;
     this.usuarioService.update(this.currentUsuario.id, this.currentUsuario)
       .subscribe(
         (res: any) => {
           if (res.value.mensaje != "") {
+            this.carga=false;
             Swal.fire({
               title: '',
               text: res.value.mensaje,
@@ -183,18 +185,18 @@ export class AddUserComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-
+        this.carga=true;
         this.usuarioService.delete(this.currentUsuario.id)
           .subscribe(
             (res: any) => {
               if (res.message != "") {
+                this.carga=false;
                 Swal.fire({
                   title: '',
                   text: res.message,
                   icon: 'success',
                   confirmButtonColor: '#083E5E',
-                  confirmButtonText: 'Aceptar',
-                  timer: 6000
+                  confirmButtonText: 'Aceptar'
                 }).then((result) => {
                   if (result.isConfirmed) {
                     this.router.navigateByUrl("/usuario");

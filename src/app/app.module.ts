@@ -48,6 +48,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { VientoPipe } from './viento.pipe';
 import { FechasPipe } from './fechas.pipe';
 import { CuentaComponent } from './views/cuenta/cuenta.component';
+import { AuthLayoutModule } from './layouts/auth-layout/auth-layout.module';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,8 @@ import { CuentaComponent } from './views/cuenta/cuenta.component';
     AppComponent,
     SidenavComponent,
     SidebarComponent,
+    RegisterComponent,
+    DetailsUserComponent,
     AuthLayoutComponent,
     FooterComponent,
     BodyComponent,
@@ -74,6 +77,7 @@ import { CuentaComponent } from './views/cuenta/cuenta.component';
     VientoPipe,
     FechasPipe,
     CuentaComponent,
+    DashboardComponent
  
 
   ],
