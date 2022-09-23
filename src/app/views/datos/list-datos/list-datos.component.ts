@@ -34,7 +34,8 @@ export class ListDatosComponent implements OnInit {
     private service: UsersService,
     public auth: AuthenticationService,
     private Datoservice: DatosService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public router: Router
   ) { }
 
   estacionOne: any;
@@ -76,7 +77,8 @@ export class ListDatosComponent implements OnInit {
   isItemsPerPage = true;
   p = 1;
   ngOnInit() {
-
+    if (localStorage.getItem("token") == null || localStorage.getItem("token") === undefined)
+      this.router.navigateByUrl("/login");
     this.config = {
       itemsPerPage: 10,
       currentPage: 1,

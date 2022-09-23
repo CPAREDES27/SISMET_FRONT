@@ -30,6 +30,8 @@ export class ViewMapComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem("token") == null || localStorage.getItem("token") === undefined)
+    this.router.navigateByUrl("/login");
     this.getAuthUsuario();
     
 

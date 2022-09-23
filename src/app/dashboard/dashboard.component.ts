@@ -633,6 +633,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (localStorage.getItem("token") == null || localStorage.getItem("token") === undefined)
+      this.router.navigateByUrl("/login");
     this.getAuthUsuario();
 
     if (this.user.rol == 2) {

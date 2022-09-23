@@ -13,6 +13,7 @@ const More = require('highcharts/highcharts-more');
 More(Highcharts);
 
 import Histogram from 'highcharts/modules/histogram-bellcurve';
+import { Router } from '@angular/router';
 Histogram(Highcharts);
 
 const Exporting = require('highcharts/modules/exporting');
@@ -30,7 +31,7 @@ Accessibility(Highcharts);
 })
 export class CalculosComponent implements OnInit {
 
-  constructor(private service: UsersService, private estacionService: EstacionService, public auth: AuthenticationService,) { }
+  constructor(private service: UsersService, private estacionService: EstacionService, public auth: AuthenticationService, public router: Router) { }
   data: any;
   calculo: any;
   public activity: any;
@@ -48,6 +49,8 @@ export class CalculosComponent implements OnInit {
   today: string = "";
   todayF: string = "";
   ngOnInit(): void {
+    if (localStorage.getItem("token") == null || localStorage.getItem("token") === undefined)
+    this.router.navigateByUrl("/login");
     this.today = new Date().toISOString().split('T')[0];
     this.todayF = new Date().toISOString().split('T')[0];
 
