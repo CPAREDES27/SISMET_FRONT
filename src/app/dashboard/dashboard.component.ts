@@ -973,6 +973,12 @@ export class DashboardComponent implements OnInit {
     this.estacionService.get(idEstacion).subscribe(
       (data) => {
         this.DataDavisDt = data;
+        this.DataDavisDt.davis_current_observation.et_day = Number(this.DataDavisDt.davis_current_observation.et_day).toFixed(1);
+        this.DataDavisDt.davis_current_observation.et_month = Number(this.DataDavisDt.davis_current_observation.et_month).toFixed(1);
+        this.DataDavisDt.davis_current_observation.et_year = Number(this.DataDavisDt.davis_current_observation.et_year).toFixed(1);
+        this.DataDavisDt.davis_current_observation.rain_day_in = Number(this.DataDavisDt.davis_current_observation.rain_day_in).toFixed(1);
+        this.DataDavisDt.davis_current_observation.rain_month_in = Number(this.DataDavisDt.davis_current_observation.rain_month_in).toFixed(1);
+        this.DataDavisDt.davis_current_observation.rain_year_in = Number(this.DataDavisDt.davis_current_observation.rain_year_in).toFixed(1);
         this.ObtenerTablaWindRose();
         this.createChartGauge();
         this.createChartPiramide();
