@@ -61,7 +61,7 @@ export class ListDatosComponent implements OnInit {
   hora = this.date1.getHours();
   minuto = this.date1.getMinutes();
   segundos = this.date1.getSeconds();
-
+  estacionB : boolean=false;
   DateInicio: any;
   DateFin: any;
   FinalMonth: any;
@@ -100,6 +100,7 @@ export class ListDatosComponent implements OnInit {
     }
 
     if (this.user.rol == 1) {
+      this.estacionB =true;
       this.ObtenerEstaciones();
       this.estacionid = this.route.snapshot.paramMap.get("id")
       this.IdPrimeraEstacion = "1";
@@ -225,8 +226,7 @@ export class ListDatosComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
 
-      this.getEstacion(this.user.Id);
- 
+      this.ObtenerEstaciones();
    
     });
   }

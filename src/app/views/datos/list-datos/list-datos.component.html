@@ -98,7 +98,7 @@
 
         </div>
 
-        <a (click)="openDialog()"  *ngIf="visible" style="background-color: #083e5e; margin-right: 0.80em" class="btn btn-icon">
+        <a (click)="openDialog()"  *ngIf="estacionB" style="background-color: #083e5e; margin-right: 0.80em" class="btn btn-icon">
           <i style="color: #fff" class="fas fa-location"></i>
           <span style="color: rgb(255, 255, 255)">Registrar Estación</span>
         </a>
@@ -111,59 +111,70 @@
 
       <mat-tab-group>
         <mat-tab label="Primera Estación">
-          <div width:300px style="height: 40px ;background-color: #00A89C;color: white;font-size: 14px;position: relative;">
-            <div style="position: absolute;top:20%;left: 50%;">
-              <p style="font-weight: bold;">{{primeraEstacion}}</p>
-            </div>
-            
-          </div>
-          <div class="hola">
-            <table>
-              
+          <div>
+            <table class="table" style="text-transform: none;">
               <thead>
                 <tr>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;width: 180px;text-align: left;">Fecha / Hora</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Punto de Rocío <br/>(°C)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Presión   <br/> (mb o hPa)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Humedad %</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Temp. <br/>(°C)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Temp. Máxima <br/>(C°)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Temp. Mínima <br/>(C°)</th>
-                  <th class="backGroundTable"  style="font-size: 12px;color: white;word-break:break-word">Rad Solar <br/>(W/m²)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Índice UV</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Lluvia <br/>(mm)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">ET <br/>(mm)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Dirección Viento <br/>(Grados)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Dirección Viento <br/>(Cardinales)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Velocidad Viento <br/>(KT)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Velocidad Viento <br/>(m/s)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Velocidad Viento <br/>(km/h)</th>
-                  
-                  
+                  <th style="text-align: center;font-size: 14px;background-color: #00A89C;color:white" colspan="22">{{primeraEstacion}}</th>
+                </tr>
+              </thead>
+              <thead>
+                <tr class="backGroundTable" style="text-transform: none;">
+                  <th  class="static"  style="margin-top: 10px;border-top: 0px solid;border-bottom: 0px solid;color:white;text-align: center; width: 120px;" >Fecha / Hora <br></th>
+                  <th align="center" style="color:white;text-transform: none;text-align: center;" class="first-col" style="text-align: center;" scope="col"  >Punto de Rocío <br>(°C)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Presión <br>(mb o hPa)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Humedad <br>%</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Temp. <br>(°C)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Temp. Máxima <br>(C°)</th>
+                  <th  style="color:white;text-align: center;" scope="col">Hora Temp. <br>Máxima</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Temp. Mínima <br>(C°)</th>
+                  <th  style="color:white;text-align: center;" scope="col">Hora Temp. <br>Mínima</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Rad Solar <br>(W/m²)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Índice<br> UV</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Lluvia en el día <br>(mm)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Lluvia en el mes <br>(mm)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Lluvia en el año<br>(mm)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">ET en el día<br/>(mm)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">ET en el mes <br/>(mm)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">ET en el año<br/>(mm)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Dirección Viento<br> (Grados)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Dirección Viento <br>(Cardinales)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Velocidad Viento<br> (KT)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Velocidad Viento <br>(m/s)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Velocidad Viento <br>(km/h)</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let data of estacionOne | paginate: { id: 'pagination1',
+                <tr>
+                 
+                  <tr *ngFor="let data of estacionOne | paginate: { id: 'pagination1',
                 itemsPerPage: config.itemsPerPage,
                 currentPage: config.currentPage,
                 totalItems: config.totalItems }">
-                  <th style="color: white" class="backGroundTable">{{data.fecha | fechas}}</th>
-                  <td style="padding: 0.8em;">{{data.dewpoint_c}}</td>
-                  <td style="padding: 0.8em;">{{data.pressure_mb}}</td>
-                  <td style="padding: 0.8em;">{{data.relative_humidity}}</td>
-                  <td style="padding: 0.8em;">{{data.temp_c}}</td>
-                  <td style="padding: 0.8em;">{{data.temp_day_high_f}}</td>
-                  <td style="padding: 0.8em;">{{data.temp_day_low_f}}</td>
-                  <td style="padding: 0.8em;">{{data.solar_radiation}}</td>
-                  <td style="padding: 0.8em;">{{data.uv_index}}</td>
-                  <td style="padding: 0.8em;">{{data.rain_day_in}}</td>
-                  <td style="padding: 0.8em;">{{data.et_day}}</td>
-                  <td style="padding: 0.8em;">{{data.wind_degrees}}</td>
-                  <td style="padding: 0.8em;">{{data.wind_dir |viento }}</td>
-                  <td style="padding: 0.8em;">{{data.wind_kt}}</td>
-                  <td style="padding: 0.8em;">{{data.wind_ms}}</td>
-                  <td style="padding: 0.8em;">{{data.wind_kh}}</td>
+                  <th align="center" class="static backGroundTable" scope="row" style="width: 120px; font-size: 9px; color: white" >{{data.fecha | fechas}}</th>
+                  <td align="center"  class="first-cols" >{{data.dewpoint_c}}</td>
+                  <td align="center" >{{data.pressure_mb}}</td>
+                  <td align="center" >{{data.relative_humidity}}</td>
+                  <td align="center" >{{data.temp_c}}</td>
+                  <td align="center" >{{data.temp_day_high_f}}</td>
+                  <td align="center" >{{data.temp_day_high_time}}</td>
+                  <td align="center" >{{data.temp_day_low_f}}</td>
+                  <td align="center" >{{data.temp_day_low_time}}</td>
+                  <td align="center" >{{data.solar_radiation}}</td>
+                  <td align="center" >{{data.uv_index}}</td>
+                  <td align="center" >{{data.rain_day_in}}</td>
+                  <td align="center" >{{data.rain_month_in}}</td>
+                  <td align="center" >{{data.rain_year_in}}</td>
+                  <td align="center" >{{data.et_day}}</td>
+                  <td align="center" >{{data.et_month}}</td>
+                  <td align="center" >{{data.et_year}}</td>
+                  <td align="center" >{{data.wind_degrees}}</td>
+                  <td align="center" >{{data.wind_dir |viento }}</td>
+                  <td align="center" >{{data.wind_kt}}</td>
+                  <td align="center" >{{data.wind_ms}}</td>
+                  <td align="center" >{{data.wind_kh}}</td>
                 </tr>
+            
               </tbody>
             </table>
             <pagination-controls id="pagination1" previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pageChanged($event)"></pagination-controls>
@@ -171,62 +182,64 @@
         </mat-tab>
 
         <mat-tab label="Segunda Estación">
-          <div width:300px style="height: 40px ;background-color: #00A89C;color: white;font-size: 14px;position: relative;">
-            <div style="position: absolute;top:20%;left: 50%;">
-              <p style="font-weight: bold;">{{segundaEstacion}}</p>
-            </div>
-            
-          </div>
-          <div class="hola">
-            <table>
-              
+          <div >
+            <table class="table " >
               <thead>
                 <tr>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;width: 180px;text-align: justify;">Fecha / Hora</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Punto de Rocío <br/>(°C)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Presión   <br/> (mb o hPa)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Humedad %</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Temp. <br/>(°C)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Temp. Máxima <br/>(C°)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Temp. Mínima <br/>(C°)</th>
-                  <th class="backGroundTable"  style="font-size: 12px;color: white;word-break:break-word">Rad Solar <br/>(W/m²)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Índice UV</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Lluvia <br/>(mm)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">ET <br/>(mm)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Dirección Viento <br/>(Grados)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Dirección Viento <br/>(Cardinales)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Velocidad Viento <br/>(KT)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Velocidad Viento <br/>(m/s)</th>
-                  <th class="backGroundTable" style="font-size: 12px;color: white;word-break:break-word">Velocidad Viento <br/>(km/h)</th>
-                  
+                  <th style="text-align: center;font-size: 14px;background-color: #00A89C;color:white" colspan="22">{{segundaEstacion}}</th>
+                </tr>
+              </thead>
+              <thead>
+                <tr class="backGroundTable">
+                  <th  class="static"  style="margin-top: 10px;border-top: 0px solid;border-bottom: 0px solid;color:white;text-align: center; width: 120px;" >Fecha / Hora <br></th>
+                  <th align="center" style="color:white;text-align: center;" class="first-col" style="text-align: center;" scope="col"  >Punto de Rocío <br>(°C)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Presión <br>(mb o hPa)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Humedad <br>%</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Temp. <br>(°C)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Temp. Máxima <br>(C°)</th>
+                  <th  style="color:white;text-align: center;" scope="col">Hora Temp. <br>Máxima</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Temp. Mínima <br>(C°)</th>
+                  <th  style="color:white;text-align: center;" scope="col">Hora Temp. <br>Mínima</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Rad Solar <br>(W/m²)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Índice<br> UV</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Lluvia <br>(mm)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">ET <br/>(mm)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Dirección Viento<br> (Grados)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Dirección Viento <br>(Cardinales)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Velocidad Viento<br> (KT)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Velocidad Viento <br>(m/s)</th>
+                  <th align="center" style="color:white;text-align: center;" scope="col">Velocidad Viento <br>(km/h)</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let data of estacionTwo | paginate: { id: 'pagination2',
-                itemsPerPage: config2.itemsPerPage,
-                currentPage: config2.currentPage,
-                totalItems: config2.totalItems }">
-                  <th style="color: white" class="backGroundTable">{{data.fecha | fechas}}</th>
-                  <td style="padding: 0.8em;">{{data.dewpoint_c}}</td>
-                  <td style="padding: 0.8em;">{{data.pressure_mb}}</td>
-                  <td style="padding: 0.8em;">{{data.relative_humidity}}</td>
-                  <td style="padding: 0.8em;">{{data.temp_c}}</td>
-                  <td style="padding: 0.8em;">{{data.temp_day_high_f}}</td>
-                  <td style="padding: 0.8em;">{{data.temp_day_low_f}}</td>
-                  <td style="padding: 0.8em;">{{data.solar_radiation}}</td>
-                  <td style="padding: 0.8em;">{{data.uv_index}}</td>
-                  <td style="padding: 0.8em;">{{data.rain_day_in}}</td>
-                  <td style="padding: 0.8em;">{{data.et_day}}</td>
-                  <td style="padding: 0.8em;">{{data.wind_degrees}}</td>
-                  <td style="padding: 0.8em;">{{data.wind_dir | viento}}</td>
-                  <td style="padding: 0.8em;">{{data.wind_kt}}</td>
-                  <td style="padding: 0.8em;">{{data.wind_ms}}</td>
-                  <td style="padding: 0.8em;">{{data.wind_kh}}</td>
+                <tr>
+                  <tr *ngFor="let data of estacionTwo | paginate: { id: 'pagination2',
+                itemsPerPage: config.itemsPerPage,
+                currentPage: config.currentPage,
+                totalItems: config.totalItems }">
+                  <th align="center" class="static backGroundTable" scope="row" style="width: 120px; font-size: 9px; color: white" >{{data.fecha | fechas}}</th>
+                  <td align="center"  class="first-cols" >{{data.dewpoint_c}}</td>
+                  <td align="center" >{{data.pressure_mb}}</td>
+                  <td align="center" >{{data.relative_humidity}}</td>
+                  <td align="center" >{{data.temp_c}}</td>
+                  <td align="center" >{{data.temp_day_high_f}}</td>
+                  <td align="center" >{{data.temp_day_high_time}}</td>
+                  <td align="center" >{{data.temp_day_low_f}}</td>
+                  <td align="center" >{{data.temp_day_low_time}}</td>
+                  <td align="center" >{{data.solar_radiation}}</td>
+                  <td align="center" >{{data.uv_index}}</td>
+                  <td align="center" >{{data.rain_day_in}}</td>
+                  <td align="center" >{{data.et_day}}</td>
+                  <td align="center" >{{data.wind_degrees}}</td>
+                  <td align="center" >{{data.wind_dir |viento }}</td>
+                  <td align="center" >{{data.wind_kt}}</td>
+                  <td align="center" >{{data.wind_ms}}</td>
+                  <td align="center" >{{data.wind_kh}}</td>
                 </tr>
+            
               </tbody>
             </table>
-            <pagination-controls id="pagination2" previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pageChanged2($event)"></pagination-controls>
-            
+            <pagination-controls id="pagination2" previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pageChanged($event)"></pagination-controls>
           </div>
         </mat-tab>
 

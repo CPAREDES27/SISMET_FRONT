@@ -33,14 +33,15 @@ HighchartsAccess(Highcharts);
 export class DashboardComponent implements OnInit {
     carga:boolean=false;
   DataDavisDt?: DataDavisDt;
-
+  fechaFinal : string="";
   private createChartGauge(): void {
     const chart = Highcharts.chart("chart-gauge", {
       chart: {
         type: "solidgauge",
       },
       title: {
-        text: "Radiación Solar",
+        useHTML: true,
+        text: "<img style='text-align:center' src='../assets/img/icons/radsol.png' width='35' height='30' > Radiación Solar",
       },
       credits: {
         enabled: false,
@@ -96,6 +97,33 @@ export class DashboardComponent implements OnInit {
       ],
     } as any);
   }
+  
+  getFechaActual(){
+    var fecha = new Date();
+    var mes = fecha.getMonth();
+    var mesF="";
+    var hora = fecha.getHours();
+    var minuto = fecha.getMinutes();
+    var minutoF="";
+    if(minuto<10){
+      minutoF=minuto.toString();
+      minutoF="0"+minutoF;
+    }else{
+      minutoF=minuto.toString();
+      
+    }
+    if(mes<10){
+      mes=mes+1;
+      mesF= mes.toString();
+      mesF= "0"+mesF;
+    }else{
+      mes=mes+1;
+      mesF = mes.toString();
+    }
+    var dia = fecha.getDate();
+    var anio = fecha.getFullYear();
+    this.fechaFinal=hora+":"+minutoF +" del "+ dia+"/"+mesF+"/"+anio;
+  }
 
   private createChartPiramide(): void {
     const chart = Highcharts.chart(
@@ -118,7 +146,7 @@ export class DashboardComponent implements OnInit {
         },
         yAxis: {
           title: {
-            text: "Total cantidades",
+            text: "Total cantidades (mm)",
           },
         },
         tooltip: {
@@ -193,7 +221,7 @@ export class DashboardComponent implements OnInit {
         },
         yAxis: {
           title: {
-            text: "Total cantidades",
+            text: "Total cantidades (mm)",
           },
         },
         tooltip: {
@@ -261,7 +289,7 @@ export class DashboardComponent implements OnInit {
           type: "column",
         },
         title: {
-          text: "Temperatura del día",
+          text: "Temperatura del Aire",
         },
         xAxis: {
           categories: ["Hoy"],
@@ -320,9 +348,11 @@ export class DashboardComponent implements OnInit {
     const chart = Highcharts.chart("chart-gaugeUv", {
       chart: {
         type: "solidgauge",
+        
       },
       title: {
-        text: "UV",
+        useHTML: true,
+        text: "<img style='text-align:center' src='../assets/img/icons/raduv.png' width='35' height='30' > Radiación UV"
       },
       credits: {
         enabled: false,
@@ -333,6 +363,7 @@ export class DashboardComponent implements OnInit {
         center: ["50%", "55%"],
         size: "100%",
         background: {
+         
           innerRadius: "60%",
           outerRadius: "100%",
           shape: "arc",
@@ -383,7 +414,8 @@ export class DashboardComponent implements OnInit {
         type: "solidgauge",
       },
       title: {
-        text: "Humedad",
+        useHTML: true,
+        text: "<img style='text-align:center' src='../assets/img/icons/HR.png' width='35' height='30' > Humedad Relativa"
       },
       credits: {
         enabled: false,
@@ -633,8 +665,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (localStorage.getItem("token") == null || localStorage.getItem("token") === undefined)
+    if (localStorage.getItem("token") == null || localStorage.getItem("token") === undefined){
       this.router.navigateByUrl("/login");
+    }
+    this.getFechaActual();
     this.getAuthUsuario();
 
     if (this.user.rol == 2) {
@@ -678,6 +712,7 @@ export class DashboardComponent implements OnInit {
   }
   actualizar() {
     this.ObtenerHighcharts(this.estacionActual);
+    this.getFechaActual();
   }
 
   ObtenerTablaWindRose() {

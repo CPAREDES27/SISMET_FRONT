@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { AuthenticationService } from "src/app/services/authentication.service";
+import { EmpresaService } from "src/app/services/empresa.service";
 import { EstacionService } from "src/app/services/estacion.service";
 import { UsersService } from "src/app/shared/user.service";
 import Swal from "sweetalert2";
@@ -24,20 +25,23 @@ export class AgregarEstacionComponent implements OnInit {
   clave: string | undefined;
   token: string | undefined;
   carga: boolean = false;
-
+  empresasDavis: any;
   submitted = false;
+  estacionGet:number=1;
 
   constructor(
     public estacionService: EstacionService,
     public auth: AuthenticationService,
     private router: Router,
     private service: UsersService,
-    public dialogRef: MatDialogRef<AgregarEstacionComponent>
+    public dialogRef: MatDialogRef<AgregarEstacionComponent>,
+    public empresaService: EmpresaService
   ) { }
 
   ngOnInit() {
     this.getAuthUsuario();
     this.getInfoUsuario();
+    this.ObtenerEmpresa();
   }
 
   getAuthUsuario() {
@@ -54,8 +58,27 @@ export class AgregarEstacionComponent implements OnInit {
       }
     );
   }
+ 
+  ObtenerEmpresa() {
+    this.empresaService.getAll().subscribe(
+      (data) => {
+        this.empresasDavis = data;
+        var indexOf = this.empresasDavis.findIndex((object:any)=>{
+          return object.id===7;
+        });
+
+        if(indexOf !== -1){
+          this.empresasDavis.splice(indexOf,1);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   register() {
+    console.log(this.estacionGet);
     if (
       this.nombreEstacion == "" ||
       this.latitud == undefined ||
@@ -79,7 +102,7 @@ export class AgregarEstacionComponent implements OnInit {
         usuario: this.usuario,
         clave: this.clave,
         token: this.token,
-        empresaId: this.userDetails.empresaId,
+        empresaId: this.estacionGet,
       };
       this.carga=true;
       this.estacionService.create(estacion).subscribe(

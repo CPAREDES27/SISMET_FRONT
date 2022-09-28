@@ -14,7 +14,41 @@
             <form method="post">
                 <br />
                 <div class="pl-lg-0">
+                    
                     <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="empresaDavisId"
+                                >Empresa</label
+                              >
+          
+                              <!--
+                                                  <input type="text" class="form-control form-control-alternative" id="empresa Id" 
+                                                  required name="empresaId" [(ngModel)]="currentUsuario.empresaId"/>-->
+          
+                              <select
+                                matNativeControl
+                                required
+                                class="form-control form-control-alternative"
+                                id="empresaDavisId"
+                                required
+                                name="empresaDavisId"
+                                [(ngModel)]="estacionGet"
+                               
+                              >
+                                <option
+                                    
+                                  *ngFor="let empresas of empresasDavis"
+                                  value="{{ empresas.id }}"
+                                >
+                                  {{ empresas.nombre }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="row">
+                        
                         <div class="col-lg-6 ">
                             <div class="inputBox">
                                 <div class="form-group">
@@ -69,6 +103,7 @@
                             </div>
                         </div>
 
+                        
 
                         <div class="col-md-3">
                             <div class="form-control-feedback">

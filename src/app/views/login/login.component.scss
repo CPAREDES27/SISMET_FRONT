@@ -77,11 +77,14 @@
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background:"../assets/img/icons/mapita.jpg";
   height: 100vh;
   margin: 0;
   padding: 0;
 }
-
+.backg{
+  background-image: "../assets/img/mapita.jpg";
+}
 .bg-img {
   background-image: url("https://www.weatherlink.com/static/images/socialMediaShare/facebook.png");
 

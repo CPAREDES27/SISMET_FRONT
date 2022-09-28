@@ -8,7 +8,7 @@
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col">
-              <h3 class="mb-0" >Tiempo real</h3>
+              <h3 class="mb-0" >Condiciones ambientales a las {{this.fechaFinal}}</h3>
               
             </div>
             <div id="hover" style="margin-right: 1.8em;">
@@ -162,7 +162,7 @@
                   <div class="col">
                     <span class="titulo">Viento</span><br>
                     <span class="submenu">Dirección: </span>
-                    <span class="respuesta font-weight-bold mb-0">{{this.DataDavisDt?.wind_dir}}</span><br>
+                    <span class="respuesta font-weight-bold mb-0">{{this.DataDavisDt?.wind_dir|viento}}</span><br>
                     <span class="submenu">Grado: </span>
                     <span class="respuesta font-weight-bold mb-0">{{this.DataDavisDt?.wind_degrees}}°</span><br>
                     <span class="submenu">Velocidad: </span>
@@ -170,8 +170,8 @@
                     
                   </div>
                   <div class="col-auto">
-                    <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                      <i class="fa fa-cloud"></i>
+                    <div class="icon icon-shape text-white rounded-circle shadow" style="border: 1px solid #000;">
+                      <i> <img src="../assets/img/icons/viento.png" alt=""></i>
                     </div>
                   </div>
                 </div>
@@ -183,12 +183,12 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <span class="titulo">Presión</span><br>
+                    <span class="titulo">Presión Atmosférica</span><br>
                     <span class="h1 font-weight-bold mb-0">{{this.DataDavisDt?.pressure_string}}</span>
                   </div>
                   <div class="col-auto">
-                    <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                      <i class="fa fa-thermometer"></i>
+                    <div class="icon icon-shape  text-white rounded-circle shadow" style="border:1px solid #000">
+                      <i> <img src="../assets/img/icons/presion3.jpg" width="25" height="30" alt=""></i>
                     </div>
                   </div>
                 </div>
@@ -210,8 +210,8 @@
                     <span class="h1 font-weight-bold mb-0">{{this.DataDavisDt?.temp_c}} °C</span>
                   </div>
                   <div class="col-auto">
-                    <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                      <i class="fas fa-sun-cloud"></i>
+                    <div class="icon icon-shape text-white rounded-circle shadow" style="border:1px solid #000">
+                      <i> <img src="../assets/img/icons/temp3.jpg" width="25" height="30" alt=""></i>
                     </div>
                   </div>
                 </div>
@@ -227,8 +227,8 @@
                     <span class="h1 font-weight-bold mb-0">{{this.DataDavisDt?.dewpoint_c}} ºC</span>
                   </div>
                   <div class="col-auto">
-                    <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                      <i class="fa fa-snowflake"></i>
+                    <div class="icon icon-shape  text-white rounded-circle shadow" style="border:1px solid #000">
+                      <i> <img src="../assets/img/icons/rocio2.jpg" width="25" height="30" style="background-color: transparent;" alt=""></i>
                     </div>
                   </div>
                 </div>
