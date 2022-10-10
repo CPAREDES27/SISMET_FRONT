@@ -172,7 +172,7 @@ export class CalculosComponent implements OnInit {
       },
 
       yAxis: [{
-        title: { text: 'Data' }
+        title: { text: 'Horas Acumuladas' }
       }, {
         title: { text: 'Histogram' },
         opposite: true
