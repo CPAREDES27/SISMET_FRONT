@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router";
-import { Map, marker, tileLayer } from "leaflet";
+import { Map, marker, tileLayer,Icon,icon, Marker} from "leaflet";
 import { AuthenticationService } from "src/app/services/authentication.service";
 import { EstacionService } from "src/app/services/estacion.service";
 import { UsersService } from "src/app/shared/user.service";
@@ -18,6 +18,11 @@ export class ViewMapComponent implements OnInit {
   estaciones: any;
   carga:boolean=false;
   map: any;
+  
+  private defaultIcon: Icon = icon({
+    iconUrl: '../assets/img/gps.png',
+    shadowUrl: '../assets/img/gps.png'
+  });
   estacion = {
     id: "",
   };
@@ -106,15 +111,22 @@ export class ViewMapComponent implements OnInit {
       this.map = new Map("map");
     }
     this.map.setView([latitud, longitud], 13);
- 
+    
     tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 14,
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.map);
 
+    
     var markerItem = null;
-     markerItem = marker([lati, long])
+     markerItem = marker([lati, long],{
+      icon : new Icon({
+        iconSize: [25, 41],
+	      iconAnchor: [22, 41],
+        iconUrl: 'https://envirored.com/assets/img/brand/gps.png'
+      })
+     })
       .bindTooltip(nombre + "<br/>" + "Latitud: " + "<strong>" + latitud + "</strong>" + "<br/>" + "Longitud: " + "<strong>" + longitud + "<strong>")
       .addTo(this.map)
       .on("click", (ev) => {
