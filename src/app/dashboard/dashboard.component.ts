@@ -112,7 +112,7 @@ export class DashboardComponent implements OnInit {
       minutoF=minuto.toString();
       
     }
-    if(mes<10){
+    if(mes<9){
       mes=mes+1;
       mesF= mes.toString();
       mesF= "0"+mesF;
