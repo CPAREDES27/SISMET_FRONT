@@ -30,6 +30,7 @@ HighchartsAccess(Highcharts);
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
 })
+
 export class DashboardComponent implements OnInit {
     carga:boolean=false;
   DataDavisDt?: DataDavisDt;
@@ -97,7 +98,7 @@ export class DashboardComponent implements OnInit {
       ],
     } as any);
   }
-  
+  cargando:boolean=false;
   getFechaActual(){
     var fecha = new Date();
     var mes = fecha.getMonth();
@@ -470,12 +471,14 @@ export class DashboardComponent implements OnInit {
     } as any);
   }
 
-
-
+  
   private createChartWindRose(): void {
 
-
+   var valueFinal=this.valorFinal;
     const chart = Highcharts.chart("chart-windrose", {
+
+     
+      
       data: {
         table: 'freq',
         startRow: 1,
@@ -490,7 +493,7 @@ export class DashboardComponent implements OnInit {
 
       title: {
         text: 'Dirección de viento',
-        align: 'left'
+        align: 'center'
       },
 
       subtitle: {
@@ -499,39 +502,56 @@ export class DashboardComponent implements OnInit {
       },
 
       pane: {
-        size: '85%'
-      },
-
-      legend: {
-        align: 'right',
-        verticalAlign: 'top',
-        y: 100,
-        layout: 'vertical'
-      },
-
-      xAxis: {
-        tickmarkPlacement: 'on'
+        size: '70%',
+        align: 'center'
       },
 
       yAxis: {
         min: 0,
         endOnTick: false,
-        showLastLabel: true,
+        showLastLabel: false,
         title: {
           text: ''
         },
-        // labels: {
-        //   formatter: function () {
-        //     return this.value + '%';
-        //   }
-        // },
+        labels: {
+          
+        },
         reversedStacks: false
       },
-
+      
       tooltip: {
-        valueSuffix: ''
+        formatter():any{
+         
+          return valueFinal;
+        }
       },
-
+      series: [{
+        
+				
+        
+			},{
+        "data": [
+					["N", this.NorthBool],
+					["NNE", this.NorthNorthEastBool],
+					["NE", this.NorthEastBool],
+					["ENE", this.EastNorthEastBool],
+					["E", this.EastBool],
+					["ESE", this.EastSouthEastBool],
+					["SE", this.SouthEastBool],
+					["SSE", this.SouthSouthEastBool],
+					["S", this.SouthBool],
+					["SSW", this.SouthSouthWestBool],
+					["SW", this.SouthWestBool],
+					["WSW", this.WestSouthWestBool],
+					["W", this.WestBool],
+					["WNW", this.WestNorthWestBool],
+          ["NW", this.NorthWestBool],
+          ["NNW", this.NorthNorthWestBool],
+				],
+				"type": "column",
+        "color":"#4BB5F6",
+				"name": this.valorFinal.toString()
+			}],
       plotOptions: {
         series: {
           stacking: 'normal',
@@ -663,7 +683,7 @@ export class DashboardComponent implements OnInit {
   ) {
     this.location = location;
   }
-
+  
   ngOnInit() {
     if (localStorage.getItem("token") == null || localStorage.getItem("token") === undefined){
       this.router.navigateByUrl("/login");
@@ -671,13 +691,7 @@ export class DashboardComponent implements OnInit {
     this.getFechaActual();
     this.getAuthUsuario();
 
-    if (this.user.rol == 2) {
-      this.getEstacion(this.user.Id);
-    }
-
-    if (this.user.rol == 1) {
-      this.ObtenerEstaciones();
-    }
+   
 
     this.getRol();
 
@@ -701,11 +715,36 @@ export class DashboardComponent implements OnInit {
   changes(event: any) {
     var idEstacion = event.target["value"];
     this.estacionActual = idEstacion;
+    this.NorthBool=0;
+    this.NorthEastBool=0;
+    this.NorthNorthEastBool=0;
+    this.NorthNorthWestBool=0;
+    this.NorthWestBool=0;
+    this.EastBool=0;
+    this.EastNorthEastBool=0;
+    this.EastSouthEastBool=0;
+    this.WestBool=0;
+    this.WestNorthWestBool=0;
+    this.WestSouthWestBool=0;
+    this.SouthBool=0;
+    this.SouthEastBool=0;
+    this.SouthSouthEastBool=0;
+    this.SouthSouthWestBool=0;
+    this.SouthWestBool=0;
+    
     this.ObtenerHighcharts(idEstacion);
   }
   ngAfterViewInit() {
-    this.createChartGauge();
+    if (this.user.rol == 2) {
+      this.getEstacion(this.user.Id);
+    }
+
+    if (this.user.rol == 1) {
+      this.ObtenerEstaciones();
+    }
+    
   }
+ 
 
   getAuthUsuario() {
     this.user = this.auth.getUsuarioPerfil();
@@ -714,11 +753,12 @@ export class DashboardComponent implements OnInit {
     this.ObtenerHighcharts(this.estacionActual);
     this.getFechaActual();
   }
-
-  ObtenerTablaWindRose() {
+    valorFinal:Number=0;
+   ObtenerTablaWindRose() {
 
     if (this.DataDavisDt?.wind_dir == 'North') {
       this.NorthBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.NorthBool;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
       this.EastNorthEastBool = 0;
@@ -734,6 +774,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'North-northeast') {
       this.NorthNorthEastBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.NorthNorthEastBool;
       this.NorthBool = 0;;
       this.NorthEastBool = 0;
       this.EastNorthEastBool = 0;
@@ -749,6 +790,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'Northeast') {
       this.NorthEastBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.NorthEastBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.EastNorthEastBool = 0;
@@ -764,6 +806,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'East-northeast') {
       this.EastNorthEastBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.EastNorthEastBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;;
@@ -779,6 +822,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'East') {
       this.EastBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.EastBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
@@ -794,6 +838,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'East-southeast') {
       this.EastSouthEastBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.EastSouthEastBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
@@ -809,6 +854,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'Southeast') {
       this.SouthEastBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.SouthEastBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
@@ -824,6 +870,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'South-southeast') {
       this.SouthSouthEastBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.SouthSouthEastBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
@@ -839,6 +886,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'South') {
       this.SouthBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.SouthBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
@@ -854,6 +902,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'South-southwest') {
       this.SouthSouthWestBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.SouthSouthWestBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
@@ -870,6 +919,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'Southwest') {
       this.SouthWestBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.SouthWestBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
@@ -887,6 +937,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'West-southwest') {
       this.WestSouthWestBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.WestSouthWestBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
@@ -904,6 +955,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'West') {
       this.WestBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.WestBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
@@ -919,6 +971,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'West-northwest') {
       this.WestNorthWestBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.WestNorthWestBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
@@ -934,6 +987,7 @@ export class DashboardComponent implements OnInit {
       this.NorthNorthWestBool = 0;
     } else if (this.DataDavisDt?.wind_dir == 'Northwest') {
       this.NorthWestBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.NorthWestBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
@@ -949,8 +1003,9 @@ export class DashboardComponent implements OnInit {
       this.WestBool = 0;
       this.WestNorthWestBool = 0;
       this.NorthNorthWestBool = 0;
-    } else if (this.DataDavisDt?.wind_dir == 'Northnorthwest') {
+    } else if (this.DataDavisDt?.wind_dir == 'North-northwest') {
       this.NorthNorthWestBool = Number(this.DataDavisDt?.wind_degrees);
+      this.valorFinal= this.NorthNorthWestBool;
       this.NorthBool = 0;
       this.NorthNorthEastBool = 0;
       this.NorthEastBool = 0;
@@ -965,12 +1020,12 @@ export class DashboardComponent implements OnInit {
       this.WestNorthWestBool = 0;
       this.NorthWestBool = 0;
     }
-
+    console.log(this.NorthNorthWestBool);
   }
 
-  ObtenerHighcharts(idEstacion: any) {
+  async ObtenerHighcharts(idEstacion: any) {
     this.carga = true;
-    this.estacionService.get(idEstacion).subscribe(
+    await this.estacionService.get(idEstacion).subscribe(
       (data) => {
         this.DataDavisDt = data;
         this.DataDavisDt.davis_current_observation.et_day = Number(this.DataDavisDt.davis_current_observation.et_day).toFixed(1);
@@ -979,14 +1034,315 @@ export class DashboardComponent implements OnInit {
         this.DataDavisDt.davis_current_observation.rain_day_in = Number(this.DataDavisDt.davis_current_observation.rain_day_in).toFixed(1);
         this.DataDavisDt.davis_current_observation.rain_month_in = Number(this.DataDavisDt.davis_current_observation.rain_month_in).toFixed(1);
         this.DataDavisDt.davis_current_observation.rain_year_in = Number(this.DataDavisDt.davis_current_observation.rain_year_in).toFixed(1);
-        this.ObtenerTablaWindRose();
+        this.cargando=true;
+        debugger;
+        if(this.DataDavisDt){
+
+        
+        if (this.DataDavisDt?.wind_dir == 'North') {
+          this.NorthBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.NorthBool;
+          this.createChartWindRose();
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'North-northeast') {
+          this.NorthNorthEastBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.NorthNorthEastBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'Northeast') {
+          this.NorthEastBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.NorthEastBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'East-northeast') {
+          this.EastNorthEastBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.EastNorthEastBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'East') {
+          this.EastBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.EastBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'East-southeast') {
+          this.EastSouthEastBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.EastSouthEastBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'Southeast') {
+          this.SouthEastBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.SouthEastBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'South-southeast') {
+          this.SouthSouthEastBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.SouthSouthEastBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'South') {
+          this.SouthBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.SouthBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'South-southwest') {
+          this.SouthSouthWestBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.SouthSouthWestBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'Southwest') {
+          this.SouthWestBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.SouthWestBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthSouthWestBool = 0;
+          this.WestSouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'West-southwest') {
+          this.WestSouthWestBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.WestSouthWestBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthSouthWestBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'West') {
+          this.WestBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.WestBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthWestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'West-northwest') {
+          this.WestNorthWestBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.WestNorthWestBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.NorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'Northwest') {
+          this.NorthWestBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.NorthWestBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthSouthWestBool = 0;
+          this.SouthWestBool = 0;
+          this.WestSouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthNorthWestBool = 0;
+          this.cargando=true;
+        } else if (this.DataDavisDt?.wind_dir == 'North-northwest') {
+          this.NorthNorthWestBool = Number(this.DataDavisDt?.wind_degrees);
+          this.valorFinal=this.NorthNorthWestBool;
+          this.createChartWindRose();
+          this.NorthBool = 0;
+          this.NorthNorthEastBool = 0;
+          this.NorthEastBool = 0;
+          this.EastNorthEastBool = 0;
+          this.EastBool = 0;
+          this.EastSouthEastBool = 0;
+          this.SouthEastBool = 0;
+          this.SouthSouthEastBool = 0;
+          this.SouthBool = 0;
+          this.SouthWestBool = 0;
+          this.WestBool = 0;
+          this.WestNorthWestBool = 0;
+          this.NorthWestBool = 0;
+          this.cargando=true;
+        }
+      }
         this.createChartGauge();
         this.createChartPiramide();
         this.createChartPiramideRain();
         this.createChartTemperatura();
         this.createChartGaugeUvIndex();
         this.createChartGaugeHumedad();
-        //this.createChartWindRose();
+      
         this.carga=false;
 
 
@@ -1003,9 +1359,9 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  ObtenerEstaciones() {
+  async ObtenerEstaciones() {
 
-    this.estacionService.getAll().subscribe(
+    await this.estacionService.getAll().subscribe(
       (data) => {
         this.currentEstacion = data;
         this.estacionActual = this.currentEstacion[0].id;
