@@ -372,7 +372,7 @@ export class DashboardComponent implements OnInit {
       },
       yAxis: {
         min: 0,
-        max: 100,
+        max: 16,
         stops: [
           [0.1, "#55BF3B"], // green
           [0.5, "#DDDF0D"], // yellow
